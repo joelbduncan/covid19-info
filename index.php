@@ -24,9 +24,11 @@
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
-  color: white;
-  text-shadow: 2px 4px 3px rgba(0, 0, 0, 0.3);
   }
+  .jumbotron h1, h5 {
+    color: white;
+    text-shadow: 2px 4px 3px rgba(0, 0, 0, 0.3);
+  } 
 </style>
 
 <?php
