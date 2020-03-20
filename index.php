@@ -57,7 +57,7 @@ $critical = $json["critical"];
 
 // Work Calculated Percentages
 $worldDeathsPercent = ($worldDeaths/$worldCases)*100; 
-$worldRrecoveredPercent = ($worldRecovered/$worldCases)*100;
+$worldRecoveredPercent = ($worldRecovered/$worldCases)*100;
 
 // Local Calculated Percentages;
 $deathsPercent = ($deaths/$cases)*100;
@@ -338,17 +338,17 @@ $recoveredPercent = ($recovered/$cases)*100;
     <h4 class="mt-3">Percentage <small class="text-muted">Based on all cases</small></h4>
     <div class="progress" style="height: 45px;">
         <div class="progress-bar bg-danger" role="progressbar" style="width: 
-            <?php echo $deathsPercent; ?>%" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100">
+            <?php echo $worldDeathsPercent; ?>%" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100">
         </div>
         <div class="progress-bar bg-success" role="progressbar" style="width: 
-            <?php echo $recoveredPercent;; ?>%" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
+            <?php echo $worldRecoveredPercent; ?>%" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
         </div>
         <div class="progress-bar bg-info" role="progressbar" style="width: 100%" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">All Cases</div>
     </div>
 
     <p class="text-muted">
         Deaths <span class="badge badge-danger"><?php echo sprintf("%.1f", $worldDeathsPercent); ?>%</span> 
-        Recovered <span class="badge badge-success"><?php echo sprintf("%.1f", $worldRrecoveredPercent); ?>%</span>
+        Recovered <span class="badge badge-success"><?php echo sprintf("%.1f", $worldRecoveredPercent); ?>%</span>
     </p>
 </div>
 
