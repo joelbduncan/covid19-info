@@ -55,7 +55,7 @@ $todayDeaths = $json["todayDeaths"];
 $recovered = $json["recovered"];
 $critical = $json["critical"];
 
-// Work Calculated Percentages
+// World Calculated Percentages
 $worldDeathsPercent = ($worldDeaths/$worldCases)*100; 
 $worldRecoveredPercent = ($worldRecovered/$worldCases)*100;
 
