@@ -9,6 +9,9 @@
       <li class="nav-item <?php if (basename($_SERVER['PHP_SELF']) == 'index.php') echo 'active' ?>">
         <a class="nav-link" href="index.php">Home <span class="sr-only">(current)</span></a>
       </li>
+      <li class="nav-item <?php if (basename($_SERVER['PHP_SELF']) == 'countries.php') echo 'active' ?>">
+        <a class="nav-link" href="countries.php">Countries</a>
+      </li>
       <li class="nav-item <?php if (basename($_SERVER['PHP_SELF']) == 'advise.php') echo 'active' ?>">
         <a class="nav-link" href="advise.php">Advise</a>
       </li>
