@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>COVID-19 UK | Live Data</title>
+  <title>COVID-19 Tracker | Myths</title>
   
 <head>
   <meta charset="utf-8">
@@ -26,27 +26,6 @@
   text-shadow: 2px 4px 3px rgba(0, 0, 0, 0.3);
   }
 </style>
-
-<?php
-
-if (isset($_GET['country'])) {
-    $selectCountry = $_GET['country'];
-} else {
-    $selectCountry = uk;
-}
-
-$url = "https://corona.lmao.ninja/countries/$selectCountry";
-$json = json_decode(file_get_contents($url), true);
-
-$country = $json["country"];
-$cases = $json["cases"];
-$todayCases = $json["todayCases"];
-$deaths = $json["deaths"];
-$todayDeaths = $json["todayDeaths"];
-$recovered = $json["recovered"];
-$critical = $json["critical"];
-
-?>
 
 <!-- Jumbotron Header -->
 <div class="jumbotron jumbotron-fluid">

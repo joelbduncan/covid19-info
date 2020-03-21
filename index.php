@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>COVID-19 UK | Live Data</title>
+  <title>COVID-19 Tracker | Live Data</title>
   
 <head>
   <meta charset="utf-8">
@@ -39,14 +39,14 @@ if (isset($_GET['country'])) {
     $selectCountry = uk;
 }
 
-$urlWorld = "https://api.covid19-info.uk/all";
+$urlWorld = "https://api.covid-19.uk.com/all";
 $jsonWorld = json_decode(file_get_contents($urlWorld), true);
 
 $worldCases = $jsonWorld["cases"];
 $worldDeaths = $jsonWorld["deaths"];
 $worldRecovered = $jsonWorld["recovered"];
 
-$url = "https://api.covid19-info.uk/countries/$selectCountry";
+$url = "https://api.covid-19.uk.com/countries/$selectCountry";
 $json = json_decode(file_get_contents($url), true);
 
 $country = $json["country"];

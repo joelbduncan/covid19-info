@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>COVID-19 UK | Live Data</title>
+  <title>COVID-19 Tracker | Advise</title>
   
 <head>
   <meta charset="utf-8">
