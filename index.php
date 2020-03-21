@@ -365,13 +365,13 @@ $selectCountry = str_replace("_", " ", $selectCountry);
 	<div class="card text-white bg-primary">
 		<div class="card-body">
 		<h5 class="card-title"><?php echo strtoupper($selectCountry); ?> Cases Today</h5>
-        <h1><?php echo number_format($todayCases); ?></h1>
+        <h1>+<?php echo number_format($todayCases); ?></h1>
 		</div>
 	</div>
 	<div class="card text-white bg-danger">
 		<div class="card-body">
 		<h5 class="card-title"><?php echo strtoupper($selectCountry); ?> Deaths Today</h5>
-        <h1><?php echo number_format($todayDeaths); ?></h1>
+        <h1>+<?php echo number_format($todayDeaths); ?></h1>
 		</div>
 	</div>
 </div>

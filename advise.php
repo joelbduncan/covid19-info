@@ -15,7 +15,6 @@
 
 <?php include( 'navbar.php'); ?>
 
-
 <style>
   .jumbotron {
   background-image: url(https://joelduncan.io/content/images/size/w2000/2020/03/coronavirus-header.jpg);
@@ -27,27 +26,6 @@
   text-shadow: 2px 4px 3px rgba(0, 0, 0, 0.3);
   }
 </style>
-
-<?php
-
-if (isset($_GET['country'])) {
-    $selectCountry = $_GET['country'];
-} else {
-    $selectCountry = uk;
-}
-
-$url = "https://corona.lmao.ninja/countries/$selectCountry";
-$json = json_decode(file_get_contents($url), true);
-
-$country = $json["country"];
-$cases = $json["cases"];
-$todayCases = $json["todayCases"];
-$deaths = $json["deaths"];
-$todayDeaths = $json["todayDeaths"];
-$recovered = $json["recovered"];
-$critical = $json["critical"];
-
-?>
 
 <!-- Jumbotron Header -->
 <div class="jumbotron jumbotron-fluid">
