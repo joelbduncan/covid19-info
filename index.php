@@ -28,7 +28,12 @@
   .jumbotron h1, h5 {
     color: white;
     text-shadow: 2px 4px 3px rgba(0, 0, 0, 0.3);
-  } 
+  }
+
+.table {
+    max-width: none;
+    table-layout: fixed;
+}
 </style>
 
 <?php
@@ -51,6 +56,7 @@ $json = json_decode(file_get_contents($url), true);
 
 $country = $json["country"];
 $cases = $json["cases"];
+$activeCases = $json["active"];
 $todayCases = $json["todayCases"];
 $deaths = $json["deaths"];
 $todayDeaths = $json["todayDeaths"];
@@ -62,6 +68,7 @@ $worldDeathsPercent = ($worldDeaths/$worldCases)*100;
 $worldRecoveredPercent = ($worldRecovered/$worldCases)*100;
 
 // Local Calculated Percentages;
+$activeCasesPercent = ($activeCases/$cases)*100;
 $deathsPercent = ($deaths/$cases)*100;
 $criticalPercent = ($critical/$cases)*100; 
 $recoveredPercent = ($recovered/$cases)*100;
@@ -333,16 +340,20 @@ $selectCountry = str_replace("_", " ", $selectCountry);
 <table class="table">
 	<thead>
 		<tr>
-			<th scope="col">Total Cases</th>
-			<th scope="col">Total Deaths</th>
+			<th scope="col">Total</th>
+			<th scope="col">Active</th>
+			<th scope="col">Deaths</th>
 			<th scope="col">Critical</th>
 			<th scope="col">Recovered</th>
 		</tr>
 	</thead>
 	<tbody>
 		<tr>
-			<td class="bg-info">
+			<td class="bg-secondary">
 				<?php echo number_format($cases); ?>
+			</td>
+			<td class="bg-info">
+				<?php echo number_format($activeCases); ?>
 			</td>
 			<td class="bg-danger">
 				<?php echo number_format($deaths); ?>
@@ -363,18 +374,22 @@ $selectCountry = str_replace("_", " ", $selectCountry);
 		<?php echo ($deaths/$cases)*100; ?>%" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100">
 	</div>
 	<div class="progress-bar bg-warning" role="progressbar" style="width: 
-		<?php echo ($critical/$cases)*100; ?>" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100">
+		<?php echo $criticalPercent; ?>%" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100">
 	</div>
 	<div class="progress-bar bg-success" role="progressbar" style="width: 
 		<?php echo ($recovered/$cases)*100; ?>%" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
 	</div>
-	<div class="progress-bar bg-info" role="progressbar" style="width: 100%" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">All Cases</div>
+    <div class="progress-bar bg-info" role="progressbar" style="width: 
+		<?php echo ($activeCases/$cases)*100; ?>%" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100">
+	</div>
+	<div class="progress-bar bg-secondary" role="progressbar" style="width: 100%" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">All Cases</div>
 </div>
 
 <p class="text-muted">
     Deaths <span class="badge badge-danger"><?php echo sprintf("%.1f", $deathsPercent); ?>%</span> 
     Critical <span class="badge badge-warning"><?php echo sprintf("%.1f", $criticalPercent); ?>%</span>  
     Recovered <span class="badge badge-success"><?php echo sprintf("%.1f", $recoveredPercent); ?>%</span>
+    Active <span class="badge badge-info"><?php echo sprintf("%.1f", $activeCasesPercent); ?>%</span> 
 </p>
 
 </div>
