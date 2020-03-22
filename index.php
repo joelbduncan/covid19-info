@@ -310,54 +310,7 @@ $selectCountry = str_replace("_", " ", $selectCountry);
 </div>
 
 <div class="container">
-
-    <h3>Live Data <small class="text-muted">Updated <?php echo date("Y-m-d h:i") ?></small></h3>
-
-    <br>
-
-    <h3 class="text-center">Coronavirus Worldwide</h3>
-    <div class="container">
-        <div class="card-deck">
-        <div class="card text-white bg-primary">
-            <div class="card-body">
-            <h5 class="card-title">Total Cases</h5>
-            <h1><?php echo number_format($worldCases); ?></h1>
-            </div>
-        </div>
-        <div class="card text-white bg-danger">
-            <div class="card-body">
-            <h5 class="card-title">Total Deaths</h5>
-            <h1><?php echo number_format($worldDeaths); ?></h1>
-            </div>
-        </div>
-        <div class="card text-white bg-success">
-            <div class="card-body">
-            <h5 class="card-title">Total Recovered</h5>
-            <h1><?php echo number_format($worldRecovered); ?></h1>
-            </div>
-        </div>    
-    </div>
-</div>
-
-<div class="container">
-    <h4 class="mt-3">Percentage <small class="text-muted">Based on all cases</small></h4>
-    <div class="progress" style="height: 45px;">
-        <div class="progress-bar bg-danger" role="progressbar" style="width: 
-            <?php echo $worldDeathsPercent; ?>%" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100">
-        </div>
-        <div class="progress-bar bg-success" role="progressbar" style="width: 
-            <?php echo $worldRecoveredPercent; ?>%" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
-        </div>
-        <div class="progress-bar bg-info" role="progressbar" style="width: 100%" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">All Cases</div>
-    </div>
-
-    <p class="text-muted">
-        Deaths <span class="badge badge-danger"><?php echo sprintf("%.1f", $worldDeathsPercent); ?>%</span> 
-        Recovered <span class="badge badge-success"><?php echo sprintf("%.1f", $worldRecoveredPercent); ?>%</span>
-    </p>
-</div>
-
-<br>
+<h3 class="text-center">Live Data <small class="text-muted">Updated <?php echo date("Y-m-d h:i") ?></small></h3>
 
 <h3 class="text-center">Coronavirus <?php echo strtoupper($selectCountry); ?></h3>
 <div class="container">
@@ -424,7 +377,53 @@ $selectCountry = str_replace("_", " ", $selectCountry);
     Recovered <span class="badge badge-success"><?php echo sprintf("%.1f", $recoveredPercent); ?>%</span>
 </p>
 
-<p><b>Recovered numbers may appear low as these mostly come from cases where people were hospitalised.</b></p>
+</div>
+    <br>
+
+    <h3 class="text-center">Coronavirus Worldwide</h3>
+    <div class="container">
+        <div class="card-deck">
+        <div class="card text-white bg-primary">
+            <div class="card-body">
+            <h5 class="card-title">Total Cases</h5>
+            <h1><?php echo number_format($worldCases); ?></h1>
+            </div>
+        </div>
+        <div class="card text-white bg-danger">
+            <div class="card-body">
+            <h5 class="card-title">Total Deaths</h5>
+            <h1><?php echo number_format($worldDeaths); ?></h1>
+            </div>
+        </div>
+        <div class="card text-white bg-success">
+            <div class="card-body">
+            <h5 class="card-title">Total Recovered</h5>
+            <h1><?php echo number_format($worldRecovered); ?></h1>
+            </div>
+        </div>    
+    </div>
+</div>
+
+<div class="container">
+    <h4 class="mt-3">Percentage <small class="text-muted">Based on all cases</small></h4>
+    <div class="progress" style="height: 45px;">
+        <div class="progress-bar bg-danger" role="progressbar" style="width: 
+            <?php echo $worldDeathsPercent; ?>%" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100">
+        </div>
+        <div class="progress-bar bg-success" role="progressbar" style="width: 
+            <?php echo $worldRecoveredPercent; ?>%" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
+        </div>
+        <div class="progress-bar bg-info" role="progressbar" style="width: 100%" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">All Cases</div>
+    </div>
+
+    <p class="text-muted">
+        Deaths <span class="badge badge-danger"><?php echo sprintf("%.1f", $worldDeathsPercent); ?>%</span> 
+        Recovered <span class="badge badge-success"><?php echo sprintf("%.1f", $worldRecoveredPercent); ?>%</span>
+    </p>
+
+    <p><b>Recovered numbers may appear low as these mostly come from cases where people were hospitalised.</b></p>
+
+</div>
 
 </div>
 
