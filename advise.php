@@ -16,7 +16,7 @@
 <?php include( 'navbar.php'); ?>
 
 <style>
-  .jumbotron {
+.jumbotron {
   background-image: url(https://joelduncan.io/content/images/size/w2000/2020/03/coronavirus-header.jpg);
   background-attachment: fixed;
   background-position: center;
@@ -35,76 +35,31 @@
   </div>
 </div>
 
-<div class="modal fade" tabindex="-1" id="importantModal" role="dialog">
-    <div class="modal-dialog modal-lg" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">How to avoid catching and spreading coronavirus</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-				<p>Everyone should do what they can to stop coronavirus spreading. It is particularly important for people who:</p>
-			    <ul><li>are 70 or over</li><li>have a long-term condition</li><li>are pregnant</li><li>have a weakened immune system</li></ul>
-				<div class="alert alert-success" role="alert">
-						<h4 class="alert-heading">Do</h4>
-						<ul><b>
-							<li>wash your hands with soap and water often – do this for at least 20 seconds</li>
-							<li>always wash your hands when you get home or into work</li>
-							<li>use hand sanitiser gel if soap and water are not available</li>
-							<li>cover your mouth and nose with a tissue or your sleeve (not your hands) when you cough or sneeze</li>
-							<li>put used tissues in the bin immediately and wash your hands afterwards</li>
-							<li>avoid close contact with people who have symptoms of coronavirus</li>
-							<li>only travel on public transport if you need to</li>
-							<li>work from home, if you can</li>
-							<li>avoid social activities, such as going to pubs, restaurants, theatres and cinemas</li>
-							<li>avoid events with large groups of people</li>
-							<li>use phone, online services, or apps to contact your GP surgery or other NHS services</li>
-							</b>
-						</ul> 
-					</div>
-				<div class="alert alert-danger" role="alert">
-					<h4 class="alert-heading">Don't</h4>
-					<ul><b>
-							<li>do not touch your eyes, nose or mouth if your hands are not clean</li>
-							<li>do not have visitors to your home, including friends and family</li>
-						</b>
-						</ul> 
-				</div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            </div>
-        </div>
-    </div>
-</div>
-
 <div class="container">
 
-<h3>Stay at home if you have coronavirus symptoms</h3>
+<h3>Stay at home to stop coronavirus spreading</h3>
 
-<p>Stay at home if you have either:</p>
+<p>Everyone must stay at home to help stop the spread of coronavirus.</p>
+<p>This includes people of all ages – even if you do not have any symptoms or other health conditions.</p>
+<p>You can only leave your home:</p>
 
 <ul>
-	<li>a high temperature – you feel hot to touch on your chest or back</li>
-	<li>a new, continuous cough – this means you've started coughing repeatedly</li>
-</ul> 
+	<li><b>to shop for basic essentials</b> – only when you really need to</li>
+	<li><b>to do one form of exercise a day</b> – such as a run, walk or cycle, alone or with other people you live with</li>
+  <li><b>for any medical need</b> – for example, to visit a pharmacy or deliver essential supplies to a vulnerable person</li>
+  <li><b>to travel to and from work</b> – but only where this is absolutely necessary</li>
+</ul>
 
-<p>Do not go to a GP surgery, pharmacy or hospital.</p>
-<p>You do not need to contact 111 to tell them you're staying at home.</p>
-<p>Testing for coronavirus is not needed if you're staying at home.</p>
+<h3>What to do if you have coronavirus symptoms</h3>
 
-<div class="alert alert-warning" role="alert">
-  <h4 class="alert-heading">How long to stay at home</h4>
-  <ul>
-    <li>if you have symptoms, stay at home for 7 days</li>
-    <li>if you live with other people, they should stay at home for 14 days from the day the first person got symptoms</li>
-  </ul> 
-  <p>If you live with someone who is 70 or over, has a long-term condition, is pregnant or has a weakened immune system, try to find somewhere else for them to stay for 14 days.</p>
-  <p>If you have to stay at home together, try to keep away from each other as much as possible.</p>
-  <p>Read our <a href="/conditions/coronavirus-covid-19/self-isolation-advice/">advice about staying at home</a>.</p>
-</div>
+<p>Continue to stay at home if you have either:</p>
+
+<ul>
+	<li><b>a high temperature</b> – this means you feel hot to touch on your chest or back (you do not need to measure your temperature)</li>
+	<li><b>a new, continuous cough</b> – this means coughing a lot for more than an hour, or 3 or more coughing episodes in 24 hours (if you usually have a cough, it may be worse than usual)</li>
+</ul>
+
+<p>To protect others, do not go to places like a GP surgery, pharmacy or hospital. Stay at home.</p>
 
 <div class="alert alert-danger" role="alert">
   <h4 class="alert-heading"><b>Urgent advice: Use the NHS 111 online coronavirus service if: </b></h4>
@@ -117,49 +72,50 @@
   <p><b>Only call 111 if you cannot get help online.</b></p>
 </div>
 
-<h3>How to avoid catching and spreading coronavirus (social distancing)</h3>
-<p>Everyone should do what they can to stop coronavirus spreading. It is particularly important for people who:</p>
-<ul><li>are 70 or over</li><li>have a long-term condition</li><li>are pregnant</li><li>have a weakened immune system</li></ul>
+<h3>Advice for people at high risk</h3>
+<p>If you're at high risk of getting seriously ill from coronavirus, there are extra things you should do to avoid catching it.</p>
+<p>These include:</p>
+
+<ul>
+  <li>not leaving your home – you should not go out to do shopping, visit friends or family, or attend any gatherings</li>
+  <li>avoiding close contact with other people in your home as much as possible</li>
+</ul>
+
+<p>Read the full <a href="https://www.gov.uk/government/publications/guidance-on-shielding-and-protecting-extremely-vulnerable-persons-from-covid-19/guidance-on-shielding-and-protecting-extremely-vulnerable-persons-from-covid-19">advice on protecting yourself if you're at high risk from coronavirus on GOV.UK.</a></p>
+
+<h4>Who is at high risk?</h4>
+<p>You may be at high risk from coronavirus if you:</p>
+
+<ul>
+  <li>have had an organ transplant</li>
+  <li>are having certain types of cancer treatment</li>
+  <li>have blood or bone marrow cancer, such as leukaemia</li>
+  <li>have a severe lung condition, such as cystic fibrosis or severe asthma</li>
+  <li>have a condition that makes you much more likely to get infections</li>
+  <li>are taking medicine that weakens your immune system</li>
+  <li>are pregnant and have a serious heart condition</li>
+</ul>
+
+<p>The NHS will contact you from Monday 29 March 2020 if you are at particularly high risk of getting seriously ill with coronavirus. You'll be given specific advice about what to do.</p>
+<p>Do not contact your GP or healthcare team at this stage – wait to be contacted.</p>
 
 <div class="alert alert-success" role="alert">
   <h4 class="alert-heading">Do</h4>
-  <ul><b>
-    <li>wash your hands with soap and water often – do this for at least 20 seconds</li>
-    <li>always wash your hands when you get home or into work</li>
-    <li>use hand sanitiser gel if soap and water are not available</li>
-    <li>cover your mouth and nose with a tissue or your sleeve (not your hands) when you cough or sneeze</li>
-    <li>put used tissues in the bin immediately and wash your hands afterwards</li>
-    <li>avoid close contact with people who have symptoms of coronavirus</li>
-    <li>only travel on public transport if you need to</li>
-    <li>work from home, if you can</li>
-    <li>avoid social activities, such as going to pubs, restaurants, theatres and cinemas</li>
-    <li>avoid events with large groups of people</li>
-    <li>use phone, online services, or apps to contact your GP surgery or other NHS services</li>
+  <b>
+    <p><i class="fa fa-check"></i> wash your hands with soap and water often – do this for at least 20 seconds</p>
+    <p><i class="fa fa-check"></i> use hand sanitiser gel if soap and water are not available</p>
+    <p><i class="fa fa-check"></i> cover your mouth and nose with a tissue or your sleeve (not your hands) when you cough or sneeze</p>
+    <p><i class="fa fa-check"></i> put used tissues in the bin immediately and wash your hands afterwards</p>
+    <p><i class="fa fa-check"></i> stay 2 metres (3 steps) away from other people, if you need to go outside</p>
     </b>
-  </ul> 
 </div>
 
 <div class="alert alert-danger" role="alert">
   <h4 class="alert-heading">Don't</h4>
-  <ul><b>
-      <li>do not touch your eyes, nose or mouth if your hands are not clean</li>
-      <li>do not have visitors to your home, including friends and family</li>
-    </b>
-    </ul> 
+  <b>
+      <p><i class="fa fa-times"></i> do not touch your eyes, nose or mouth if your hands are not clean</p>
+  </b>
 </div>
-
-<p>The NHS will contact you from Monday 23 March 2020 if you are at particularly high risk of getting seriously ill with coronavirus. You'll be given specific advice about what to do.</p>
-<p>Do not contact your GP or healthcare team at this stage – wait to be contacted.</p>
-
-<h3>Who is at risk? </h3>
-<p>You may be at a particularly high risk of getting seriously ill with coronavirus if you:</p>
-<ul>
-  <li>have had an organ transplant and are taking immunosuppressant medicine</li>
-  <li>are having chemotherapy or radiotherapy</li>
-  <li>have blood or bone marrow cancer, such as leukaemia</li>
-  <li>have a severe chest condition, such as cystic fibrosis or severe asthma</li>
-  <li>have another serious health condition</li>
-</ul> 
 
 <h3>How coronavirus is spread</h3>
 <p>Because it's a new illness, we do not know exactly how coronavirus spreads from person to person.</p>
@@ -176,7 +132,6 @@
 <p>Antibiotics do not help, as they do not work against viruses.</p>
 <p>Treatment aims to relieve the symptoms while your body fights the illness.</p>
 <p>You'll need to stay in isolation, away from other people, until you have recovered.</p>
-
 
 </div>
 
