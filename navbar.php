@@ -12,8 +12,18 @@
       <li class="nav-item <?php if (basename($_SERVER['PHP_SELF']) == 'countries.php') echo 'active' ?>">
         <a class="nav-link" href="countries.php">Countries</a>
       </li>
-      <li class="nav-item <?php if (basename($_SERVER['PHP_SELF']) == 'advise.php') echo 'active' ?>">
-        <a class="nav-link" href="advise.php">Advise</a>
+      <li class="nav-item dropdown <?php if (basename($_SERVER['PHP_SELF']) == 'advise.php') echo 'active' ?><?php if (basename($_SERVER['PHP_SELF']) == 'uk-lockdown.php') echo 'active' ?>">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Advise
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item <?php if (basename($_SERVER['PHP_SELF']) == 'advise.php') echo 'active' ?>" href="advise.php">NHS Advise</a>
+          <a class="dropdown-item <?php if (basename($_SERVER['PHP_SELF']) == 'uk-lockdown.php') echo 'active' ?>" href="uk-lockdown.php">UK Lockdown</a>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-header text-muted">Useful Links</a>
+          <a class="dropdown-item" href="https://www.nhs.uk/conditions/coronavirus-covid-19/">NHS</a>
+          <a class="dropdown-item" href="https://www.gov.uk/coronavirus">Government</a>
+        </div>
       </li>
       <li class="nav-item <?php if (basename($_SERVER['PHP_SELF']) == 'covid-19-myths.php') echo 'active' ?>">
         <a class="nav-link" href="covid-19-myths.php">Myths</a>
