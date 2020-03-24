@@ -16,6 +16,9 @@
 <?php include( 'navbar.php'); ?>
 
 <style>
+html {
+  font-size: 18px;
+}
 .jumbotron {
   background-image: url(https://joelduncan.io/content/images/size/w2000/2020/03/coronavirus-header.jpg);
   background-attachment: fixed;
