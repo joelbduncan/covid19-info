@@ -9,6 +9,7 @@
   <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
   <link rel="stylesheet" type="text/css" href="//bootswatch.com/4/flatly/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="css/style.php">
 </head>
     
 <body>
@@ -16,18 +17,21 @@
 <?php include( 'navbar.php'); ?>
 
 <style>
-html {
-  font-size: 18px;
-}
 .jumbotron {
   background-image: url(https://joelduncan.io/content/images/size/w2000/2020/03/coronavirus-header.jpg);
   background-attachment: fixed;
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
+  }
+.jumbotron h1, h5 {
   color: white;
   text-shadow: 2px 4px 3px rgba(0, 0, 0, 0.3);
-  }
+}
+.jumbotron h1 {
+    -webkit-text-stroke-width: 1.5px;
+    -webkit-text-stroke-color: #2a2a2a;
+}
 </style>
 
 <!-- Jumbotron Header -->

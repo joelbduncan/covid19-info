@@ -11,6 +11,7 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.9/dist/js/bootstrap-select.min.js"></script>
   <link rel="stylesheet" type="text/css" href="//bootswatch.com/4/flatly/bootstrap.min.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.9/dist/css/bootstrap-select.min.css">
+  <link rel="stylesheet" type="text/css" href="css/style.php">
 </head>
     
 <body>
@@ -18,18 +19,21 @@
 <?php include( 'navbar.php'); ?>
 
 <style>
-html {
-  font-size: 18px;
-}
 .jumbotron {
   background-image: url(https://joelduncan.io/content/images/size/w2000/2020/03/coronavirus-header.jpg);
   background-attachment: fixed;
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
+  }
+.jumbotron h1, h5 {
   color: white;
   text-shadow: 2px 4px 3px rgba(0, 0, 0, 0.3);
-  }
+}
+.jumbotron h1 {
+    -webkit-text-stroke-width: 1.5px;
+    -webkit-text-stroke-color: #2a2a2a;
+}
 </style>
 
 <!-- Jumbotron Header -->
