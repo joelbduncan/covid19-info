@@ -26,7 +26,11 @@
   background-repeat: no-repeat;
   background-size: cover;
   }
-.jumbotron h1, h5 {
+.jumbotron h1 {
+  color: white;
+  text-shadow: 2px 4px 3px rgba(0, 0, 0, 0.3);
+}
+.jumbotron h5 {
   color: white;
   text-shadow: 2px 4px 3px rgba(0, 0, 0, 0.3);
 }
@@ -299,9 +303,7 @@ $selectCountry = str_replace("_", " ", $selectCountry);
 </div>
 
 <div class="container">
-<h3 class="text-center">Live Data <small class="text-muted">Updated <?php echo date("Y-m-d h:i") ?></small></h3>
-
-<h3 class="text-center">Coronavirus <?php echo strtoupper($selectCountry); ?></h3>
+<h3 class="text-center"><span class="badge badge-danger">LIVE</span> Coronavirus <?php echo strtoupper($selectCountry); ?> <small class="text-muted">Updated <?php echo date("Y-m-d h:i") ?></small></h3>
 <div class="container">
 	<div class="card-deck">
 	<div class="card text-white bg-primary">
