@@ -264,6 +264,7 @@ $selectCountry = str_replace("_", " ", $selectCountry);
                 <option value="https://covid-19.uk.com/?country=vietnam">Vietnam</option>
                 <option value="https://covid-19.uk.com/?country=zambi">Zambi</option>
             </select>
+            <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#importantModal">Report Issue</button>
         </div>
     </div>
 
@@ -279,39 +280,16 @@ $selectCountry = str_replace("_", " ", $selectCountry);
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">How to avoid catching and spreading coronavirus</h5>
+                <h5 class="modal-title">Report Issue</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-				<p>Everyone should do what they can to stop coronavirus spreading. It is particularly important for people who:</p>
-			    <ul><li>are 70 or over</li><li>have a long-term condition</li><li>are pregnant</li><li>have a weakened immune system</li></ul>
-				<div class="alert alert-success" role="alert">
-						<h4 class="alert-heading">Do</h4>
-						<ul><b>
-							<li>wash your hands with soap and water often – do this for at least 20 seconds</li>
-							<li>always wash your hands when you get home or into work</li>
-							<li>use hand sanitiser gel if soap and water are not available</li>
-							<li>cover your mouth and nose with a tissue or your sleeve (not your hands) when you cough or sneeze</li>
-							<li>put used tissues in the bin immediately and wash your hands afterwards</li>
-							<li>avoid close contact with people who have symptoms of coronavirus</li>
-							<li>only travel on public transport if you need to</li>
-							<li>work from home, if you can</li>
-							<li>avoid social activities, such as going to pubs, restaurants, theatres and cinemas</li>
-							<li>avoid events with large groups of people</li>
-							<li>use phone, online services, or apps to contact your GP surgery or other NHS services</li>
-							</b>
-						</ul> 
-					</div>
-				<div class="alert alert-danger" role="alert">
-					<h4 class="alert-heading">Don't</h4>
-					<ul><b>
-							<li>do not touch your eyes, nose or mouth if your hands are not clean</li>
-							<li>do not have visitors to your home, including friends and family</li>
-						</b>
-						</ul> 
-				</div>
+                <p>This website is developed by one person, I'm hosting this site as well as the software scraping the latest COVID-19 data on my server infastructure. This is at my expense intending to provide accurate information on COVID-19 from WHO, NHS & UK Government in one place.</p>
+                <p>Unfortunately, the source this data is scraped from is constantly changing, meaning I need to update server-side components accordingly.</p>
+                <p>To try improve this process I've created an email address for any reports of incorrect or outdated information.</p>
+                <a href="mailto:joel@covid-19.uk.com?Subject=Website%20Issue" target="_top">joel@covid-19.uk.com</a>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
