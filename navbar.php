@@ -25,8 +25,8 @@
           <a class="dropdown-item" href="https://www.gov.uk/coronavirus">Government</a>
         </div>
       </li>
-      <li class="nav-item <?php if (basename($_SERVER['PHP_SELF']) == 'covid-19-myths.php') echo 'active' ?>">
-        <a class="nav-link" href="covid-19-myths.php">Myths</a>
+      <li class="nav-item <?php if (basename($_SERVER['PHP_SELF']) == 'covid-19-faq.php') echo 'active' ?>">
+        <a class="nav-link" href="covid-19-faq.php">FAQ</a>
       </li>
       <li class="nav-item <?php if (basename($_SERVER['PHP_SELF']) == 'data-source.php') echo 'active' ?>">
         <a class="nav-link" href="data-source.php">Data Source</a>
