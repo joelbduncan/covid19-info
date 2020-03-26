@@ -70,6 +70,8 @@ $deaths = $json["deaths"];
 $todayDeaths = $json["todayDeaths"];
 $recovered = $json["recovered"];
 $critical = $json["critical"];
+$casesPerOneMillion = $json["casesPerOneMillion"];
+$deathsPerOneMillion = $json["deathsPerOneMillion"];
 
 // World Calculated Percentages
 $worldDeathsPercent = ($worldDeaths/$worldCases)*100; 
@@ -347,6 +349,25 @@ $selectCountry = str_replace("_", " ", $selectCountry);
 			</td>
 			<td class="bg-success">
 				<?php echo number_format($recovered); ?>
+			</td>
+		</tr>
+	</tbody>
+</table>
+
+<table class="table">
+	<thead>
+		<tr>
+			<th scope="col">Cases per Million</th>
+			<th scope="col">Deaths per Million</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td class="bg-info">
+				<?php echo number_format($casesPerOneMillion); ?>
+			</td>
+			<td class="bg-danger">
+				<?php echo number_format($deathsPerOneMillion); ?>
 			</td>
 		</tr>
 	</tbody>
