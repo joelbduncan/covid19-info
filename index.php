@@ -334,7 +334,7 @@ $guardianCountyJson = json_decode(file_get_contents($guardianCounty), true);
                         ++$var;
 
                         echo '<tr>
-                            <td class="bg-primary">
+                            <td style="color: white" class="bg-primary">
                                 ' . $guardianCountyJson["ladata"]["features"][$var]["attributes"]["GSS_NM"] .'
                             </td>
                             <td class="bg-info">
