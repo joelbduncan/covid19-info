@@ -87,6 +87,9 @@ $recoveredPercent = ($recovered/$cases)*100;
 // Replace underscores with spaces in Country name
 $selectCountry = str_replace("_", " ", $selectCountry);
 
+$guardianCounty = "https://interactive.guim.co.uk/atoms/2020/03/covid-19-uk/assets/v/1585514085298/ladata.json";
+$guardianCountyJson = json_decode(file_get_contents($guardianCounty), true);
+
 ?>
 	
 <!-- Jumbotron Header -->
@@ -305,6 +308,53 @@ $selectCountry = str_replace("_", " ", $selectCountry);
     </div>
 </div>
 
+<div class="modal fade" tabindex="-1" id="countiesModal" role="dialog">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Counties</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+            <input type="text" class="form-control form-control" id="myInput" onkeyup="myFunction()" placeholder="Search">
+                <table id="countyTable" class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">County</th>
+                            <th scope="col">Cases</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php
+                        $var = -1;
+
+                        foreach(range(148,$columns) as $index) {
+
+                        ++$var;
+
+                        echo '<tr>
+                            <td class="bg-primary">
+                                ' . $guardianCountyJson["ladata"]["features"][$var]["attributes"]["GSS_NM"] .'
+                            </td>
+                            <td class="bg-info">
+                            ' . $guardianCountyJson["ladata"]["features"][$var]["attributes"]["TotalCases"] .'
+                            </td>
+                        </tr>';
+                        }
+                        ?>
+                    </tbody>
+                    <div id="results"></div>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <div class="container">
 <h3 class="text-center"><span class="badge badge-danger">LIVE</span> Coronavirus <?php echo strtoupper($selectCountry); ?> <small class="text-muted">Updated <?php echo date("Y-m-d h:i") ?></small></h3>
 <div class="container">
@@ -398,31 +448,40 @@ $selectCountry = str_replace("_", " ", $selectCountry);
     Active <span class="badge badge-info"><?php echo sprintf("%.1f", $activeCasesPercent); ?>%</span> 
 </p>
 
-</div>
-    <br>
+<?php
+if ($selectCountry == "uk")
+  echo '<h4>Counties <small class="text-muted">Click below for County breakdown</small></h4>
+  <div class="btn-group d-flex" role="group">
+      <button type="button" class="btn-lg btn-primary w-100" data-toggle="modal" data-target="#countiesModal">Cases by County</button>
+  </div>';
+?>
 
-    <h3 class="text-center">Coronavirus Worldwide</h3>
-    <div class="container">
-        <div class="card-deck">
-        <div class="card text-white bg-primary">
-            <div class="card-body">
+</div>
+
+<br>
+
+<h3 class="text-center">Coronavirus Worldwide</h3>
+<div class="container">
+   <div class="card-deck">
+      <div class="card text-white bg-primary">
+         <div class="card-body">
             <h5 class="card-title">Total Cases</h5>
             <h1><?php echo number_format($worldCases); ?></h1>
-            </div>
-        </div>
-        <div class="card text-white bg-danger">
-            <div class="card-body">
+         </div>
+      </div>
+      <div class="card text-white bg-danger">
+         <div class="card-body">
             <h5 class="card-title">Total Deaths</h5>
             <h1><?php echo number_format($worldDeaths); ?></h1>
-            </div>
-        </div>
-        <div class="card text-white bg-success">
-            <div class="card-body">
+         </div>
+      </div>
+      <div class="card text-white bg-success">
+         <div class="card-body">
             <h5 class="card-title">Total Recovered</h5>
             <h1><?php echo number_format($worldRecovered); ?></h1>
-            </div>
-        </div>    
-    </div>
+         </div>
+      </div>
+   </div>
 </div>
 
 <div class="container">
@@ -447,6 +506,30 @@ $selectCountry = str_replace("_", " ", $selectCountry);
 </div>
 
 </div>
+
+<script>
+function myFunction() {
+  // Declare variables
+  var input, filter, table, tr, td, i, txtValue;
+  input = document.getElementById("myInput");
+  filter = input.value.toUpperCase();
+  table = document.getElementById("countyTable");
+  tr = table.getElementsByTagName("tr");
+
+  // Loop through all table rows, and hide those who don't match the search query
+  for (i = 0; i < tr.length; i++) {
+    td = tr[i].getElementsByTagName("td")[0];
+    if (td) {
+      txtValue = td.textContent || td.innerText;
+      if (txtValue.toUpperCase().indexOf(filter) > -1) {
+        tr[i].style.display = "";
+      } else {
+        tr[i].style.display = "none";
+      }
+    }
+  }
+}
+</script>
 
 <?php include( 'footer.php'); ?>
 
