@@ -72,6 +72,7 @@ $recovered = $json["recovered"];
 $critical = $json["critical"];
 $casesPerOneMillion = $json["casesPerOneMillion"];
 $deathsPerOneMillion = $json["deathsPerOneMillion"];
+$firstCase = $json["firstCase"];
 
 // World Calculated Percentages
 $worldDeathsPercent = ($worldDeaths/$worldCases)*100; 
@@ -322,7 +323,7 @@ $selectCountry = str_replace("_", " ", $selectCountry);
 	</div>
 </div>
 
-<h3 class="mt-5"><?php echo strtoupper($selectCountry); ?> Total Cases</h3>
+<h3 class="mt-5"><?php echo strtoupper($selectCountry); ?> Total Cases <small class="text-muted"> First Case: <?php echo $firstCase ?></small></h3>
 <table class="table">
 	<thead>
 		<tr>
