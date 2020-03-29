@@ -46,7 +46,7 @@
 
 <h3>Why this data is reliable</h3>
 
-<p>Our data comes from <a href="https://worldometers.info">Worldometer</a> there sources include the <b>United Nations Population Division</b>, <b>World Health Organization (WHO)</b>, Food and Agriculture Organization (FAO), International Monetary Fund (IMF), and <b>World Bank.</b></p>
+<p>Our data comes from <a href="https://worldometers.info">Worldometer</a> their sources include the <b>United Nations Population Division</b>, <b>World Health Organization (WHO)</b>, Food and Agriculture Organization (FAO), International Monetary Fund (IMF), and <b>World Bank.</b></p>
 
 <h3>How accurate is Worldometer?</h3>
 <p>We try to be as accurate as possible. For each set of statistics we perform extensive research and data mining in order to bring the most authoritative, comprehensive, and timely information to be displayed on the live counters.</p>
