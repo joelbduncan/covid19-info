@@ -86,7 +86,7 @@ $recoveredPercent = ($recovered/$cases)*100;
 // Replace underscores with spaces in Country name
 $selectCountry = str_replace("_", " ", $selectCountry);
 
-$guardianCounty = "https://interactive.guim.co.uk/atoms/2020/03/covid-19-uk/assets/v/1585514085298/ladata.json";
+$guardianCounty = "https://interactive.guim.co.uk/2020/coronavirus-uk-local-data/ladata.json";
 $guardianCountyJson = json_decode(file_get_contents($guardianCounty), true);
 
 ?>
@@ -99,7 +99,7 @@ $guardianCountyJson = json_decode(file_get_contents($guardianCounty), true);
 
         <div class="dropdown">
             <select class="selectpicker" onchange="location = this.value;" data-size="8" data-show-subtext="true" data-live-search="true">
-            <option>Select Country</option>
+                <option>Select Country</option>
                 <option value="https://covid-19.uk.com/?country=afghanistan">Afghanistan</option>
                 <option value="https://covid-19.uk.com/?country=albania">Albania</option>
                 <option value="https://covid-19.uk.com/?country=algeria">Algeria</option>
@@ -317,35 +317,119 @@ $guardianCountyJson = json_decode(file_get_contents($guardianCounty), true);
                 </button>
             </div>
             <div class="modal-body">
-            <input type="text" class="form-control form-control" id="myInput" onkeyup="myFunction()" placeholder="Search">
-                <table id="countyTable" class="table">
-                    <thead>
-                        <tr>
-                            <th scope="col">County</th>
-                            <th scope="col">Cases</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php
-                        $var = -1;
 
-                        foreach(range(148,$columns) as $index) {
+                <ul class="nav nav-pills nav-fill">
+                    <li class="nav-item">
+                        <a class="nav-link active" data-toggle="tab" href="#england">England</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="tab" href="#scotland">Scotland</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="tab" href="#wales">Wales</a>
+                    </li>
+                </ul>
 
-                        ++$var;
+                <div class="tab-content">
+                    <div id="england" class="tab-pane active">
+                        <br>
+                        <input type="text" class="form-control form-control" id="englandInput" onkeyup="englandSearch()" placeholder="Search">
+                        <table id="englandTable" class="table">
+                            <thead>
+                                <tr>
+                                    <th scope="col">County</th>
+                                    <th scope="col">Cases</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php
+                                $var = -1;
 
-                        echo '<tr>
-                            <td style="color: white" class="bg-primary">
-                                ' . $guardianCountyJson["ladata"]["features"][$var]["attributes"]["GSS_NM"] .'
-                            </td>
-                            <td class="bg-info">
-                            ' . $guardianCountyJson["ladata"]["features"][$var]["attributes"]["TotalCases"] .'
-                            </td>
-                        </tr>';
-                        }
-                        ?>
-                    </tbody>
-                    <div id="results"></div>
-                </table>
+                                foreach(range(148,$columns) as $index) {
+
+                                ++$var;
+
+                                echo '<tr>
+                                    <td style="color: white" class="bg-primary">
+                                        ' . $guardianCountyJson["ladata"]["features"][$var]["attributes"]["GSS_NM"] .'
+                                    </td>
+                                    <td class="bg-info">
+                                    ' . $guardianCountyJson["ladata"]["features"][$var]["attributes"]["TotalCases"] .'
+                                    </td>
+                                </tr>';
+                                }
+                                ?>
+                            </tbody>
+                            <div id="results"></div>
+                        </table>
+                    </div>
+                    <div id="scotland" class="tab-pane fade">
+                        <br>
+                        <input type="text" class="form-control form-control" id="scotlandInput" onkeyup="scotlandSearch()" placeholder="Search">
+                        <table id="scotlandTable" class="table">
+                            <thead>
+                                <tr>
+                                    <th scope="col">County</th>
+                                    <th scope="col">Cases</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php
+                                $var = -1;
+
+                                foreach(range(11,$columns) as $index) {
+
+                                ++$var;
+
+                                echo '<tr>
+                                    <td style="color: white" class="bg-primary">
+                                        ' . $guardianCountyJson["scotdata"][$var]["board"] .'
+                                    </td>
+                                    <td class="bg-info">
+                                    ' . $guardianCountyJson["scotdata"][$var]["cases"] .'
+                                    </td>
+                                </tr>';
+                                }
+                                ?>
+                            </tbody>
+                            <div id="results"></div>
+                        </table>
+                    </div>
+                    <div id="wales" class="tab-pane fade">
+                        <br>
+                        <input type="text" class="form-control form-control" id="walesInput" onkeyup="walesSearch()" placeholder="Search">
+                        <table id="walesTable" class="table">
+                            <thead>
+                                <tr>
+                                    <th scope="col">County</th>
+                                    <th scope="col">Cases</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php
+                                $var = -1;
+
+                                foreach(range(6,$columns) as $index) {
+
+                                ++$var;
+
+                                echo '<tr>
+                                    <td style="color: white" class="bg-primary">
+                                        ' . $guardianCountyJson["walesdata"][$var]["board"] .'
+                                    </td>
+                                    <td class="bg-info">
+                                    ' . $guardianCountyJson["walesdata"][$var]["cases"] .'
+                                    </td>
+                                </tr>';
+                                }
+                                ?>
+                            </tbody>
+                            <div id="results"></div>
+                        </table>
+
+                    </div>
+                </div>
+
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -496,8 +580,7 @@ if ($selectCountry == "uk")
     </div>
 
     <p class="text-muted">
-        Deaths <span class="badge badge-danger"><?php echo sprintf("%.1f", $worldDeathsPercent); ?>%</span> 
-        Recovered <span class="badge badge-success"><?php echo sprintf("%.1f", $worldRecoveredPercent); ?>%</span>
+        Deaths <span class="badge badge-danger"><?php echo sprintf("%.1f", $worldDeathsPercent); ?>%</span> Recovered <span class="badge badge-success"><?php echo sprintf("%.1f", $worldRecoveredPercent); ?>%</span>
     </p>
 
     <p><b>Recovered numbers may appear low as these mostly come from cases where people were hospitalised.</b></p>
@@ -507,12 +590,56 @@ if ($selectCountry == "uk")
 </div>
 
 <script>
-function myFunction() {
+function englandSearch() {
   // Declare variables
   var input, filter, table, tr, td, i, txtValue;
-  input = document.getElementById("myInput");
+  input = document.getElementById("englandInput");
   filter = input.value.toUpperCase();
-  table = document.getElementById("countyTable");
+  table = document.getElementById("englandTable");
+  tr = table.getElementsByTagName("tr");
+
+  // Loop through all table rows, and hide those who don't match the search query
+  for (i = 0; i < tr.length; i++) {
+    td = tr[i].getElementsByTagName("td")[0];
+    if (td) {
+      txtValue = td.textContent || td.innerText;
+      if (txtValue.toUpperCase().indexOf(filter) > -1) {
+        tr[i].style.display = "";
+      } else {
+        tr[i].style.display = "none";
+      }
+    }
+  }
+}
+
+function scotlandSearch() {
+  // Declare variables
+  var input, filter, table, tr, td, i, txtValue;
+  input = document.getElementById("scotlandInput");
+  filter = input.value.toUpperCase();
+  table = document.getElementById("scotlandTable");
+  tr = table.getElementsByTagName("tr");
+
+  // Loop through all table rows, and hide those who don't match the search query
+  for (i = 0; i < tr.length; i++) {
+    td = tr[i].getElementsByTagName("td")[0];
+    if (td) {
+      txtValue = td.textContent || td.innerText;
+      if (txtValue.toUpperCase().indexOf(filter) > -1) {
+        tr[i].style.display = "";
+      } else {
+        tr[i].style.display = "none";
+      }
+    }
+  }
+}
+
+function walesSearch() {
+  // Declare variables
+  var input, filter, table, tr, td, i, txtValue;
+  input = document.getElementById("walesInput");
+  filter = input.value.toUpperCase();
+  table = document.getElementById("walesTable");
   tr = table.getElementsByTagName("tr");
 
   // Loop through all table rows, and hide those who don't match the search query
