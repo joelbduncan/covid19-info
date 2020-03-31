@@ -51,6 +51,7 @@ if (isset($_GET['country'])) {
     $selectCountry = uk;
 }
 
+// Self hosted API for World COVID-19 data
 $urlWorld = "https://api.covid-19.uk.com/all";
 $jsonWorld = json_decode(file_get_contents($urlWorld), true);
 
@@ -58,6 +59,7 @@ $worldCases = $jsonWorld["cases"];
 $worldDeaths = $jsonWorld["deaths"];
 $worldRecovered = $jsonWorld["recovered"];
 
+// Self hosted API for Country specific data
 $url = "https://api.covid-19.uk.com/countries/$selectCountry";
 $json = json_decode(file_get_contents($url), true);
 
@@ -86,8 +88,13 @@ $recoveredPercent = ($recovered/$cases)*100;
 // Replace underscores with spaces in Country name
 $selectCountry = str_replace("_", " ", $selectCountry);
 
+// Guardian source for UK county data
 $guardianCounty = "https://interactive.guim.co.uk/2020/coronavirus-uk-local-data/ladata.json";
 $guardianCountyJson = json_decode(file_get_contents($guardianCounty), true);
+
+// API for US state data
+$usaStates = "https://corona.lmao.ninja/states";
+$usaStatesJson = json_decode(file_get_contents($usaStates), true);
 
 ?>
 	
@@ -438,6 +445,57 @@ $guardianCountyJson = json_decode(file_get_contents($guardianCounty), true);
     </div>
 </div>
 
+<div class="modal fade" tabindex="-1" id="usCountiesModal" role="dialog">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">States</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <input type="text" class="form-control form-control" id="usaInput" onkeyup="usaSearch()" placeholder="Search">
+                <table id="usaTable" class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">County</th>
+                            <th scope="col">Cases</th>
+                            <th scope="col">Deaths</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php
+                        $var = -1;
+                
+                        foreach(range(56,$columns) as $index) {
+                
+                        ++$var;
+                
+                        echo '<tr>
+                            <td style="color: white" class="bg-primary">
+                                ' . $usaStatesJson[$var]["state"] .'
+                            </td>
+                            <td class="bg-info">
+                                ' . $usaStatesJson[$var]["cases"] .'
+                            </td>
+                            <td class="bg-danger">
+                                ' . $usaStatesJson[$var]["deaths"] .'
+                            </td>
+                        </tr>';
+                        }
+                        ?>
+                    </tbody>
+                    <div id="results"></div>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <div class="container">
 <h3 class="text-center"><span class="badge badge-danger">LIVE</span> Coronavirus <?php echo strtoupper($selectCountry); ?> <small class="text-muted">Updated <?php echo date("Y-m-d h:i") ?></small></h3>
 <div class="container">
@@ -533,10 +591,17 @@ $guardianCountyJson = json_decode(file_get_contents($guardianCounty), true);
 
 <?php
 if ($selectCountry == "uk")
-  echo '<h4>Counties <small class="text-muted">Click below for County breakdown</small></h4>
-  <div class="btn-group d-flex" role="group">
-      <button type="button" class="btn-lg btn-primary w-100" data-toggle="modal" data-target="#countiesModal">Cases by County</button>
-  </div>';
+    echo '<h4>Counties <small class="text-muted">Click below for County breakdown</small></h4>
+    <div class="btn-group d-flex" role="group">
+        <button type="button" class="btn-lg btn-primary w-100" data-toggle="modal" data-target="#countiesModal">Cases by County</button>
+    </div>';
+
+if ($selectCountry == "usa")
+    echo '<h4>States <small class="text-muted">Click below for County breakdown</small></h4>
+    <div class="btn-group d-flex" role="group">
+        <button type="button" class="btn-lg btn-primary w-100" data-toggle="modal" data-target="#usCountiesModal">Cases by State</button>
+    </div>';
+
 ?>
 
 </div>
@@ -640,6 +705,28 @@ function walesSearch() {
   input = document.getElementById("walesInput");
   filter = input.value.toUpperCase();
   table = document.getElementById("walesTable");
+  tr = table.getElementsByTagName("tr");
+
+  // Loop through all table rows, and hide those who don't match the search query
+  for (i = 0; i < tr.length; i++) {
+    td = tr[i].getElementsByTagName("td")[0];
+    if (td) {
+      txtValue = td.textContent || td.innerText;
+      if (txtValue.toUpperCase().indexOf(filter) > -1) {
+        tr[i].style.display = "";
+      } else {
+        tr[i].style.display = "none";
+      }
+    }
+  }
+}
+
+function usaSearch() {
+  // Declare variables
+  var input, filter, table, tr, td, i, txtValue;
+  input = document.getElementById("usaInput");
+  filter = input.value.toUpperCase();
+  table = document.getElementById("usaTable");
   tr = table.getElementsByTagName("tr");
 
   // Loop through all table rows, and hide those who don't match the search query
