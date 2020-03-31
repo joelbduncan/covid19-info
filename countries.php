@@ -271,8 +271,10 @@
 
 <div class="container">
 
+<input type="text" class="form-control form-control" id="countryInput" onkeyup="countrySearch()" placeholder="Search">
+<br>
 <div class="table-responsive">
-<table class="table table-striped table-bordered">
+<table id="countryTable" class="table table-striped table-bordered">
   <tr>
     <th class="tg-0lax"><a href="https://covid-19.uk.com/?country=Afghanistan">Afghanistan</a></th>
     <th class="tg-0lax"><a href="https://covid-19.uk.com/?country=Albania">Albania</th>
@@ -562,6 +564,30 @@
 </div>
 
 </div>
+
+<script>
+function countrySearch() {
+  // Declare variables
+  var input, filter, table, tr, td, i, txtValue;
+  input = document.getElementById("countryInput");
+  filter = input.value.toUpperCase();
+  table = document.getElementById("countryTable");
+  tr = table.getElementsByTagName("tr");
+
+  // Loop through all table rows, and hide those who don't match the search query
+  for (i = 0; i < tr.length; i++) {
+    td = tr[i].getElementsByTagName("td")[0];
+    if (td) {
+      txtValue = td.textContent || td.innerText;
+      if (txtValue.toUpperCase().indexOf(filter) > -1) {
+        tr[i].style.display = "";
+      } else {
+        tr[i].style.display = "none";
+      }
+    }
+  }
+}
+</script>
 
 <?php include( 'footer.php'); ?>
 
