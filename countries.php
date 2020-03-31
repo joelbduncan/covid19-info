@@ -177,7 +177,7 @@
                 <option value="https://covid-19.uk.com/?country=russia">Russia</option>
                 <option value="https://covid-19.uk.com/?country=rwanda">Rwanda</option>
                 <option value="https://covid-19.uk.com/?country=réunion">Réunion</option>
-                <option value="https://covid-19.uk.com/?country=s._korea">S. Korea</option>
+                <option value="https://covid-19.uk.com/?country=s._korea">South Korea</option>
                 <option value="https://covid-19.uk.com/?country=saint_lucia">Saint Lucia</option>
                 <option value="https://covid-19.uk.com/?country=saint_martin">Saint Martin</option>
                 <option value="https://covid-19.uk.com/?country=san_marino">San Marino</option>
