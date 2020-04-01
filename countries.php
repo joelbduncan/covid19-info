@@ -496,7 +496,7 @@
     <td class="tg-0lax"><a href="https://covid-19.uk.com/?country=Réunion">Réunion</td>
   </tr>
   <tr>
-    <td class="tg-0lax"><a href="https://covid-19.uk.com/?country=S._Korea">S. Korea</td>
+    <td class="tg-0lax"><a href="https://covid-19.uk.com/?country=S._Korea">South Korea</td>
     <td class="tg-0lax"><a href="https://covid-19.uk.com/?country=Saint_Lucia">Saint Lucia</td>
     <td class="tg-0lax"><a href="https://covid-19.uk.com/?country=Saint_Martin">Saint Martin</td>
   </tr>
