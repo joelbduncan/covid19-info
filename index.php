@@ -92,9 +92,17 @@ $selectCountry = str_replace("_", " ", $selectCountry);
 $guardianCounty = "https://interactive.guim.co.uk/2020/coronavirus-uk-local-data/ladata.json";
 $guardianCountyJson = json_decode(file_get_contents($guardianCounty), true);
 
+// Count array size to populate columns
+$ukCountyCount = count($guardianCountyJson["ladata"]["features"]);
+$scotCountyCount = count($guardianCountyJson["scotdata"]);
+$walesCountyCount = count($guardianCountyJson["walesdata"]);
+
 // API for US state data
 $usaStates = "https://corona.lmao.ninja/states";
 $usaStatesJson = json_decode(file_get_contents($usaStates), true);
+
+// Count array size to populate columns
+$usaStateCount = count($usaStatesJson);
 
 ?>
 	
@@ -352,7 +360,7 @@ $usaStatesJson = json_decode(file_get_contents($usaStates), true);
                                 <?php
                                 $var = -1;
 
-                                foreach(range(148,$columns) as $index) {
+                                foreach(range(--$ukCountyCount,$columns) as $index) {
 
                                 ++$var;
 
@@ -384,7 +392,7 @@ $usaStatesJson = json_decode(file_get_contents($usaStates), true);
                                 <?php
                                 $var = -1;
 
-                                foreach(range(11,$columns) as $index) {
+                                foreach(range(--$scotCountyCount,$columns) as $index) {
 
                                 ++$var;
 
@@ -416,7 +424,7 @@ $usaStatesJson = json_decode(file_get_contents($usaStates), true);
                                 <?php
                                 $var = -1;
 
-                                foreach(range(6,$columns) as $index) {
+                                foreach(range(--$walesCountyCount,$columns) as $index) {
 
                                 ++$var;
 
@@ -468,7 +476,7 @@ $usaStatesJson = json_decode(file_get_contents($usaStates), true);
                         <?php
                         $var = -1;
                 
-                        foreach(range(56,$columns) as $index) {
+                        foreach(range(--$usaStateCount,$columns) as $index) {
                 
                         ++$var;
                 
