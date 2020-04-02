@@ -369,7 +369,7 @@ $usaStateCount = count($usaStatesJson);
                                         ' . $guardianCountyJson["ladata"]["features"][$var]["attributes"]["GSS_NM"] .'
                                     </td>
                                     <td class="bg-info">
-                                    ' . $guardianCountyJson["ladata"]["features"][$var]["attributes"]["TotalCases"] .'
+                                        <b>' . $guardianCountyJson["ladata"]["features"][$var]["attributes"]["TotalCases"] .'</b>
                                     </td>
                                 </tr>';
                                 }
@@ -401,7 +401,7 @@ $usaStateCount = count($usaStatesJson);
                                         ' . $guardianCountyJson["scotdata"][$var]["board"] .'
                                     </td>
                                     <td class="bg-info">
-                                    ' . $guardianCountyJson["scotdata"][$var]["cases"] .'
+                                        <b>' . $guardianCountyJson["scotdata"][$var]["cases"] .'</b>
                                     </td>
                                 </tr>';
                                 }
@@ -433,7 +433,7 @@ $usaStateCount = count($usaStatesJson);
                                         ' . $guardianCountyJson["walesdata"][$var]["board"] .'
                                     </td>
                                     <td class="bg-info">
-                                    ' . $guardianCountyJson["walesdata"][$var]["cases"] .'
+                                        <b>' . $guardianCountyJson["walesdata"][$var]["cases"] .'</b>
                                     </td>
                                 </tr>';
                                 }
@@ -485,10 +485,10 @@ $usaStateCount = count($usaStatesJson);
                                 ' . $usaStatesJson[$var]["state"] .'
                             </td>
                             <td class="bg-info">
-                                ' . $usaStatesJson[$var]["cases"] .'
+                                <b>' . $usaStatesJson[$var]["cases"] .'</b>
                             </td>
                             <td class="bg-danger">
-                                ' . $usaStatesJson[$var]["deaths"] .'
+                                <b>' . $usaStatesJson[$var]["deaths"] .'</b>
                             </td>
                         </tr>';
                         }
