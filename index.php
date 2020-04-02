@@ -55,6 +55,31 @@ if (isset($_GET['country'])) {
     $selectCountry = uk;
 }
 
+// Set API URL to most up to date source
+// Check UK Today cases on self hosted API
+$apiMain = "https://api.covid-19.uk.com/countries/uk";
+$apiMainJson = json_decode(file_get_contents($apiMain), true);
+
+// Check UK Today cases on alternative API
+$apiBackup = "https://corona.lmao.ninja/countries/uk";
+$apiBackupJson = json_decode(file_get_contents($apiBackup), true);
+
+// Use self hosted API unless alternative has more cases
+if ($apiMainJson["todayCases"] > $apiBackupJson["todayCases"]){
+    $apiURL = "https://api.covid-19.uk.com";
+    $currentAPI = "Main";
+  }
+  // Use self hosted API when numbers are equal
+  elseif ($apiMainJson["todayCases"] == $apiBackupJson["todayCases"]){
+      $apiURL = "https://api.covid-19.uk.com";
+      $currentAPI = "Main";
+    }
+  else {
+      // Use backend in other scenarios
+      $apiURL = "https://corona.lmao.ninja";
+      $currentAPI = "Backup";
+  }
+
 // Self hosted API for World COVID-19 data
 $urlWorld = "https://api.covid-19.uk.com/all";
 $jsonWorld = json_decode(file_get_contents($urlWorld), true);
@@ -64,7 +89,7 @@ $worldDeaths = $jsonWorld["deaths"];
 $worldRecovered = $jsonWorld["recovered"];
 
 // Self hosted API for Country specific data
-$url = "https://api.covid-19.uk.com/countries/$selectCountry";
+$url = "$apiURL/countries/$selectCountry";
 $json = json_decode(file_get_contents($url), true);
 
 $country = $json["country"];
@@ -320,6 +345,7 @@ $usaStateCount = count($usaStatesJson);
                 <a href="mailto:joel@covid-19.uk.com?Subject=Website%20Issue" target="_top">joel@covid-19.uk.com</a>
             </div>
             <div class="modal-footer">
+            <small class="text-muted font-weight-bold">Current API: <?php echo $currentAPI; ?></small>
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
             </div>
         </div>
