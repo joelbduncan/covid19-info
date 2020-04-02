@@ -41,6 +41,10 @@
     max-width: none;
     table-layout: fixed;
 }
+
+.nav-pills .nav-link:not(.active) {
+    color: #000;
+}
 </style>
 
 <?php
