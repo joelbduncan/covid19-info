@@ -526,7 +526,7 @@ $usaStateCount = count($usaStatesJson);
 	</div>
 </div>
 
-<h3 class="mt-5"><?php echo strtoupper($selectCountry); ?> Total Cases <small class="text-muted"> First Case: <?php echo $firstCase ?></small></h3>
+<h3 class="mt-5"><?php echo strtoupper($selectCountry); ?> Total Cases <!--<small class="text-muted"> First Case: <?php echo $firstCase ?></small>--></h3>
 <table class="table">
 	<thead>
 		<tr>
