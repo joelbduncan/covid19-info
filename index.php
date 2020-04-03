@@ -43,7 +43,7 @@
 }
 
 .nav-pills .nav-link:not(.active) {
-    color: #000;
+    color: #00bc8c;
 }
 </style>
 
