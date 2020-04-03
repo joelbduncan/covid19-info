@@ -664,7 +664,7 @@ if ($selectCountry == "usa")
       <div class="card text-white bg-success">
          <div class="card-body">
             <h5 class="card-title">Total Recovered</h5>
-            <h1><?php echo number_format($worldRecovered); ?></h1>
+            <h1><?php echo number_format($worldRecovered); ?> 🎉</h1>
          </div>
       </div>
    </div>
