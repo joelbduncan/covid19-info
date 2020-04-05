@@ -102,7 +102,8 @@ $recovered = $json["recovered"];
 $critical = $json["critical"];
 $casesPerOneMillion = $json["casesPerOneMillion"];
 $deathsPerOneMillion = $json["deathsPerOneMillion"];
-$firstCase = $json["firstCase"];
+$testsPerOneMillion = $json["testsPerOneMillion"];
+$totalTests = $json["totalTests"];
 
 // World Calculated Percentages
 $worldDeathsPercent = ($worldDeaths/$worldCases)*100; 
@@ -113,6 +114,7 @@ $activeCasesPercent = ($activeCases/$cases)*100;
 $deathsPercent = ($deaths/$cases)*100;
 $criticalPercent = ($critical/$cases)*100; 
 $recoveredPercent = ($recovered/$cases)*100;
+$positiveTestPercent = ($cases/$totalTests)*100;
 
 // Replace underscores with spaces in Country name
 $selectCountry = str_replace("_", " ", $selectCountry);
@@ -357,22 +359,32 @@ $usaStateCount = count($usaStatesJson);
 </div>
 
 <div class="container">
-<h3 class="text-center"><span class="badge badge-danger">LIVE</span> Coronavirus <?php echo strtoupper($selectCountry); ?> <small class="text-muted">Updated <?php echo date("Y-m-d h:i") ?></small></h3>
-<div class="container">
-	<div class="card-deck">
-	<div class="card text-white bg-primary">
-		<div class="card-body">
-		<h5 class="card-title"><?php echo strtoupper($selectCountry); ?> Cases Today</h5>
-        <h1>+<?php echo number_format($todayCases); ?></h1>
-		</div>
-	</div>
-	<div class="card text-white bg-danger">
-		<div class="card-body">
-		<h5 class="card-title"><?php echo strtoupper($selectCountry); ?> Deaths Today</h5>
-        <h1>+<?php echo number_format($todayDeaths); ?></h1>
-		</div>
-	</div>
+    <div class="card-deck">
+        <div class="card text-white bg-primary text-center">
+            <div class="card-body">
+                <h5 class="card-title"><?php echo strtoupper($selectCountry); ?> Cases Today</h5>
+                <h1>+<?php echo number_format($todayCases); ?></h1>
+            </div>
+        </div>
+        <div class="card text-white bg-danger text-center">
+            <div class="card-body">
+                <h5 class="card-title"><?php echo strtoupper($selectCountry); ?> Deaths Today</h5>
+                <h1>+<?php echo number_format($todayDeaths); ?></h1>
+            </div>
+        </div>
+    </div>
 </div>
+
+<div class="container mt-3">
+    <div class="card-deck">
+        <div class="card text-white bg-info text-center">
+            <div style="max-height: 140.1px" class="card-body">
+                <h5 class="card-title"><?php echo strtoupper($selectCountry); ?> Total Tested</h5>
+                <h3 class="font-weight-bold"><?php echo number_format($totalTests) ?></h3>
+                <h6><?php echo sprintf("%.1f", $positiveTestPercent); ?>% Test Positve</h6>
+            </div>
+        </div>
+    </div>
 
 <h3 class="mt-5"><?php echo strtoupper($selectCountry); ?> Total Cases <!--<small class="text-muted"> First Case: <?php echo $firstCase ?></small>--></h3>
 <table class="table">
@@ -409,18 +421,22 @@ $usaStateCount = count($usaStatesJson);
 <table class="table">
 	<thead>
 		<tr>
+			<th scope="col">Tests per Million</th>
 			<th scope="col">Cases per Million</th>
-			<th scope="col">Deaths per Million</th>
+            <th scope="col">Deaths per Million</th>
 		</tr>
 	</thead>
 	<tbody>
 		<tr>
+			<td class="bg-secondary">
+				<?php echo number_format($testsPerOneMillion); ?>
+			</td>
 			<td class="bg-info">
 				<?php echo number_format($casesPerOneMillion); ?>
 			</td>
 			<td class="bg-danger">
 				<?php echo number_format($deathsPerOneMillion); ?>
-			</td>
+            </td>
 		</tr>
 	</tbody>
 </table>
@@ -470,26 +486,31 @@ if ($selectCountry == "usa")
 
 <h3 class="text-center">Coronavirus Worldwide</h3>
 <div class="container">
-   <div class="card-deck">
-      <div class="card text-white bg-primary">
-         <div class="card-body">
-            <h5 class="card-title">Total Cases</h5>
-            <h1><?php echo number_format($worldCases); ?></h1>
-         </div>
-      </div>
-      <div class="card text-white bg-danger">
-         <div class="card-body">
-            <h5 class="card-title">Total Deaths</h5>
-            <h1><?php echo number_format($worldDeaths); ?></h1>
-         </div>
-      </div>
-      <div class="card text-white bg-success">
-         <div class="card-body">
-            <h5 class="card-title">Total Recovered</h5>
-            <h1><?php echo number_format($worldRecovered); ?> 🎉</h1>
-         </div>
-      </div>
-   </div>
+    <div class="card-deck">
+        <div class="card text-white bg-primary text-center">
+            <div class="card-body">
+                <h5 class="card-title">Total Cases</h5>
+                <h1><?php echo number_format($worldCases); ?></h1>
+            </div>
+        </div>
+        <div class="card text-white bg-danger text-center">
+            <div class="card-body">
+                <h5 class="card-title">Total Deaths</h5>
+                <h1><?php echo number_format($worldDeaths); ?></h1>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container mt-3">
+    <div class="card-deck">
+        <div class="card text-white bg-success text-center">
+            <div class="card-body">
+                <h5 class="card-title">Total Recovered</h5>
+                <h1>🎉 <?php echo number_format($worldRecovered); ?></h1>
+            </div>
+        </div>
+    </div>
 </div>
 
 <div class="container">
