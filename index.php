@@ -144,9 +144,6 @@ $usaStateCount = count($usaStatesJson);
         <h5>Coronavirus (COVID-19) is a new illness that can affect your lungs and airways. It’s caused by a virus called coronavirus.</h5>
         <?php include( 'country-dropdown.php'); ?>
     </div>
-
-</div>
-
 </div>
 
 <script>
@@ -357,6 +354,21 @@ $usaStateCount = count($usaStatesJson);
         </div>
     </div>
 </div>
+
+<?php
+$day = date('D');
+if($day == Thu){
+    echo '
+    <div class="container">
+        <div class="alert alert-info alert-dismissible fade show text-center" role="alert">
+            <strong>👏 Clap for our Carers</strong> at 8pm remember to clap for our NHS & Health Care workers on the frontline.
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    </div>';
+}
+?>
 
 <div class="container">
     <div class="card-deck">
