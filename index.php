@@ -358,15 +358,17 @@ $usaStateCount = count($usaStatesJson);
 <?php
 $day = date('D');
 if($day == Thu){
-    echo '
-    <div class="container">
-        <div class="alert alert-info alert-dismissible fade show text-center" role="alert">
-            <strong>👏 Clap for our Carers</strong> at 8pm remember to clap for our NHS & Health Care workers on the frontline.
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
-    </div>';
+    if (((int) date('H', $currentTime)) > 20) {
+        echo '
+        <div class="container">
+            <div class="alert alert-info alert-dismissible fade show text-center" role="alert">
+                <strong>👏 Clap for our Carers</strong> at 8pm remember to clap for our NHS & Health Care workers on the frontline.
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        </div>';
+    }
 }
 ?>
 
