@@ -43,7 +43,6 @@
     </div>
   </div>
 </nav>
-</div>
 
 <script>
 var themes = {
