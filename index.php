@@ -135,6 +135,10 @@ $usaStatesJson = json_decode(file_get_contents($usaStates), true);
 // Count array size to populate columns
 $usaStateCount = count($usaStatesJson);
 
+// API for yesterday data
+$yesterday = "https://corona.lmao.ninja/v2/countries/$selectCountry?yesterday=true";
+$yesterdayJson = json_decode(file_get_contents($yesterday), true);
+
 ?>
 	
 <!-- Jumbotron Header -->
@@ -232,6 +236,11 @@ $usaStateCount = count($usaStatesJson);
                     <div id="scotland" class="tab-pane fade">
                         <br>
                         <input type="text" class="form-control form-control" id="scotlandInput" onkeyup="scotlandSearch()" placeholder="Search">
+                        <!-- Hopefully temp -->
+                        <br>
+                        <h3>Currently Unavailable</h3>
+                        <p>Scotland has changed how they report cases, this may take time to resolve.</p>
+                        <!-- END -->
                         <table id="scotlandTable" class="table">
                             <thead>
                                 <tr>
@@ -264,6 +273,11 @@ $usaStateCount = count($usaStatesJson);
                     <div id="wales" class="tab-pane fade">
                         <br>
                         <input type="text" class="form-control form-control" id="walesInput" onkeyup="walesSearch()" placeholder="Search">
+                        <!-- Hopefully temp -->
+                        <br>
+                        <h3>Currently Unavailable</h3>
+                        <p>Wales has changed how they report cases, this may take time to resolve.</p>
+                        <!-- END -->
                         <table id="walesTable" class="table">
                             <thead>
                                 <tr>
@@ -373,126 +387,173 @@ if($day == Thu){
 ?>
 
 <div class="container">
-    <div class="card-deck">
-        <div class="card text-white bg-primary text-center">
-            <div class="card-body">
-                <h5 class="card-title"><?php echo strtoupper($selectCountry); ?> Cases Today</h5>
-                <h1>+<?php echo number_format($todayCases); ?></h1>
-            </div>
-        </div>
-        <div class="card text-white bg-danger text-center">
-            <div class="card-body">
-                <h5 class="card-title"><?php echo strtoupper($selectCountry); ?> Deaths Today</h5>
-                <h1>+<?php echo number_format($todayDeaths); ?></h1>
-            </div>
-        </div>
-    </div>
+    <ul class="nav nav-pills mb-3 justify-content-center">
+        <li class="nav-item">
+            <a class="nav-link active" data-toggle="tab" href="#today">Today</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" data-toggle="tab" href="#yesterday">Yesterday</a>
+        </li>
+    </ul>
 </div>
 
-<div class="container mt-3">
-    <div class="card-deck">
-        <div class="card text-white bg-info text-center">
-            <div style="max-height: 140.1px" class="card-body">
-                <h5 class="card-title"><?php echo strtoupper($selectCountry); ?> Total Tested</h5>
-                <h3 class="font-weight-bold"><?php echo number_format($totalTests) ?></h3>
-                <h6><?php echo sprintf("%.1f", $positiveTestPercent); ?>% Test Positve</h6>
+<div class="tab-content">
+    <div id="today" class="tab-pane active">
+
+        <div class="container">
+            <div class="card-deck">
+                <div class="card text-white bg-primary text-center">
+                    <div class="card-body">
+                        <h5 class="card-title"><?php echo strtoupper($selectCountry); ?> Cases Today</h5>
+                        <h1>+<?php echo number_format($todayCases); ?></h1>
+                    </div>
+                </div>
+                <div class="card text-white bg-danger text-center">
+                    <div class="card-body">
+                        <h5 class="card-title"><?php echo strtoupper($selectCountry); ?> Deaths Today</h5>
+                        <h1>+<?php echo number_format($todayDeaths); ?></h1>
+                    </div>
+                </div>
             </div>
+        </div>
+
+        <div class="container mt-3">
+            <div class="card-deck">
+                <div class="card text-white bg-info text-center">
+                    <div style="max-height: 140.1px" class="card-body">
+                        <h5 class="card-title"><?php echo strtoupper($selectCountry); ?> Total Tested</h5>
+                        <h3 class="font-weight-bold"><?php echo number_format($totalTests) ?></h3>
+                        <h6><?php echo sprintf("%.1f", $positiveTestPercent); ?>% Test Positve</h6>
+                    </div>
+                </div>
+            </div>
+
         </div>
     </div>
 
-<h3 class="mt-5"><?php echo strtoupper($selectCountry); ?> Total Cases <!--<small class="text-muted"> First Case: <?php echo $firstCase ?></small>--></h3>
-<table class="table">
-	<thead>
-		<tr>
-			<th scope="col">Total</th>
-			<th scope="col">Active</th>
-			<th scope="col">Deaths</th>
-			<th scope="col">Critical</th>
-			<th scope="col">Recovered</th>
-		</tr>
-	</thead>
-	<tbody>
-		<tr>
-			<td class="bg-secondary">
-				<?php echo number_format($cases); ?>
-			</td>
-			<td class="bg-info">
-				<?php echo number_format($activeCases); ?>
-			</td>
-			<td class="bg-danger">
-				<?php echo number_format($deaths); ?>
-			</td>
-			<td class="bg-warning">
-				<?php echo number_format($critical); ?>
-			</td>
-			<td class="bg-success">
-				<?php echo number_format($recovered); ?>
-			</td>
-		</tr>
-	</tbody>
-</table>
+    <div id="yesterday" class="tab-pane fade">
 
-<table class="table">
-	<thead>
-		<tr>
-			<th scope="col">Tests per Million</th>
-			<th scope="col">Cases per Million</th>
-            <th scope="col">Deaths per Million</th>
-		</tr>
-	</thead>
-	<tbody>
-		<tr>
-			<td class="bg-secondary">
-				<?php echo number_format($testsPerOneMillion); ?>
-			</td>
-			<td class="bg-info">
-				<?php echo number_format($casesPerOneMillion); ?>
-			</td>
-			<td class="bg-danger">
-				<?php echo number_format($deathsPerOneMillion); ?>
-            </td>
-		</tr>
-	</tbody>
-</table>
+        <div class="container">
+            <div class="card-deck">
+                <div class="card text-white bg-primary text-center">
+                    <div class="card-body">
+                        <h5 class="card-title"><?php echo strtoupper($selectCountry); ?> Cases Today</h5>
+                        <h1>+<?php echo number_format($yesterdayJson["todayCases"]); ?></h1>
+                    </div>
+                </div>
+                <div class="card text-white bg-danger text-center">
+                    <div class="card-body">
+                        <h5 class="card-title"><?php echo strtoupper($selectCountry); ?> Deaths Today</h5>
+                        <h1>+<?php echo number_format($yesterdayJson["todayDeaths"]); ?></h1>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-<h4>Percentage <small class="text-muted">Based on all cases</small></h4>
-<div class="progress" style="height: 45px;">
-	<div class="progress-bar bg-danger" role="progressbar" style="width: 
-		<?php echo ($deaths/$cases)*100; ?>%" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100">
-	</div>
-	<div class="progress-bar bg-warning" role="progressbar" style="width: 
-		<?php echo $criticalPercent; ?>%" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100">
-	</div>
-	<div class="progress-bar bg-success" role="progressbar" style="width: 
-		<?php echo ($recovered/$cases)*100; ?>%" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
-	</div>
-    <div class="progress-bar bg-info" role="progressbar" style="width: 
-		<?php echo ($activeCases/$cases)*100; ?>%" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100">
-	</div>
-	<div class="progress-bar bg-secondary" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
-</div>
+        <div class="container mt-3">
+            <div class="card-deck">
+                <div class="card text-white bg-info text-center">
+                    <div style="max-height: 140.1px" class="card-body">
+                        <h5 class="card-title"><?php echo strtoupper($selectCountry); ?> Total Tested</h5>
+                        <h3 class="font-weight-bold"><?php echo number_format($yesterdayJson["tests"]); ?></h3>
+                        <h6><?php echo sprintf("%.1f", $yesterdayJson["cases"]/$yesterdayJson["tests"]*100); ?>% Test Positve</h6>
+                    </div>
+                </div>
+            </div>
 
-<p class="text-muted">
-    Deaths <span class="badge badge-danger"><?php echo sprintf("%.1f", $deathsPercent); ?>%</span> 
-    Critical <span class="badge badge-warning"><?php echo sprintf("%.1f", $criticalPercent); ?>%</span>  
-    Recovered <span class="badge badge-success"><?php echo sprintf("%.1f", $recoveredPercent); ?>%</span>
-    Active <span class="badge badge-info"><?php echo sprintf("%.1f", $activeCasesPercent); ?>%</span> 
-</p>
+        </div>
+    </div>
 
-<?php
-if ($selectCountry == "uk")
-    echo '<h4>Counties <small class="text-muted">Click below for County breakdown</small></h4>
-    <div class="btn-group d-flex" role="group">
-        <button type="button" class="btn-lg btn-primary w-100" data-toggle="modal" data-target="#countiesModal">Cases by County</button>
-    </div>';
+    <div class="container">
+        <h3 class="mt-5"><?php echo strtoupper($selectCountry); ?> Total Cases <!--<small class="text-muted"> First Case: <?php echo $firstCase ?></small>--></h3>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Total</th>
+                    <th scope="col">Active</th>
+                    <th scope="col">Deaths</th>
+                    <th scope="col">Critical</th>
+                    <th scope="col">Recovered</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="bg-secondary">
+                        <?php echo number_format($cases); ?>
+                    </td>
+                    <td class="bg-info">
+                        <?php echo number_format($activeCases); ?>
+                    </td>
+                    <td class="bg-danger">
+                        <?php echo number_format($deaths); ?>
+                    </td>
+                    <td class="bg-warning">
+                        <?php echo number_format($critical); ?>
+                    </td>
+                    <td class="bg-success">
+                        <?php echo number_format($recovered); ?>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
 
-if ($selectCountry == "usa")
-    echo '<h4>States <small class="text-muted">Click below for County breakdown</small></h4>
-    <div class="btn-group d-flex" role="group">
-        <button type="button" class="btn-lg btn-primary w-100" data-toggle="modal" data-target="#usCountiesModal">Cases by State</button>
-    </div>';
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Tests per Million</th>
+                    <th scope="col">Cases per Million</th>
+                    <th scope="col">Deaths per Million</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="bg-secondary">
+                        <?php echo number_format($testsPerOneMillion); ?>
+                    </td>
+                    <td class="bg-info">
+                        <?php echo number_format($casesPerOneMillion); ?>
+                    </td>
+                    <td class="bg-danger">
+                        <?php echo number_format($deathsPerOneMillion); ?>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
 
-?>
+        <h4>Percentage <small class="text-muted">Based on all cases</small></h4>
+        <div class="progress" style="height: 45px;">
+            <div class="progress-bar bg-danger" role="progressbar" style="width: 
+                    <?php echo ($deaths/$cases)*100; ?>%" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100">
+            </div>
+            <div class="progress-bar bg-warning" role="progressbar" style="width: 
+                    <?php echo $criticalPercent; ?>%" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100">
+            </div>
+            <div class="progress-bar bg-success" role="progressbar" style="width: 
+                    <?php echo ($recovered/$cases)*100; ?>%" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
+            </div>
+            <div class="progress-bar bg-info" role="progressbar" style="width: 
+                    <?php echo ($activeCases/$cases)*100; ?>%" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100">
+            </div>
+            <div class="progress-bar bg-secondary" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
+        </div>
+
+        <p class="text-muted">
+            Deaths <span class="badge badge-danger"><?php echo sprintf("%.1f", $deathsPercent); ?>%</span> Critical <span class="badge badge-warning"><?php echo sprintf("%.1f", $criticalPercent); ?>%</span> Recovered <span class="badge badge-success"><?php echo sprintf("%.1f", $recoveredPercent); ?>%</span> Active <span class="badge badge-info"><?php echo sprintf("%.1f", $activeCasesPercent); ?>%</span>
+        </p>
+
+        <?php
+            if ($selectCountry == "uk")
+                echo '<h4>Counties <small class="text-muted">Click below for County breakdown</small></h4>
+                <div class="btn-group d-flex" role="group">
+                    <button type="button" class="btn-lg btn-primary w-100" data-toggle="modal" data-target="#countiesModal">Cases by County</button>
+                </div>';
+
+            if ($selectCountry == "usa")
+                echo '<h4>States <small class="text-muted">Click below for County breakdown</small></h4>
+                <div class="btn-group d-flex" role="group">
+                    <button type="button" class="btn-lg btn-primary w-100" data-toggle="modal" data-target="#usCountiesModal">Cases by State</button>
+                </div>';
+        ?>
 
 </div>
 
