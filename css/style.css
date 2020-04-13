@@ -1,6 +1,12 @@
-p {
-  font-size: 18px;
+.table-curved > :first-child > :first-child > :first-child {
+   border-top-left-radius: 4px;
 }
-li {
-  font-size: 18px;
+.table-curved > :first-child > :first-child > :last-child {
+   border-top-right-radius: 4px;
+}
+.table-curved > :last-child > :last-child > :first-child {
+   border-bottom-left-radius: 4px;
+}
+.table-curved > :last-child > :last-child > :last-child {
+   border-bottom-right-radius: 4px;
 }
