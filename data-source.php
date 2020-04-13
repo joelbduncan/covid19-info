@@ -56,6 +56,8 @@
 
 <p>Worldometer was voted as one of the best free reference websites by the American Library Association (ALA), the oldest and largest library association in the world.</p>
 
+<h3>Extra UK Data</h3>
+<p>Extra data for the UK e.g. county-specific comes from Public Health England.</p>
 
 </div>
 
