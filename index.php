@@ -6,6 +6,7 @@
 <head>
   <meta charset="utf-8">
   <link rel="stylesheet" type="text/css" href="//bootswatch.com/4/darkly/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="css/style.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.9/dist/css/bootstrap-select.min.css">
   <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
@@ -466,7 +467,7 @@ if($day == Thu){
 
     <div class="container">
         <h3 class="mt-5"><?php echo strtoupper($selectCountry); ?> Total Cases <!--<small class="text-muted"> First Case: <?php echo $firstCase ?></small>--></h3>
-        <table class="table">
+        <table class="table table-curved">
             <thead>
                 <tr>
                     <th scope="col">Total</th>
@@ -491,13 +492,19 @@ if($day == Thu){
                         <?php echo number_format($critical); ?>
                     </td>
                     <td class="bg-success">
-                        <?php echo number_format($recovered); ?>
+                        <?php
+                            if ($recovered == "") {
+                                echo "N/A";
+                            } else {
+                                echo number_format($recovered); 
+                            } 
+                        ?>
                     </td>
                 </tr>
             </tbody>
         </table>
 
-        <table class="table">
+        <table class="table table-curved">
             <thead>
                 <tr>
                     <th scope="col">Tests per Million</th>
