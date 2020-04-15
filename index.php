@@ -110,12 +110,24 @@ $totalTests = $json["totalTests"];
 $worldDeathsPercent = ($worldDeaths/$worldCases)*100; 
 $worldRecoveredPercent = ($worldRecovered/$worldCases)*100;
 
+// Calculate Recovered Data for UK only
+if ($selectCountry == "uk") {
+    if ($recovered == "") {
+        $recoveredCalc = $cases - ($activeCases + $deaths);
+    }
+} else {
+    $recoveredCalc = $recovered;
+}
+
 // Local Calculated Percentages;
 $activeCasesPercent = ($activeCases/$cases)*100;
 $deathsPercent = ($deaths/$cases)*100;
 $criticalPercent = ($critical/$cases)*100; 
-$recoveredPercent = ($recovered/$cases)*100;
+$recoveredPercent = ($recoveredCalc/$cases)*100;
 $positiveTestPercent = ($cases/$totalTests)*100;
+
+// Calculated Values
+$calRecovery = $cases - ($activeCases + $deaths);
 
 // Replace underscores with spaces in Country name
 $selectCountry = str_replace("_", " ", $selectCountry);
@@ -225,7 +237,7 @@ $yesterdayJson = json_decode(file_get_contents($yesterday), true);
                                         ' . $guardianCountyJson["ladata"]["features"][$var]["attributes"]["GSS_NM"] .'
                                     </td>
                                     <td class="bg-info">
-                                        <b>' . $guardianCountyJson["ladata"]["features"][$var]["attributes"]["TotalCases"] .'</b>
+                                        <b>' . number_format($guardianCountyJson["ladata"]["features"][$var]["attributes"]["TotalCases"]) .'</b>
                                     </td>
                                 </tr>';
                                 }
@@ -262,7 +274,7 @@ $yesterdayJson = json_decode(file_get_contents($yesterday), true);
                                         ' . $guardianCountyJson["scotdata"][$var]["board"] .'
                                     </td>
                                     <td class="bg-info">
-                                        <b>' . $guardianCountyJson["scotdata"][$var]["cases"] .'</b>
+                                        <b>' . number_format($guardianCountyJson["scotdata"][$var]["cases"]) .'</b>
                                     </td>
                                 </tr>';
                                 }
@@ -299,7 +311,7 @@ $yesterdayJson = json_decode(file_get_contents($yesterday), true);
                                         ' . $guardianCountyJson["walesdata"][$var]["board"] .'
                                     </td>
                                     <td class="bg-info">
-                                        <b>' . $guardianCountyJson["walesdata"][$var]["cases"] .'</b>
+                                        <b>' . number_format($guardianCountyJson["walesdata"][$var]["cases"]) .'</b>
                                     </td>
                                 </tr>';
                                 }
@@ -351,10 +363,10 @@ $yesterdayJson = json_decode(file_get_contents($yesterday), true);
                                 ' . $usaStatesJson[$var]["state"] .'
                             </td>
                             <td class="bg-info">
-                                <b>' . $usaStatesJson[$var]["cases"] .'</b>
+                                <b>' . number_format($usaStatesJson[$var]["cases"]) .'</b>
                             </td>
                             <td class="bg-danger">
-                                <b>' . $usaStatesJson[$var]["deaths"] .'</b>
+                                <b>' . number_format($usaStatesJson[$var]["deaths"]) .'</b>
                             </td>
                         </tr>';
                         }
@@ -493,11 +505,13 @@ if($day == Thu){
                     </td>
                     <td class="bg-success">
                         <?php
-                            if ($recovered == "") {
-                                echo "N/A";
+                            if ($selectCountry == "uk") {
+                                if ($recovered == "") {
+                                    echo '<u><span rel="tooltip" title="Calculated value, Public Health England no longer provide this data."> ' . number_format($recoveredCalc) . ' </span></u>';
+                                }
                             } else {
-                                echo number_format($recovered); 
-                            } 
+                                echo number_format($recoveredCalc);
+                            }
                         ?>
                     </td>
                 </tr>
@@ -536,7 +550,7 @@ if($day == Thu){
                     <?php echo $criticalPercent; ?>%" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100">
             </div>
             <div class="progress-bar bg-success" role="progressbar" style="width: 
-                    <?php echo ($recovered/$cases)*100; ?>%" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
+                    <?php echo ($recoveredCalc/$cases)*100; ?>%" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
             </div>
             <div class="progress-bar bg-info" role="progressbar" style="width: 
                     <?php echo ($activeCases/$cases)*100; ?>%" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100">
@@ -552,13 +566,13 @@ if($day == Thu){
             if ($selectCountry == "uk")
                 echo '<h4>Counties <small class="text-muted">Click below for County breakdown</small></h4>
                 <div class="btn-group d-flex" role="group">
-                    <button type="button" class="btn-lg btn-primary w-100" data-toggle="modal" data-target="#countiesModal">Cases by County</button>
+                    <button type="button" class="btn btn-primary w-100" data-toggle="modal" data-target="#countiesModal">Cases by County</button>
                 </div>';
 
             if ($selectCountry == "usa")
                 echo '<h4>States <small class="text-muted">Click below for County breakdown</small></h4>
                 <div class="btn-group d-flex" role="group">
-                    <button type="button" class="btn-lg btn-primary w-100" data-toggle="modal" data-target="#usCountiesModal">Cases by State</button>
+                    <button type="button" class="btn btn-primary w-100" data-toggle="modal" data-target="#usCountiesModal">Cases by State</button>
                 </div>';
         ?>
 
@@ -707,6 +721,11 @@ function usaSearch() {
 }
 </script>
 
+<script>
+$(document).ready(function() {
+    $("[rel='tooltip'], .tooltip").tooltip();
+});
+</script>
 <?php include( 'footer.php'); ?>
 
 </body>
