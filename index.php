@@ -167,6 +167,7 @@ $yesterdayJson = json_decode(file_get_contents($yesterday), true);
     $('.select2').select2();
 </script>
 
+<!-- Report Issue Modal -->
 <div class="modal fade" tabindex="-1" id="importantModal" role="dialog">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
@@ -190,6 +191,7 @@ $yesterdayJson = json_decode(file_get_contents($yesterday), true);
     </div>
 </div>
 
+<!-- UK Counties Modal -->
 <div class="modal fade" tabindex="-1" id="countiesModal" role="dialog">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
@@ -213,6 +215,7 @@ $yesterdayJson = json_decode(file_get_contents($yesterday), true);
                     </li>
                 </ul>
 
+                <!-- England Section -->
                 <div class="tab-content">
                     <div id="england" class="tab-pane active">
                         <br>
@@ -246,6 +249,8 @@ $yesterdayJson = json_decode(file_get_contents($yesterday), true);
                             <div id="results"></div>
                         </table>
                     </div>
+
+                    <!-- Scotland Section -->
                     <div id="scotland" class="tab-pane fade">
                         <br>
                         <input type="text" class="form-control form-control" id="scotlandInput" onkeyup="scotlandSearch()" placeholder="Search">
@@ -283,6 +288,8 @@ $yesterdayJson = json_decode(file_get_contents($yesterday), true);
                             <div id="results"></div>
                         </table>
                     </div>
+
+                    <!-- Wales Section -->
                     <div id="wales" class="tab-pane fade">
                         <br>
                         <input type="text" class="form-control form-control" id="walesInput" onkeyup="walesSearch()" placeholder="Search">
@@ -331,6 +338,7 @@ $yesterdayJson = json_decode(file_get_contents($yesterday), true);
     </div>
 </div>
 
+<!-- US States Modal -->
 <div class="modal fade" tabindex="-1" id="usCountiesModal" role="dialog">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
@@ -383,6 +391,7 @@ $yesterdayJson = json_decode(file_get_contents($yesterday), true);
 </div>
 
 <?php
+// Clap for NHS Alert
 // Set up time/date vars
 $day = date('D');
 $hour = date('H');
@@ -403,6 +412,7 @@ if($day == Thu){
 }
 ?>
 
+<!-- Today/Yesterday Selection -->
 <div class="container">
     <ul class="nav nav-pills mb-3 justify-content-center">
         <li class="nav-item">
@@ -414,9 +424,11 @@ if($day == Thu){
     </ul>
 </div>
 
+<!-- Selected Country Todal Stats -->
 <div class="tab-content">
     <div id="today" class="tab-pane active">
 
+        <!-- Cases/Deaths Today -->
         <div class="container">
             <div class="card-deck">
                 <div class="card text-white bg-primary text-center">
@@ -434,6 +446,7 @@ if($day == Thu){
             </div>
         </div>
 
+        <!-- Tested Today -->
         <div class="container mt-3">
             <div class="card-deck">
                 <div class="card text-white bg-info text-center">
@@ -450,6 +463,7 @@ if($day == Thu){
 
     <div id="yesterday" class="tab-pane fade">
 
+        <!-- Cases/Deaths Yesterday -->
         <div class="container">
             <div class="card-deck">
                 <div class="card text-white bg-primary text-center">
@@ -467,6 +481,7 @@ if($day == Thu){
             </div>
         </div>
 
+        <!-- Tested Yesterday -->
         <div class="container mt-3">
             <div class="card-deck">
                 <div class="card text-white bg-info text-center">
@@ -481,6 +496,7 @@ if($day == Thu){
         </div>
     </div>
 
+    <!-- Selected Country Totals -->
     <div class="container">
         <h3 class="mt-5"><?php echo strtoupper($selectCountry); ?> Total Cases <!--<small class="text-muted"> First Case: <?php echo $firstCase ?></small>--></h3>
         <table class="table table-curved">
@@ -545,6 +561,7 @@ if($day == Thu){
             </tbody>
         </table>
 
+        <!-- Calcuated percentages from selected country totals -->
         <h4>Percentage <small class="text-muted">Based on all cases</small></h4>
         <div class="progress" style="height: 45px;">
             <div class="progress-bar bg-danger" role="progressbar" style="width: 
@@ -567,12 +584,14 @@ if($day == Thu){
         </p>
 
         <?php
+            // If UK Selected show Countys modal button
             if ($selectCountry == "uk")
                 echo '<h4>Counties <small class="text-muted">Click below for County breakdown</small></h4>
                 <div class="btn-group d-flex" role="group">
                     <button type="button" class="btn btn-primary w-100" data-toggle="modal" data-target="#countiesModal">Cases by County</button>
                 </div>';
 
+            // If USA Selected show States modal button
             if ($selectCountry == "usa")
                 echo '<h4>States <small class="text-muted">Click below for County breakdown</small></h4>
                 <div class="btn-group d-flex" role="group">
@@ -584,6 +603,7 @@ if($day == Thu){
 
 <br>
 
+<!-- World Total -->
 <h3 class="text-center">Coronavirus Worldwide</h3>
 <div class="container">
     <div class="card-deck">
@@ -613,6 +633,7 @@ if($day == Thu){
     </div>
 </div>
 
+<!-- Calcuated percentages from World Total -->
 <div class="container">
     <h4 class="mt-3">Percentage <small class="text-muted">Based on all cases</small></h4>
     <div class="progress" style="height: 45px;">
@@ -635,6 +656,7 @@ if($day == Thu){
 
 </div>
 
+<!-- Table search scripts -->
 <script>
 function englandSearch() {
   // Declare variables
@@ -725,11 +747,13 @@ function usaSearch() {
 }
 </script>
 
+<!-- Enable tooltip -->
 <script>
 $(document).ready(function() {
     $("[rel='tooltip'], .tooltip").tooltip();
 });
 </script>
+
 <?php include( 'footer.php'); ?>
 
 </body>
