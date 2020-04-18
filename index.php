@@ -62,27 +62,30 @@ $apiMain = "https://api.covid-19.uk.com/countries/uk";
 $apiMainJson = json_decode(file_get_contents($apiMain), true);
 
 // Check UK Today cases on alternative API
-$apiBackup = "https://corona.lmao.ninja/countries/uk";
+$apiBackup = "https://corona.lmao.ninja/v2/countries/uk";
 $apiBackupJson = json_decode(file_get_contents($apiBackup), true);
 
 // Use self hosted API unless alternative has more cases
 if ($apiMainJson["todayCases"] > $apiBackupJson["todayCases"]){
     $apiURL = "https://api.covid-19.uk.com";
+    $yesterdayApiURL = "https://api.covid-19.uk.com/yesterday/$selectCountry";
     $currentAPI = "Main";
   }
   // Use self hosted API when numbers are equal
   elseif ($apiMainJson["todayCases"] == $apiBackupJson["todayCases"]){
       $apiURL = "https://api.covid-19.uk.com";
+      $yesterdayApiURL = "https://api.covid-19.uk.com/yesterday/$selectCountry";
       $currentAPI = "Main";
     }
   else {
       // Use backend in other scenarios
-      $apiURL = "https://corona.lmao.ninja";
+      $apiURL = "https://corona.lmao.ninja/v2";
+      $yesterdayApiURL = "https://corona.lmao.ninja/v2/countries/$selectCountry?yesterday=true";
       $currentAPI = "Backup";
   }
 
 // Self hosted API for World COVID-19 data
-$urlWorld = "https://api.covid-19.uk.com/all";
+$urlWorld = "$apiURL/all";
 $jsonWorld = json_decode(file_get_contents($urlWorld), true);
 
 $worldCases = $jsonWorld["cases"];
@@ -104,7 +107,7 @@ $critical = $json["critical"];
 $casesPerOneMillion = $json["casesPerOneMillion"];
 $deathsPerOneMillion = $json["deathsPerOneMillion"];
 $testsPerOneMillion = $json["testsPerOneMillion"];
-$totalTests = $json["totalTests"];
+$totalTests = $json["tests"];
 
 // World Calculated Percentages
 $worldDeathsPercent = ($worldDeaths/$worldCases)*100; 
@@ -149,7 +152,7 @@ $usaStatesJson = json_decode(file_get_contents($usaStates), true);
 $usaStateCount = count($usaStatesJson);
 
 // API for yesterday data
-$yesterday = "https://corona.lmao.ninja/v2/countries/$selectCountry?yesterday=true";
+$yesterday = $yesterdayApiURL;
 $yesterdayJson = json_decode(file_get_contents($yesterday), true);
 
 ?>
