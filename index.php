@@ -145,7 +145,7 @@ $scotCountyCount = count($guardianCountyJson["scotdata"]);
 $walesCountyCount = count($guardianCountyJson["walesdata"]);
 
 // API for US state data
-$usaStates = "https://corona.lmao.ninja/states";
+$usaStates = "https://corona.lmao.ninja/v2/states";
 $usaStatesJson = json_decode(file_get_contents($usaStates), true);
 
 // Count array size to populate columns
