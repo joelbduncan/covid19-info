@@ -135,14 +135,12 @@ $calRecovery = $cases - ($activeCases + $deaths);
 // Replace underscores with spaces in Country name
 $selectCountry = str_replace("_", " ", $selectCountry);
 
-// Guardian source for UK county data
-$guardianCounty = "https://interactive.guim.co.uk/2020/coronavirus-uk-local-data/ladata.json";
-$guardianCountyJson = json_decode(file_get_contents($guardianCounty), true);
+// Public Heath England source for UK county data
+$publicHeathEnglandCounty = "https://c19downloads.azureedge.net/downloads/json/coronavirus-cases_latest.json";
+$publicHeathEnglandCountyJson = json_decode(file_get_contents($publicHeathEnglandCounty), true);
 
 // Count array size to populate columns
-$ukCountyCount = count($guardianCountyJson["ladata"]["features"]);
-$scotCountyCount = count($guardianCountyJson["scotdata"]);
-$walesCountyCount = count($guardianCountyJson["walesdata"]);
+$ukCountyCount = "150";
 
 // API for US state data
 $usaStates = "https://corona.lmao.ninja/v2/states";
@@ -240,10 +238,10 @@ $yesterdayJson = json_decode(file_get_contents($yesterday), true);
 
                                 echo '<tr>
                                     <td style="color: white" class="bg-primary">
-                                        ' . $guardianCountyJson["ladata"]["features"][$var]["attributes"]["GSS_NM"] .'
+                                        ' . $publicHeathEnglandCountyJson["utlas"][$var]["areaName"] .'
                                     </td>
                                     <td class="bg-info">
-                                        <b>' . number_format($guardianCountyJson["ladata"]["features"][$var]["attributes"]["TotalCases"]) .'</b>
+                                        <b>' . number_format($publicHeathEnglandCountyJson["utlas"][$var]["totalLabConfirmedCases"]) .'</b>
                                     </td>
                                 </tr>';
                                 }
@@ -279,10 +277,10 @@ $yesterdayJson = json_decode(file_get_contents($yesterday), true);
 
                                 echo '<tr>
                                     <td style="color: white" class="bg-primary">
-                                        ' . $guardianCountyJson["scotdata"][$var]["board"] .'
+                                        ' . $publicHeathEnglandCountyJson["scotdata"][$var]["board"] .'
                                     </td>
                                     <td class="bg-info">
-                                        <b>' . number_format($guardianCountyJson["scotdata"][$var]["cases"]) .'</b>
+                                        <b>' . number_format($publicHeathEnglandCountyJson["scotdata"][$var]["cases"]) .'</b>
                                     </td>
                                 </tr>';
                                 }
@@ -318,10 +316,10 @@ $yesterdayJson = json_decode(file_get_contents($yesterday), true);
 
                                 echo '<tr>
                                     <td style="color: white" class="bg-primary">
-                                        ' . $guardianCountyJson["walesdata"][$var]["board"] .'
+                                        ' . $publicHeathEnglandCountyJson["walesdata"][$var]["board"] .'
                                     </td>
                                     <td class="bg-info">
-                                        <b>' . number_format($guardianCountyJson["walesdata"][$var]["cases"]) .'</b>
+                                        <b>' . number_format($publicHeathEnglandCountyJson["walesdata"][$var]["cases"]) .'</b>
                                     </td>
                                 </tr>';
                                 }
