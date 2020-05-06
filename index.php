@@ -141,6 +141,7 @@ $publicHeathEnglandCountyJson = json_decode(file_get_contents($publicHeathEnglan
 
 // Count array size to populate columns
 $ukCountyCount = "150";
+$regionsCountyCount = "9";
 
 // API for US state data
 $usaStates = "https://corona.lmao.ninja/v2/states";
@@ -206,13 +207,10 @@ $yesterdayJson = json_decode(file_get_contents($yesterday), true);
 
                 <ul class="nav nav-pills nav-fill">
                     <li class="nav-item">
-                        <a class="nav-link active" data-toggle="tab" href="#england">England</a>
+                        <a class="nav-link active" data-toggle="tab" href="#england">Counties</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" data-toggle="tab" href="#scotland">Scotland</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" data-toggle="tab" href="#wales">Wales</a>
+                        <a class="nav-link" data-toggle="tab" href="#regions">Regions</a>
                     </li>
                 </ul>
 
@@ -251,16 +249,11 @@ $yesterdayJson = json_decode(file_get_contents($yesterday), true);
                         </table>
                     </div>
 
-                    <!-- Scotland Section -->
-                    <div id="scotland" class="tab-pane fade">
+                    <!-- Regions Section -->
+                    <div id="regions" class="tab-pane fade">
                         <br>
-                        <input type="text" class="form-control form-control" id="scotlandInput" onkeyup="scotlandSearch()" placeholder="Search">
-                        <!-- Hopefully temp -->
-                        <br>
-                        <h3>Currently Unavailable</h3>
-                        <p>Scotland has changed how they report cases, this may take time to resolve.</p>
-                        <!-- END -->
-                        <table id="scotlandTable" class="table">
+                        <input type="text" class="form-control form-control" id="regionsInput" onkeyup="regionsSearch()" placeholder="Search">
+                        <table id="regionsTable" class="table">
                             <thead>
                                 <tr>
                                     <th scope="col">County</th>
@@ -271,16 +264,16 @@ $yesterdayJson = json_decode(file_get_contents($yesterday), true);
                                 <?php
                                 $var = -1;
 
-                                foreach(range(--$scotCountyCount,$columns) as $index) {
+                                foreach(range(--$regionsCountyCount,$columns) as $index) {
 
                                 ++$var;
 
                                 echo '<tr>
                                     <td style="color: white" class="bg-primary">
-                                        ' . $publicHeathEnglandCountyJson["scotdata"][$var]["board"] .'
+                                        ' . $publicHeathEnglandCountyJson["regions"][$var]["areaName"] .'
                                     </td>
                                     <td class="bg-info">
-                                        <b>' . number_format($publicHeathEnglandCountyJson["scotdata"][$var]["cases"]) .'</b>
+                                        <b>' . number_format($publicHeathEnglandCountyJson["regions"][$var]["totalLabConfirmedCases"]) .'</b>
                                     </td>
                                 </tr>';
                                 }
@@ -290,47 +283,7 @@ $yesterdayJson = json_decode(file_get_contents($yesterday), true);
                         </table>
                     </div>
 
-                    <!-- Wales Section -->
-                    <div id="wales" class="tab-pane fade">
-                        <br>
-                        <input type="text" class="form-control form-control" id="walesInput" onkeyup="walesSearch()" placeholder="Search">
-                        <!-- Hopefully temp -->
-                        <br>
-                        <h3>Currently Unavailable</h3>
-                        <p>Wales has changed how they report cases, this may take time to resolve.</p>
-                        <!-- END -->
-                        <table id="walesTable" class="table">
-                            <thead>
-                                <tr>
-                                    <th scope="col">County</th>
-                                    <th scope="col">Cases</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <?php
-                                $var = -1;
-
-                                foreach(range(--$walesCountyCount,$columns) as $index) {
-
-                                ++$var;
-
-                                echo '<tr>
-                                    <td style="color: white" class="bg-primary">
-                                        ' . $publicHeathEnglandCountyJson["walesdata"][$var]["board"] .'
-                                    </td>
-                                    <td class="bg-info">
-                                        <b>' . number_format($publicHeathEnglandCountyJson["walesdata"][$var]["cases"]) .'</b>
-                                    </td>
-                                </tr>';
-                                }
-                                ?>
-                            </tbody>
-                            <div id="results"></div>
-                        </table>
-
-                    </div>
                 </div>
-
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -589,7 +542,7 @@ if($day == Thu){
             if ($selectCountry == "uk")
                 echo '<h4>Counties <small class="text-muted">Click below for County breakdown</small></h4>
                 <div class="btn-group d-flex" role="group">
-                    <button type="button" class="btn btn-primary w-100" data-toggle="modal" data-target="#countiesModal">Cases by County</button>
+                    <button type="button" class="btn btn-primary w-100" data-toggle="modal" data-target="#countiesModal">Cases by County or Region</button>
                 </div>';
 
             // If USA Selected show States modal button
@@ -681,34 +634,12 @@ function englandSearch() {
   }
 }
 
-function scotlandSearch() {
+function regionsSearch() {
   // Declare variables
   var input, filter, table, tr, td, i, txtValue;
-  input = document.getElementById("scotlandInput");
+  input = document.getElementById("regionsInput");
   filter = input.value.toUpperCase();
-  table = document.getElementById("scotlandTable");
-  tr = table.getElementsByTagName("tr");
-
-  // Loop through all table rows, and hide those who don't match the search query
-  for (i = 0; i < tr.length; i++) {
-    td = tr[i].getElementsByTagName("td")[0];
-    if (td) {
-      txtValue = td.textContent || td.innerText;
-      if (txtValue.toUpperCase().indexOf(filter) > -1) {
-        tr[i].style.display = "";
-      } else {
-        tr[i].style.display = "none";
-      }
-    }
-  }
-}
-
-function walesSearch() {
-  // Declare variables
-  var input, filter, table, tr, td, i, txtValue;
-  input = document.getElementById("walesInput");
-  filter = input.value.toUpperCase();
-  table = document.getElementById("walesTable");
+  table = document.getElementById("regionsTable");
   tr = table.getElementsByTagName("tr");
 
   // Loop through all table rows, and hide those who don't match the search query
