@@ -17,7 +17,7 @@
     
 <body>
 
-<?php include( 'navbar.php'); ?>
+<?php include( 'parts/navbar.php'); ?>
 
 <style>
 .jumbotron {
@@ -697,7 +697,7 @@ $(document).ready(function() {
 });
 </script>
 
-<?php include( 'footer.php'); ?>
+<?php include( 'parts/footer.php'); ?>
 
 </body>
 </html>

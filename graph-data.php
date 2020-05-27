@@ -23,7 +23,7 @@
     
 <body>
 
-<?php include( 'navbar.php'); ?>
+<?php include( 'parts/navbar.php'); ?>
 
 <style>
   #chartdiv {
@@ -35,7 +35,7 @@
 <div id="chartdiv"></div>
 
 
-<?php include( 'footer.php'); ?>
+<?php include( 'parts/footer.php'); ?>
 
 </body>
 </html>
