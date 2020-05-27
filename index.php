@@ -12,6 +12,7 @@
   <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.9/dist/js/bootstrap-select.min.js"></script>
+  <?php include( 'parts/head.php'); ?>
 </head>
     
 <body>
@@ -116,7 +117,8 @@ $worldRecoveredPercent = ($worldRecovered/$worldCases)*100;
 // Calculate Recovered Data for UK only
 if ($selectCountry == "uk") {
     if ($recovered == "") {
-        $recoveredCalc = $cases - ($activeCases + $deaths);
+        //$recoveredCalc = $cases - ($activeCases + $deaths);
+        $recoveredCalc = $recovered;
     }
 } else {
     $recoveredCalc = $recovered;
@@ -198,7 +200,7 @@ $yesterdayJson = json_decode(file_get_contents($yesterday), true);
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Counties</h5>
+                <h5 class="modal-title">Counties & Regions</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -469,7 +471,15 @@ if($day == Thu){
                         <?php echo number_format($cases); ?>
                     </td>
                     <td class="bg-info">
-                        <?php echo number_format($activeCases); ?>
+                        <?php
+                            if ($selectCountry == "uk") {
+                                if ($recovered == "") {
+                                    echo '<u><span rel="tooltip" title="Public Health England no longer provide this data.">N/A</span></u>';
+                                }
+                            } else {
+                                echo number_format($activeCases);
+                            }
+                        ?>
                     </td>
                     <td class="bg-danger">
                         <?php echo number_format($deaths); ?>
@@ -481,7 +491,8 @@ if($day == Thu){
                         <?php
                             if ($selectCountry == "uk") {
                                 if ($recovered == "") {
-                                    echo '<u><span rel="tooltip" title="Calculated value, Public Health England no longer provide this data.">' . number_format($recoveredCalc) . ' </span></u>';
+                                    //echo '<u><span rel="tooltip" title="Calculated value, Public Health England no longer provide this data.">' . number_format($recoveredCalc) . ' </span></u>';
+                                    echo '<u><span rel="tooltip" title="Public Health England no longer provide this data.">N/A</span></u>';
                                 }
                             } else {
                                 echo number_format($recoveredCalc);
