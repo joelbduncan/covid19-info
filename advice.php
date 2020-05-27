@@ -23,7 +23,11 @@
   background-repeat: no-repeat;
   background-size: cover;
   }
-.jumbotron h1, h5 {
+.jumbotron h1 {
+  color: white;
+  text-shadow: 2px 4px 3px rgba(0, 0, 0, 0.3);
+}
+.jumbotron h5 {
   color: white;
   text-shadow: 2px 4px 3px rgba(0, 0, 0, 0.3);
 }
@@ -32,6 +36,16 @@
     -webkit-text-stroke-color: #2a2a2a;
 }
 </style>
+
+<?php
+// Self hosted API for World COVID-19 data
+$nhsAdvise = "https://api.nhs.uk/conditions/coronavirus-covid-19?url=https://covid-19.uk.com/&modules=false";
+$jsonNhsAdvise = json_decode(file_get_contents($nhsAdvise), true);
+
+$description = $jsonNhsAdvise["description"];
+$jsonNhsAdvise = str_replace("_", " ", $jsonNhsAdvise);
+
+?>
 
 <!-- Jumbotron Header -->
 <div class="jumbotron jumbotron-fluid">
@@ -43,67 +57,9 @@
 
 <div class="container">
 
-<h3>Stay at home to stop coronavirus spreading</h3>
+<h3>Overview</h3>
 
-<p>Everyone must stay at home to help stop the spread of coronavirus.</p>
-<p>This includes people of all ages – even if you do not have any symptoms or other health conditions.</p>
-<p>You can only leave your home:</p>
-
-<ul>
-	<li><b>to shop for basic essentials</b> – only when you really need to</li>
-	<li><b>to do one form of exercise a day</b> – such as a run, walk or cycle, alone or with other people you live with</li>
-  <li><b>for any medical need</b> – for example, to visit a pharmacy or deliver essential supplies to a vulnerable person</li>
-  <li><b>to travel to and from work</b> – but only where this is absolutely necessary</li>
-</ul>
-
-<h3>What to do if you have coronavirus symptoms</h3>
-
-<p>Continue to stay at home if you have either:</p>
-
-<ul>
-	<li><b>a high temperature</b> – this means you feel hot to touch on your chest or back (you do not need to measure your temperature)</li>
-	<li><b>a new, continuous cough</b> – this means coughing a lot for more than an hour, or 3 or more coughing episodes in 24 hours (if you usually have a cough, it may be worse than usual)</li>
-</ul>
-
-<p>To protect others, do not go to places like a GP surgery, pharmacy or hospital. Stay at home.</p>
-
-<div class="alert alert-danger" role="alert">
-  <h4 class="alert-heading"><b>Urgent advice: Use the NHS 111 online coronavirus service if: </b></h4>
-  <ul>
-    <li>you feel you cannot cope with your symptoms at home</li>
-    <li>your condition gets worse</li>
-    <li>your symptoms do not get better after 7 days</li>
-  </ul> 
-  <h5><a href="https://www.gov.uk/guidance/travel-advice-novel-coronavirus">Use the 111 coronavirus service</a></h5>
-  <p><b>Only call 111 if you cannot get help online.</b></p>
-</div>
-
-<h3>Advice for people at high risk</h3>
-<p>If you're at high risk of getting seriously ill from coronavirus, there are extra things you should do to avoid catching it.</p>
-<p>These include:</p>
-
-<ul>
-  <li>not leaving your home – you should not go out to do shopping, visit friends or family, or attend any gatherings</li>
-  <li>avoiding close contact with other people in your home as much as possible</li>
-</ul>
-
-<p>Read the full <a href="https://www.gov.uk/government/publications/guidance-on-shielding-and-protecting-extremely-vulnerable-persons-from-covid-19/guidance-on-shielding-and-protecting-extremely-vulnerable-persons-from-covid-19">advice on protecting yourself if you're at high risk from coronavirus on GOV.UK.</a></p>
-
-<h4>Who is at high risk?</h4>
-<p>You may be at high risk from coronavirus if you:</p>
-
-<ul>
-  <li>have had an organ transplant</li>
-  <li>are having certain types of cancer treatment</li>
-  <li>have blood or bone marrow cancer, such as leukaemia</li>
-  <li>have a severe lung condition, such as cystic fibrosis or severe asthma</li>
-  <li>have a condition that makes you much more likely to get infections</li>
-  <li>are taking medicine that weakens your immune system</li>
-  <li>are pregnant and have a serious heart condition</li>
-</ul>
-
-<p>The NHS will contact you from Monday 29 March 2020 if you are at particularly high risk of getting seriously ill with coronavirus. You'll be given specific advice about what to do.</p>
-<p>Do not contact your GP or healthcare team at this stage – wait to be contacted.</p>
+<p><?php echo $description; ?></p>
 
 <div class="alert alert-success" role="alert">
   <h4 class="alert-heading">Do</h4>
@@ -113,6 +69,7 @@
     <p><i class="fa fa-check"></i> cover your mouth and nose with a tissue or your sleeve (not your hands) when you cough or sneeze</p>
     <p><i class="fa fa-check"></i> put used tissues in the bin immediately and wash your hands afterwards</p>
     <p><i class="fa fa-check"></i> stay 2 metres (3 steps) away from other people, if you need to go outside</p>
+    <p><i class="fa fa-check"></i> cover your nose and mouth when it's hard to stay away from people</p>
     </b>
 </div>
 
@@ -123,21 +80,61 @@
   </b>
 </div>
 
-<h3>How coronavirus is spread</h3>
-<p>Because it's a new illness, we do not know exactly how coronavirus spreads from person to person.</p>
-<p>Similar viruses are spread in cough droplets.</p>
-<p>It's very unlikely it can be spread through things like packages or food.</p>
+<?php
+  $hasPartCount = count($jsonNhsAdvise["hasPart"]);
+  $var = 0;
 
-<h3>Travel advice</h3>
-<p>There are some countries and areas where there's a higher chance of coming into contact with someone with coronavirus.</p>
-<p>If you're planning to travel abroad and are concerned about coronavirus, see <a href="https://www.gov.uk/guidance/travel-advice-novel-coronavirus">advice for travellers on GOV.UK</a>.
-</p>
+  foreach(range(--$hasPartCount,$columns) as $index) {
 
-<h3>Treatment for coronavirus</h3>
-<p>There is currently no specific treatment for coronavirus.</p>
-<p>Antibiotics do not help, as they do not work against viruses.</p>
-<p>Treatment aims to relieve the symptoms while your body fights the illness.</p>
-<p>You'll need to stay in isolation, away from other people, until you have recovered.</p>
+    ++$var;
+
+    // Replace "_" in Titles with spaces
+    $title = $jsonNhsAdvise["hasPart"][$var]["name"];
+    $title = str_replace("_", " ", $title);
+
+    // If "name" object is empty don't echo title
+    if ($jsonNhsAdvise["hasPart"][$var]["name"] != "") {
+      echo '<h3>' . ucfirst($title) .'<a href="' . $jsonNhsAdvise["hasPart"][$var]["url"] .'"> <i class="fa fa-link text-muted small"></i></a></h3>';
+    }
+
+    // If "text" object is empty echo "description" object
+    if ($jsonNhsAdvise["hasPart"][$var]["text"] == "") {
+      echo '<p>' . $jsonNhsAdvise["hasPart"][$var]["description"] .'</p>';
+    }
+    else {
+      echo '<p>' . $jsonNhsAdvise["hasPart"][$var]["text"] .'</p>';
+    }
+  }
+?>
+
+<h3>Guides</h3>
+<?php
+  $mainEntityCount = count($jsonNhsAdvise["mainEntity"]);;
+  $var = -1;
+
+  foreach(range(--$mainEntityCount,$columns) as $index) {
+
+  ++$var;
+
+  echo '
+  <h5>' . $jsonNhsAdvise["mainEntity"][$var]["name"] .'</h5>
+  <p><a href="https://www.nhs.uk' . $jsonNhsAdvise["mainEntity"][$var]["url"] .'">' . ucfirst($jsonNhsAdvise["mainEntity"][$var]["text"]) .'</a></p>
+  
+  ';
+  }
+
+?>
+
+<div class="alert alert-danger" role="alert">
+  <h4 class="alert-heading"><b>Urgent advice: Use the NHS 111 online coronavirus service if: </b></h4>
+  <ul>
+    <li>you feel you cannot cope with your symptoms at home</li>
+    <li>your condition gets worse</li>
+    <li>your symptoms do not get better after 7 days</li>
+  </ul> 
+  <h5><a href="https://111.nhs.uk/covid-19/">Use the 111 coronavirus service</a></h5>
+  <p><b>Only call 111 if you cannot get help online.</b></p>
+</div>
 
 </div>
 
