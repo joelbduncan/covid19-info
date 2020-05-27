@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
 <div class="container">
-  <a class="navbar-brand" href="index.php">COVID-19 🦠</a>
+  <a class="navbar-brand" href="index.php">COVID-19 <img src="/img/covid-19-logo.png" srcset="/img/covid-19-logo.svg" height="30"></a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
@@ -21,7 +21,6 @@
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
           <a class="dropdown-item <?php if (basename($_SERVER['PHP_SELF']) == 'advice.php') echo 'active' ?>" href="advice.php">NHS Advise</a>
-          <a class="dropdown-item <?php if (basename($_SERVER['PHP_SELF']) == 'uk-lockdown.php') echo 'active' ?>" href="uk-lockdown.php">UK Lockdown</a>
           <div class="dropdown-divider"></div>
           <a class="dropdown-header text-muted">Useful Links</a>
           <a class="dropdown-item" href="https://www.nhs.uk/conditions/coronavirus-covid-19/">NHS</a>
