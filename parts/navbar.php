@@ -1,37 +1,37 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
 <div class="container">
-  <a class="navbar-brand" href="index.php">COVID-19 <img src="/img/covid-19-logo.png" srcset="/img/covid-19-logo.svg" height="30"></a>
+  <a class="navbar-brand" href="/">COVID-19 <img src="/img/covid-19-logo.png" srcset="/img/covid-19-logo.svg" height="30"></a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item <?php if (basename($_SERVER['PHP_SELF']) == 'index.php') echo 'active' ?>">
-        <a class="nav-link" href="index.php">Home <span class="sr-only">(current)</span></a>
+        <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
       </li>
-      <li class="nav-item <?php if (basename($_SERVER['PHP_SELF']) == 'graph-data.php') echo 'active' ?>">
-        <a class="nav-link" href="graph-data.php">Map</a>
+      <li class="nav-item <?php if (basename($_SERVER['PHP_SELF']) == 'map.php') echo 'active' ?>">
+        <a class="nav-link" href="map">Map</a>
       </li>
       <li class="nav-item <?php if (basename($_SERVER['PHP_SELF']) == 'countries.php') echo 'active' ?>">
-        <a class="nav-link" href="countries.php">Countries</a>
+        <a class="nav-link" href="countries">Countries</a>
       </li>
-      <li class="nav-item dropdown <?php if (basename($_SERVER['PHP_SELF']) == 'advice.php') echo 'active' ?><?php if (basename($_SERVER['PHP_SELF']) == 'uk-lockdown.php') echo 'active' ?>">
+      <li class="nav-item dropdown <?php if (basename($_SERVER['PHP_SELF']) == 'advice') echo 'active' ?><?php if (basename($_SERVER['PHP_SELF']) == 'uk-lockdown') echo 'active' ?>">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           Advice
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item <?php if (basename($_SERVER['PHP_SELF']) == 'advice.php') echo 'active' ?>" href="advice.php">NHS Advise</a>
+          <a class="dropdown-item <?php if (basename($_SERVER['PHP_SELF']) == 'advice.php') echo 'active' ?>" href="advice">NHS Advise</a>
           <div class="dropdown-divider"></div>
           <a class="dropdown-header text-muted">Useful Links</a>
           <a class="dropdown-item" href="https://www.nhs.uk/conditions/coronavirus-covid-19/">NHS</a>
           <a class="dropdown-item" href="https://www.gov.uk/coronavirus">Government</a>
         </div>
       </li>
-      <li class="nav-item <?php if (basename($_SERVER['PHP_SELF']) == 'covid-19-faq.php') echo 'active' ?>">
-        <a class="nav-link" href="covid-19-faq.php">FAQ</a>
+      <li class="nav-item <?php if (basename($_SERVER['PHP_SELF']) == 'faq.php') echo 'active' ?>">
+        <a class="nav-link" href="faq">FAQ</a>
       </li>
-      <li class="nav-item <?php if (basename($_SERVER['PHP_SELF']) == 'data-source.php') echo 'active' ?>">
-        <a class="nav-link" href="data-source.php">Data Source</a>
+      <li class="nav-item <?php if (basename($_SERVER['PHP_SELF']) == 'source.php') echo 'active' ?>">
+        <a class="nav-link" href="source">Data Source</a>
       </li>
     </ul>
     <div class="dropdown">

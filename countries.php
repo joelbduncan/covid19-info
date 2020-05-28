@@ -41,7 +41,7 @@
   <div class="container">
       <h1 class="display-4">Countries</h1>
   <h5>Coronavirus (COVID-19) is a new illness that can affect your lungs and airways. It’s caused by a virus called coronavirus.</h5>
-  <?php include( 'country-dropdown.php'); ?>
+  <?php include( 'parts/country-dropdown.php'); ?>
     </div>
 </div>
 

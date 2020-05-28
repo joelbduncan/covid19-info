@@ -163,7 +163,7 @@ $yesterdayJson = json_decode(file_get_contents($yesterday), true);
     <div class="container">
         <h1 class="display-4">COVID-19  <?php echo strtoupper($selectCountry); ?> </h1>
         <h5>Coronavirus (COVID-19) is a new illness that can affect your lungs and airways. It’s caused by a virus called coronavirus.</h5>
-        <?php include( 'country-dropdown.php'); ?>
+        <?php include( 'parts/country-dropdown.php'); ?>
     </div>
 </div>
 

@@ -26,6 +26,8 @@ $jsonWorld = json_decode(file_get_contents($urlWorld), true);
 
 $countryCount = count($jsonWorld);
 
+echo "Countries: ", $countryCount;
+
 $var = -1;
 
 echo '
