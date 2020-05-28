@@ -15,7 +15,7 @@
       <li class="nav-item <?php if (basename($_SERVER['PHP_SELF']) == 'countries.php') echo 'active' ?>">
         <a class="nav-link" href="countries">Countries</a>
       </li>
-      <li class="nav-item dropdown <?php if (basename($_SERVER['PHP_SELF']) == 'advice') echo 'active' ?><?php if (basename($_SERVER['PHP_SELF']) == 'uk-lockdown') echo 'active' ?>">
+      <li class="nav-item dropdown <?php if (basename($_SERVER['PHP_SELF']) == 'advice.php') echo 'active' ?>">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           Advice
         </a>
