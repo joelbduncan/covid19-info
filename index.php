@@ -557,7 +557,7 @@ if($day == Thu){
                 </div>';
 
             // If USA Selected show States modal button
-            if ($selectCountry == "usa")
+            if ($selectCountry == "USA")
                 echo '<h4>States <small class="text-muted">Click below for County breakdown</small></h4>
                 <div class="btn-group d-flex" role="group">
                     <button type="button" class="btn btn-primary w-100" data-toggle="modal" data-target="#usCountiesModal">Cases by State</button>
