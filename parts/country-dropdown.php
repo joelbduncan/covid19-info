@@ -5,7 +5,7 @@ $apiMain = "https://api.covid-19.uk.com/countries/uk";
 $apiMainJson = json_decode(file_get_contents($apiMain), true);
 
 // Check UK Today cases on alternative API
-$apiBackup = "https://corona.lmao.ninja/v2/countries/uk";
+$apiBackup = "https://disease.sh/v2/countries/uk";
 $apiBackupJson = json_decode(file_get_contents($apiBackup), true);
 
 // Use self hosted API unless alternative has more cases
@@ -17,7 +17,7 @@ elseif ($apiMainJson["todayCases"] == $apiBackupJson["todayCases"]) {
     $apiURL = "https://api.covid-19.uk.com";
 } else {
     // Use backend in other scenarios
-    $apiURL = "https://corona.lmao.ninja/v2";
+    $apiURL = "https://disease.sh/v2";
 }
 
 // Self hosted API for World COVID-19 data

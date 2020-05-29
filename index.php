@@ -63,7 +63,7 @@ $apiMain = "https://api.covid-19.uk.com/countries/uk";
 $apiMainJson = json_decode(file_get_contents($apiMain), true);
 
 // Check UK Today cases on alternative API
-$apiBackup = "https://corona.lmao.ninja/v2/countries/uk";
+$apiBackup = "https://disease.sh/v2/countries/uk";
 $apiBackupJson = json_decode(file_get_contents($apiBackup), true);
 
 // Use self hosted API unless alternative has more cases
@@ -80,8 +80,8 @@ if ($apiMainJson["todayCases"] > $apiBackupJson["todayCases"]){
     }
   else {
       // Use backend in other scenarios
-      $apiURL = "https://corona.lmao.ninja/v2";
-      $yesterdayApiURL = "https://corona.lmao.ninja/v2/countries/$selectCountry?yesterday=true";
+      $apiURL = "https://disease.sh/v2";
+      $yesterdayApiURL = "https://disease.sh/v2/countries/$selectCountry?yesterday=true";
       $currentAPI = "Backup";
   }
 
@@ -146,7 +146,7 @@ $ukCountyCount = "150";
 $regionsCountyCount = "9";
 
 // API for US state data
-$usaStates = "https://corona.lmao.ninja/v2/states";
+$usaStates = "https://disease.sh/v2/states";
 $usaStatesJson = json_decode(file_get_contents($usaStates), true);
 
 // Count array size to populate columns
