@@ -76,6 +76,7 @@ if ($apiMainJson["todayCases"] > $apiBackupJson["todayCases"]){
   elseif ($apiMainJson["todayCases"] == $apiBackupJson["todayCases"]){
       $apiURL = "https://api.covid-19.uk.com";
       $yesterdayApiURL = "https://api.covid-19.uk.com/yesterday/$selectCountry";
+      $twoDayApiURL = "https://api.covid-19.uk.com/twoDay/$selectCountry";
       $currentAPI = "Main";
     }
   else {
@@ -155,6 +156,10 @@ $usaStateCount = count($usaStatesJson);
 // API for yesterday data
 $yesterday = $yesterdayApiURL;
 $yesterdayJson = json_decode(file_get_contents($yesterday), true);
+
+// API for Two Day data
+$twoDay = $twoDayApiURL;
+$twoDayJson = json_decode(file_get_contents($twoDay), true);
 
 ?>
 	
@@ -377,6 +382,9 @@ if($day == Thu){
         <li class="nav-item">
             <a class="nav-link" data-toggle="tab" href="#yesterday">Yesterday</a>
         </li>
+        <li class="nav-item">
+            <a class="nav-link" data-toggle="tab" href="#twoDay">Two Days</a>
+        </li>
     </ul>
 </div>
 
@@ -424,13 +432,13 @@ if($day == Thu){
             <div class="card-deck">
                 <div class="card text-white bg-primary text-center">
                     <div class="card-body">
-                        <h5 class="card-title"><?php echo strtoupper($selectCountry); ?> Cases Today</h5>
+                        <h5 class="card-title"><?php echo strtoupper($selectCountry); ?> Cases Yesterday</h5>
                         <h1>+<?php echo number_format($yesterdayJson["todayCases"]); ?></h1>
                     </div>
                 </div>
                 <div class="card text-white bg-danger text-center">
                     <div class="card-body">
-                        <h5 class="card-title"><?php echo strtoupper($selectCountry); ?> Deaths Today</h5>
+                        <h5 class="card-title"><?php echo strtoupper($selectCountry); ?> Deaths Yesterday</h5>
                         <h1>+<?php echo number_format($yesterdayJson["todayDeaths"]); ?></h1>
                     </div>
                 </div>
@@ -445,6 +453,41 @@ if($day == Thu){
                         <h5 class="card-title"><?php echo strtoupper($selectCountry); ?> Total Tested</h5>
                         <h3 class="font-weight-bold"><?php echo number_format($yesterdayJson["tests"]); ?></h3>
                         <h6><?php echo sprintf("%.1f", $yesterdayJson["cases"]/$yesterdayJson["tests"]*100); ?>% Test Positve</h6>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div id="twoDay" class="tab-pane fade">
+
+        <!-- Cases/Deaths Yesterday -->
+        <div class="container">
+            <div class="card-deck">
+                <div class="card text-white bg-primary text-center">
+                    <div class="card-body">
+                        <h5 class="card-title"><?php echo strtoupper($selectCountry); ?> Cases Two Days Ago</h5>
+                        <h1>+<?php echo number_format($twoDayJson["todayCases"]); ?></h1>
+                    </div>
+                </div>
+                <div class="card text-white bg-danger text-center">
+                    <div class="card-body">
+                        <h5 class="card-title"><?php echo strtoupper($selectCountry); ?> Deaths Two Days Ago</h5>
+                        <h1>+<?php echo number_format($twoDayJson["todayDeaths"]); ?></h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tested Yesterday -->
+        <div class="container mt-3">
+            <div class="card-deck">
+                <div class="card text-white bg-info text-center">
+                    <div style="max-height: 140.1px" class="card-body">
+                        <h5 class="card-title"><?php echo strtoupper($selectCountry); ?> Total Tested</h5>
+                        <h3 class="font-weight-bold"><?php echo number_format($twoDayJson["tests"]); ?></h3>
+                        <h6><?php echo sprintf("%.1f", $twoDayJson["cases"]/$twoDayJson["tests"]*100); ?>% Test Positve</h6>
                     </div>
                 </div>
             </div>
