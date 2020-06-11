@@ -54,29 +54,29 @@
 if (isset($_GET['country'])) {
     $selectCountry = $_GET['country'];
 } else {
-    $selectCountry = uk;
+    $selectCountry = UK;
 }
 
 // Set API URL to most up to date source
 // Check UK Today cases on self hosted API
-$apiMain = "https://api.covid-19.uk.com/countries/uk";
+$apiMain = "https://api.covid-19.UK.com/countries/UK";
 $apiMainJson = json_decode(file_get_contents($apiMain), true);
 
 // Check UK Today cases on alternative API
-$apiBackup = "https://disease.sh/v2/countries/uk";
+$apiBackup = "https://disease.sh/v2/countries/UK";
 $apiBackupJson = json_decode(file_get_contents($apiBackup), true);
 
 // Use self hosted API unless alternative has more cases
 if ($apiMainJson["todayCases"] > $apiBackupJson["todayCases"]){
-    $apiURL = "https://api.covid-19.uk.com";
-    $yesterdayApiURL = "https://api.covid-19.uk.com/yesterday/$selectCountry";
+    $apiURL = "https://api.covid-19.UK.com";
+    $yesterdayApiURL = "https://api.covid-19.UK.com/yesterday/$selectCountry";
     $currentAPI = "Main";
   }
   // Use self hosted API when numbers are equal
   elseif ($apiMainJson["todayCases"] == $apiBackupJson["todayCases"]){
-      $apiURL = "https://api.covid-19.uk.com";
-      $yesterdayApiURL = "https://api.covid-19.uk.com/yesterday/$selectCountry";
-      $twoDayApiURL = "https://api.covid-19.uk.com/twoDay/$selectCountry";
+      $apiURL = "https://api.covid-19.UK.com";
+      $yesterdayApiURL = "https://api.covid-19.UK.com/yesterday/$selectCountry";
+      $twoDayApiURL = "https://api.covid-19.UK.com/twoDay/$selectCountry";
       $currentAPI = "Main";
     }
   else {
@@ -116,7 +116,7 @@ $worldDeathsPercent = ($worldDeaths/$worldCases)*100;
 $worldRecoveredPercent = ($worldRecovered/$worldCases)*100;
 
 // Calculate Recovered Data for UK only
-if ($selectCountry == "uk") {
+if ($selectCountry == "UK") {
     if ($recovered == "") {
         //$recoveredCalc = $cases - ($activeCases + $deaths);
         $recoveredCalc = $recovered;
@@ -190,7 +190,7 @@ $twoDayJson = json_decode(file_get_contents($twoDay), true);
                 <p>This website is developed by one person, I'm hosting this site as well as the software scraping the latest COVID-19 data on my server infastructure. This is at my expense intending to provide accurate information on COVID-19 from WHO, NHS & UK Government in one place.</p>
                 <p>Unfortunately, the source this data is scraped from is constantly changing, meaning I need to update server-side components accordingly.</p>
                 <p>To try improve this process I've created an email address for any reports of incorrect or outdated information.</p>
-                <a href="mailto:joel@covid-19.uk.com?Subject=Website%20Issue" target="_top">joel@covid-19.uk.com</a>
+                <a href="mailto:joel@covid-19.UK.com?Subject=Website%20Issue" target="_top">joel@covid-19.UK.com</a>
             </div>
             <div class="modal-footer">
             <small class="text-muted font-weight-bold">Current API: <?php echo $currentAPI; ?></small>
@@ -522,7 +522,7 @@ if($day == Thu){
                     </td>
                     <td class="bg-info">
                         <?php
-                            if ($selectCountry == "uk") {
+                            if ($selectCountry == "UK") {
                                 if ($recovered == "") {
                                     echo '<u><span rel="tooltip" title="Public Health England no longer provide this data.">N/A</span></u>';
                                 }
@@ -539,7 +539,7 @@ if($day == Thu){
                     </td>
                     <td class="bg-success">
                         <?php
-                            if ($selectCountry == "uk") {
+                            if ($selectCountry == "UK") {
                                 if ($recovered == "") {
                                     //echo '<u><span rel="tooltip" title="Calculated value, Public Health England no longer provide this data.">' . number_format($recoveredCalc) . ' </span></u>';
                                     echo '<u><span rel="tooltip" title="Public Health England no longer provide this data.">N/A</span></u>';
@@ -600,7 +600,7 @@ if($day == Thu){
 
         <?php
             // If UK Selected show Countys modal button
-            if ($selectCountry == "uk")
+            if ($selectCountry == "UK")
                 echo '<h4>Counties <small class="text-muted">Click below for County breakdown</small></h4>
                 <div class="btn-group d-flex" role="group">
                     <button type="button" class="btn btn-primary w-100" data-toggle="modal" data-target="#countiesModal">Cases by County or Region</button>
