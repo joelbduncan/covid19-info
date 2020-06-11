@@ -190,7 +190,7 @@ $twoDayJson = json_decode(file_get_contents($twoDay), true);
                 <p>This website is developed by one person, I'm hosting this site as well as the software scraping the latest COVID-19 data on my server infastructure. This is at my expense intending to provide accurate information on COVID-19 from WHO, NHS & UK Government in one place.</p>
                 <p>Unfortunately, the source this data is scraped from is constantly changing, meaning I need to update server-side components accordingly.</p>
                 <p>To try improve this process I've created an email address for any reports of incorrect or outdated information.</p>
-                <a href="mailto:joel@covid-19.UK.com?Subject=Website%20Issue" target="_top">joel@covid-19.UK.com</a>
+                <a href="mailto:joel@covid-19.uk.com?Subject=Website%20Issue" target="_top">joel@covid-19.uk.com</a>
             </div>
             <div class="modal-footer">
             <small class="text-muted font-weight-bold">Current API: <?php echo $currentAPI; ?></small>
