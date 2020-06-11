@@ -230,7 +230,8 @@ $twoDayJson = json_decode(file_get_contents($twoDay), true);
                             <thead>
                                 <tr>
                                     <th scope="col">County</th>
-                                    <th scope="col">Cases</th>
+                                    <th scope="col">New Cases</th>
+                                    <th scope="col">Total Cases</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -244,6 +245,9 @@ $twoDayJson = json_decode(file_get_contents($twoDay), true);
                                 echo '<tr>
                                     <td style="color: white" class="bg-primary">
                                         ' . $publicHeathEnglandCountyJson["utlas"][$var]["areaName"] .'
+                                    </td>
+                                    <td class="bg-warning">
+                                        <b>+' . number_format($publicHeathEnglandCountyJson["utlas"][$var]["dailyTotalLabConfirmedCasesRate"]) .'</b>
                                     </td>
                                     <td class="bg-info">
                                         <b>' . number_format($publicHeathEnglandCountyJson["utlas"][$var]["totalLabConfirmedCases"]) .'</b>
@@ -278,6 +282,9 @@ $twoDayJson = json_decode(file_get_contents($twoDay), true);
                                 echo '<tr>
                                     <td style="color: white" class="bg-primary">
                                         ' . $publicHeathEnglandCountyJson["regions"][$var]["areaName"] .'
+                                    </td>
+                                    <td class="bg-warning">
+                                        <b>+' . number_format($publicHeathEnglandCountyJson["regions"][$var]["dailyTotalLabConfirmedCasesRate"]) .'</b>
                                     </td>
                                     <td class="bg-info">
                                         <b>' . number_format($publicHeathEnglandCountyJson["regions"][$var]["totalLabConfirmedCases"]) .'</b>
