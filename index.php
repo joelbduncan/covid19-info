@@ -9,10 +9,13 @@
   <link rel="stylesheet" type="text/css" href="//bootswatch.com/4/darkly/bootstrap.min.css">
   <link rel="stylesheet" type="text/css" href="css/style.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.9/dist/css/bootstrap-select.min.css">
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.10.21/css/dataTables.bootstrap4.min.css">
   <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.9/dist/js/bootstrap-select.min.js"></script>
+  <script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+  <script src="https://cdn.datatables.net/1.10.21/js/dataTables.bootstrap4.min.js"></script>
 </head>
     
 <body>
@@ -54,37 +57,11 @@
 if (isset($_GET['country'])) {
     $selectCountry = $_GET['country'];
 } else {
-    $selectCountry = UK;
+    $selectCountry = 'UK';
 }
 
-// Set API URL to most up to date source
-// Check UK Today cases on self hosted API
-$apiMain = "https://api.covid-19.UK.com/countries/UK";
-$apiMainJson = json_decode(file_get_contents($apiMain), true);
-
-// Check UK Today cases on alternative API
-$apiBackup = "https://disease.sh/v2/countries/UK";
-$apiBackupJson = json_decode(file_get_contents($apiBackup), true);
-
-// Use self hosted API unless alternative has more cases
-if ($apiMainJson["todayCases"] > $apiBackupJson["todayCases"]){
-    $apiURL = "https://api.covid-19.UK.com";
-    $yesterdayApiURL = "https://api.covid-19.UK.com/yesterday/$selectCountry";
-    $currentAPI = "Main";
-  }
-  // Use self hosted API when numbers are equal
-  elseif ($apiMainJson["todayCases"] == $apiBackupJson["todayCases"]){
-      $apiURL = "https://api.covid-19.UK.com";
-      $yesterdayApiURL = "https://api.covid-19.UK.com/yesterday/$selectCountry";
-      $twoDayApiURL = "https://api.covid-19.UK.com/twoDay/$selectCountry";
-      $currentAPI = "Main";
-    }
-  else {
-      // Use backend in other scenarios
-      $apiURL = "https://disease.sh/v2";
-      $yesterdayApiURL = "https://disease.sh/v2/countries/$selectCountry?yesterday=true";
-      $currentAPI = "Backup";
-  }
+// Compare Local/Backup endpoint & set API URL
+include 'parts/api-check.php';
 
 // Self hosted API for World COVID-19 data
 $urlWorld = "$apiURL/all";
@@ -147,7 +124,7 @@ $ukCountyCount = "150";
 $regionsCountyCount = "9";
 
 // API for US state data
-$usaStates = "https://disease.sh/v2/states";
+$usaStates = "https://corona.lmao.ninja/v2/states";
 $usaStatesJson = json_decode(file_get_contents($usaStates), true);
 
 // Count array size to populate columns
@@ -226,11 +203,11 @@ $twoDayJson = json_decode(file_get_contents($twoDay), true);
                     <div id="england" class="tab-pane active">
                         <br>
                         <input type="text" class="form-control form-control" id="englandInput" onkeyup="englandSearch()" placeholder="Search">
-                        <table id="englandTable" class="table">
+                        <table id="englandTable" class="table dataTable">
                             <thead>
                                 <tr>
                                     <th scope="col">County</th>
-                                    <th scope="col">New Cases</th>
+                                    <th scope="col"><u><span rel="tooltip" title="Count for each area divided by the total population and multiplied by 100,000.">Rates</span></u></th>
                                     <th scope="col">Total Cases</th>
                                 </tr>
                             </thead>
@@ -247,7 +224,7 @@ $twoDayJson = json_decode(file_get_contents($twoDay), true);
                                         ' . $publicHeathEnglandCountyJson["utlas"][$var]["areaName"] .'
                                     </td>
                                     <td class="bg-warning">
-                                        <b>+' . number_format($publicHeathEnglandCountyJson["utlas"][$var]["dailyTotalLabConfirmedCasesRate"]) .'</b>
+                                        <b>' . number_format($publicHeathEnglandCountyJson["utlas"][$var]["dailyTotalLabConfirmedCasesRate"]) .'</b>
                                     </td>
                                     <td class="bg-info">
                                         <b>' . number_format($publicHeathEnglandCountyJson["utlas"][$var]["totalLabConfirmedCases"]) .'</b>
@@ -264,11 +241,12 @@ $twoDayJson = json_decode(file_get_contents($twoDay), true);
                     <div id="regions" class="tab-pane fade">
                         <br>
                         <input type="text" class="form-control form-control" id="regionsInput" onkeyup="regionsSearch()" placeholder="Search">
-                        <table id="regionsTable" class="table">
+                        <table id="regionsTable" class="table dataTable">
                             <thead>
                                 <tr>
                                     <th scope="col">County</th>
-                                    <th scope="col">Cases</th>
+                                    <th scope="col"><u><span rel="tooltip" title="Count for each area divided by the total population and multiplied by 100,000.">Rates</span></u></th>
+                                    <th scope="col">Total Cases</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -284,7 +262,7 @@ $twoDayJson = json_decode(file_get_contents($twoDay), true);
                                         ' . $publicHeathEnglandCountyJson["regions"][$var]["areaName"] .'
                                     </td>
                                     <td class="bg-warning">
-                                        <b>+' . number_format($publicHeathEnglandCountyJson["regions"][$var]["dailyTotalLabConfirmedCasesRate"]) .'</b>
+                                        <b>' . number_format($publicHeathEnglandCountyJson["regions"][$var]["dailyTotalLabConfirmedCasesRate"]) .'</b>
                                     </td>
                                     <td class="bg-info">
                                         <b>' . number_format($publicHeathEnglandCountyJson["regions"][$var]["totalLabConfirmedCases"]) .'</b>
@@ -318,7 +296,7 @@ $twoDayJson = json_decode(file_get_contents($twoDay), true);
             </div>
             <div class="modal-body">
                 <input type="text" class="form-control form-control" id="usaInput" onkeyup="usaSearch()" placeholder="Search">
-                <table id="usaTable" class="table">
+                <table id="usaTable" class="table dataTable">
                     <thead>
                         <tr>
                             <th scope="col">County</th>
@@ -738,6 +716,17 @@ function usaSearch() {
     }
   }
 }
+</script>
+
+<!-- Enable dataTables -->
+<script>
+$(document).ready(function() {
+    $('.dataTable').DataTable({
+    paging: false,
+    searching: false,
+    info: false
+});
+} );
 </script>
 
 <!-- Enable tooltip -->
