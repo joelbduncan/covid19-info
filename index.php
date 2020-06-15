@@ -482,7 +482,7 @@ if($day == Thu){
 
     <!-- Selected Country Totals -->
     <div class="container">
-        <h3 class="mt-5"><?php echo strtoupper($selectCountry); ?> Total Cases <!--<small class="text-muted"> First Case: <?php echo $firstCase ?></small>--></h3>
+        <h3 class="mt-5"><?php echo strtoupper($selectCountry); ?> Total Cases</h3>
         <table class="table table-curved">
             <thead>
                 <tr>
