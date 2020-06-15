@@ -215,7 +215,9 @@ $twoDayJson = json_decode(file_get_contents($twoDay), true);
                                 <?php
                                 $var = -1;
 
-                                foreach(range(--$ukCountyCount,$columns) as $index) {
+                                echo $ukCountyCount;
+
+                                foreach(range(0,--$ukCountyCount) as $index) {
 
                                 ++$var;
 
@@ -253,7 +255,7 @@ $twoDayJson = json_decode(file_get_contents($twoDay), true);
                                 <?php
                                 $var = -1;
 
-                                foreach(range(--$regionsCountyCount,$columns) as $index) {
+                                foreach(range(0,--$regionsCountyCount) as $index) {
 
                                 ++$var;
 
@@ -308,7 +310,7 @@ $twoDayJson = json_decode(file_get_contents($twoDay), true);
                         <?php
                         $var = -1;
                 
-                        foreach(range(--$usaStateCount,$columns) as $index) {
+                        foreach(range(0,--$usaStateCount) as $index) {
                 
                         ++$var;
                 
