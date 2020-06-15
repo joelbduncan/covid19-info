@@ -343,7 +343,7 @@ $day = date('D');
 $hour = date('H');
 
 // Until 8 on Thursday show clap for NHS message
-if($day == Thu){
+if($day == 'Thu'){
     if ($hour < "20") {
         echo '
         <div class="container">
