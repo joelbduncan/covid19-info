@@ -40,7 +40,7 @@
 
 <?php
 // Self hosted API for World COVID-19 data
-$nhsAdvise = "https://api.nhs.uk/conditions/coronavirus-covid-19?url=https://covid-19.uk.com/&modules=false";
+$nhsAdvise = "https://api.nhs.uk/conditions/coronavirus-covid-19";
 $jsonNhsAdvise = json_decode(file_get_contents($nhsAdvise), true);
 
 $description = $jsonNhsAdvise["description"];
@@ -85,7 +85,7 @@ $jsonNhsAdvise = str_replace("_", " ", $jsonNhsAdvise);
   $hasPartCount = count($jsonNhsAdvise["hasPart"]);
   $var = 0;
 
-  foreach(range(--$hasPartCount,$columns) as $index) {
+  foreach(range(0,--$hasPartCount) as $index) {
 
     ++$var;
 
@@ -110,16 +110,16 @@ $jsonNhsAdvise = str_replace("_", " ", $jsonNhsAdvise);
 
 <h3>Guides</h3>
 <?php
-  $mainEntityCount = count($jsonNhsAdvise["mainEntity"]);;
+  $mainEntityCount = count($jsonNhsAdvise["mainEntityOfPage"]["0"]["mainEntityOfPage"]);;
   $var = -1;
 
-  foreach(range(--$mainEntityCount,$columns) as $index) {
+  foreach(range(0,--$mainEntityCount) as $index) {
 
   ++$var;
 
   echo '
-  <h5>' . $jsonNhsAdvise["mainEntity"][$var]["name"] .'</h5>
-  <p><a href="https://www.nhs.uk' . $jsonNhsAdvise["mainEntity"][$var]["url"] .'">' . ucfirst($jsonNhsAdvise["mainEntity"][$var]["text"]) .'</a></p>
+  <h5>' . $jsonNhsAdvise["mainEntityOfPage"]["0"]["mainEntityOfPage"][$var]["headline"] .'</h5>
+  <p><a href="https://www.nhs.uk' . $jsonNhsAdvise["mainEntityOfPage"]["0"]["mainEntityOfPage"][$var]["url"] .'">' . ucfirst($jsonNhsAdvise["mainEntityOfPage"]["0"]["mainEntityOfPage"][$var]["text"]) .'</a></p>
   
   ';
   }
