@@ -58,13 +58,6 @@ table.floatThead-table {
 // Compare Local/Backup endpoint & set API URL
 include 'parts/api-check.php';
 
-// Self hosted API for Country specific data
-$url = "$apiURL/countries/$selectCountry";
-$json = json_decode(file_get_contents($url), true);
-
-// Replace underscores with spaces in Country name
-$selectCountry = str_replace("_", " ", $selectCountry);
-
 ?>
 
 <!-- Jumbotron Header -->
@@ -117,7 +110,7 @@ foreach (range(0,--$countryCount) as $index) {
 
     // Replace "_" in Titles with spaces
     $name = $jsonWorld[$var]["country"];
-    $name = str_replace("_", " ", $name);
+    $urlName = str_replace("_", " ", $name);
 
     if ($jsonWorld[$var]["recovered"] == "") {
         $recovered = "N/A";
@@ -159,7 +152,7 @@ foreach (range(0,--$countryCount) as $index) {
     }
 
     echo "<tr ' . $recoveredBG . '>";
-    echo '<td style="word-wrap: break-word;min-width: 120px;max-width: 120px;"><a style="color:#32ecb6" href="/?country=' . $name . '"><b><u>' . $name . '</a></u></b></td>';
+    echo '<td style="word-wrap: break-word;min-width: 120px;max-width: 120px;"><a style="color:#32ecb6" href="/?country=' . $name . '"><b><u>' . $urlName . '</a></u></b></td>';
     echo '<td>' . number_format($jsonWorld[$var]["cases"]) . '</td>';
     echo '<td ' . $todayCasesBG . '>' . $newCases . number_format($jsonWorld[$var]["todayCases"]) . '</td>';
     echo '<td>' . number_format($jsonWorld[$var]["deaths"]) . '</td>';
