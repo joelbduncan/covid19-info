@@ -55,40 +55,8 @@ table.floatThead-table {
 
 <?php
 
-if (isset($_GET['country'])) {
-    $selectCountry = $_GET['country'];
-} else {
-    $selectCountry = uk;
-}
-
-// Set API URL to most up to date source
-// Check UK Today cases on self hosted API
-$apiMain = "https://api.covid-19.uk.com/countries/uk";
-$apiMainJson = json_decode(file_get_contents($apiMain), true);
-
-// Check UK Today cases on alternative API
-$apiBackup = "https://disease.sh/v2/countries/uk";
-$apiBackupJson = json_decode(file_get_contents($apiBackup), true);
-
-// Use self hosted API unless alternative has more cases
-if ($apiMainJson["todayCases"] > $apiBackupJson["todayCases"]){
-    $apiURL = "https://api.covid-19.uk.com";
-    $yesterdayApiURL = "https://api.covid-19.uk.com/yesterday/$selectCountry";
-    $currentAPI = "Main";
-  }
-  // Use self hosted API when numbers are equal
-  elseif ($apiMainJson["todayCases"] == $apiBackupJson["todayCases"]){
-      $apiURL = "https://api.covid-19.uk.com";
-      $yesterdayApiURL = "https://api.covid-19.uk.com/yesterday/$selectCountry";
-      $twoDayApiURL = "https://api.covid-19.uk.com/twoDay/$selectCountry";
-      $currentAPI = "Main";
-    }
-  else {
-      // Use backend in other scenarios
-      $apiURL = "https://disease.sh/v2";
-      $yesterdayApiURL = "https://disease.sh/v2/countries/$selectCountry?yesterday=true";
-      $currentAPI = "Backup";
-  }
+// Compare Local/Backup endpoint & set API URL
+include 'parts/api-check.php';
 
 // Self hosted API for Country specific data
 $url = "$apiURL/countries/$selectCountry";
@@ -144,7 +112,7 @@ echo '
   </thead>
   <tbody>';
 
-foreach (range(--$countryCount, $columns) as $index) {
+foreach (range(0,--$countryCount) as $index) {
     ++$var;
 
     // Replace "_" in Titles with spaces
