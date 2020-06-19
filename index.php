@@ -215,8 +215,6 @@ $twoDayJson = json_decode(file_get_contents($twoDay), true);
                                 <?php
                                 $var = -1;
 
-                                echo $ukCountyCount;
-
                                 foreach(range(0,--$ukCountyCount) as $index) {
 
                                 ++$var;
