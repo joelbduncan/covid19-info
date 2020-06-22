@@ -3,6 +3,9 @@ COVID-19 Tracker, with the latest data regarding cases and outcomes caused by th
 
 ![](https://joelduncan.io/content/images/2020/04/image-7.png)
 
+Source for self-hosted [API](https://github.com/Slethen/covidAPI)
+Source for backup API [API](https://github.com/NovelCOVID/API)
+
 ## Features
 * 3 Day Overview
 * Simple to understand
@@ -17,6 +20,12 @@ COVID-19 Tracker, with the latest data regarding cases and outcomes caused by th
 
 ## US Specific Features
 * Cases/Deaths per State
+
+## Sources
+* [Worldometers](https://www.worldometers.info/)
+* [GOV.UK](https://coronavirus.data.gov.uk/)
+* [NHS](https://developer.api.nhs.uk/coronavirus/api)
+* [The New York Times](https://github.com/nytimes/covid-19-data/blob/master/us-states.csv)
 
 ## Screenshots
 ![](https://joelduncan.io/content/images/2020/06/COVID-19-Counties.png)
