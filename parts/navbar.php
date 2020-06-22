@@ -46,6 +46,7 @@
   </div>
 </nav>
 
+<!-- Change main CSS based on theme dropdown, store choice in cookie -->
 <script>
 var themes = {
     "flatly" : "//bootswatch.com/4/flatly/bootstrap.min.css",
