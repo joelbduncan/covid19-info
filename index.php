@@ -144,7 +144,7 @@ $twoDayJson = json_decode(file_get_contents($twoDay), true);
 <div class="jumbotron jumbotron-fluid">
     <div class="container">
         <h1 class="display-4">COVID-19  <?php echo strtoupper($selectCountry); ?> </h1>
-        <h5>Coronavirus (COVID-19) is a new illness that can affect your lungs and airways. It’s caused by a virus called coronavirus.</h5>
+        <h5><i class="fab fa-github" aria-hidden="true"></i> <a style="color: #fff" href="https://github.com/Slethen/covid19-info"><b><u>Open Source</u></b></a> COVID-19 Data Tracker focused on providing accurate and up to date information that's easy to understand in a clean layout.</h5>
         <?php include( 'parts/country-dropdown.php'); ?>
     </div>
 </div>
