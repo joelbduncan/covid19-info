@@ -4,7 +4,7 @@ COVID-19 Tracker, with the latest data regarding cases and outcomes caused by th
 ![](https://joelduncan.io/content/images/2020/04/image-7.png)
 
 ## Features
-* 3 Day View
+* 3 Day Overview
 * Simple to understand
 * Responsive Design
 * Mapped Timeline Data
