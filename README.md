@@ -4,7 +4,7 @@ COVID-19 Tracker, with the latest data regarding cases and outcomes caused by th
 ![](https://joelduncan.io/content/images/2020/04/image-7.png)
 
 Source for self-hosted [API](https://github.com/Slethen/covidAPI)
-Source for backup API [API](https://github.com/NovelCOVID/API)
+Source for backup [API](https://github.com/NovelCOVID/API)
 
 ## Features
 * 3 Day Overview
@@ -16,7 +16,7 @@ Source for backup API [API](https://github.com/NovelCOVID/API)
 ## UK Specific Features
 * Cases per County/Region
 * Rates per County/Region
-* NHS Advice form offical API
+* NHS Advice from offical API
 
 ## US Specific Features
 * Cases/Deaths per State
