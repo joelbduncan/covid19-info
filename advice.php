@@ -39,7 +39,8 @@
 </style>
 
 <?php
-// Self hosted API for World COVID-19 data
+
+// Pull latest from NHS API
 $nhsAdvise = "https://api.nhs.uk/conditions/coronavirus-covid-19";
 $jsonNhsAdvise = json_decode(file_get_contents($nhsAdvise), true);
 
@@ -81,6 +82,7 @@ $jsonNhsAdvise = str_replace("_", " ", $jsonNhsAdvise);
   </b>
 </div>
 
+<!-- NHS API Section 1 -->
 <?php
   $hasPartCount = count($jsonNhsAdvise["hasPart"]);
   $var = 0;
@@ -108,6 +110,7 @@ $jsonNhsAdvise = str_replace("_", " ", $jsonNhsAdvise);
   }
 ?>
 
+<!-- NHS API Section 2 -->
 <h3>Guides</h3>
 <?php
   $mainEntityCount = count($jsonNhsAdvise["mainEntityOfPage"]["0"]["mainEntityOfPage"]);;
@@ -126,6 +129,7 @@ $jsonNhsAdvise = str_replace("_", " ", $jsonNhsAdvise);
 
 ?>
 
+<!-- 111 Service Section -->
 <div class="alert alert-danger" role="alert">
   <h4 class="alert-heading"><b>Urgent advice: Use the NHS 111 online coronavirus service if: </b></h4>
   <ul>
