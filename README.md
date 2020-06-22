@@ -16,7 +16,7 @@ Source for backup [API](https://github.com/NovelCOVID/API)
 ## UK Specific Features
 * Cases per County/Region
 * Rates per County/Region
-* NHS Advice from offical API
+* NHS Advice from official API
 
 ## US Specific Features
 * Cases/Deaths per State
