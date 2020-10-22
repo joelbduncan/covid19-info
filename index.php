@@ -10,7 +10,7 @@
   <link rel="stylesheet" type="text/css" href="css/style.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.9/dist/css/bootstrap-select.min.css">
   <link rel="stylesheet" href="https://cdn.datatables.net/1.10.21/css/dataTables.bootstrap4.min.css">
-  <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+  <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.9/dist/js/bootstrap-select.min.js"></script>
@@ -116,12 +116,16 @@ $calRecovery = $cases - ($activeCases + $deaths);
 $selectCountry = str_replace("_", " ", $selectCountry);
 
 // Public Heath England source for UK county data
-$publicHeathEnglandCounty = "https://c19downloads.azureedge.net/downloads/json/coronavirus-cases_latest.json";
+$publicHeathEnglandCounty = "https://covid-19.uk.com/api/utla.json";
 $publicHeathEnglandCountyJson = json_decode(file_get_contents($publicHeathEnglandCounty), true);
 
+// Public Heath England source for UK county data
+$publicHeathEnglandRegion = "https://covid-19.uk.com/api/region.json";
+$publicHeathEnglandRegionJson = json_decode(file_get_contents($publicHeathEnglandRegion), true);
+
 // Count array size to populate columns
-$ukCountyCount = "150";
-$regionsCountyCount = "9";
+$ukCountyCount = count($publicHeathEnglandCountyJson["data"]);
+$ukRegionCount = count($publicHeathEnglandRegionJson["data"]);
 
 // API for US state data
 $usaStates = "https://corona.lmao.ninja/v2/states";
@@ -207,8 +211,9 @@ $twoDayJson = json_decode(file_get_contents($twoDay), true);
                             <thead>
                                 <tr>
                                     <th scope="col">County</th>
-                                    <th scope="col"><u><span rel="tooltip" title="Count for each area divided by the total population and multiplied by 100,000.">Rates</span></u></th>
                                     <th scope="col">Total Cases</th>
+                                    <th scope="col">Mortality</th>
+                                    <th scope="col">Total Deaths</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -221,13 +226,16 @@ $twoDayJson = json_decode(file_get_contents($twoDay), true);
 
                                 echo '<tr>
                                     <td style="color: white" class="bg-primary">
-                                        ' . $publicHeathEnglandCountyJson["utlas"][$var]["areaName"] .'
-                                    </td>
-                                    <td class="bg-warning">
-                                        <b>' . number_format($publicHeathEnglandCountyJson["utlas"][$var]["dailyTotalLabConfirmedCasesRate"]) .'</b>
+                                        ' . $publicHeathEnglandCountyJson["data"][$var]["areaName"] .'
                                     </td>
                                     <td class="bg-info">
-                                        <b>' . number_format($publicHeathEnglandCountyJson["utlas"][$var]["totalLabConfirmedCases"]) .'</b>
+                                        <b>' . number_format($publicHeathEnglandCountyJson["data"][$var]["cumCasesByPublishDate"]) .'</b>
+                                    </td>
+                                    <td class="bg-warning">
+                                        <b>' . sprintf("%.1f", ($publicHeathEnglandCountyJson["data"][$var]["cumDeathsByPublishDate"]/$publicHeathEnglandCountyJson["data"][$var]["cumCasesByPublishDate"])*100) .'%</b>
+                                    </td>
+                                    <td class="bg-danger">
+                                        <b>' . number_format($publicHeathEnglandCountyJson["data"][$var]["cumDeathsByPublishDate"]) .'</b>
                                     </td>
                                 </tr>';
                                 }
@@ -244,28 +252,32 @@ $twoDayJson = json_decode(file_get_contents($twoDay), true);
                         <table id="regionsTable" class="table dataTable">
                             <thead>
                                 <tr>
-                                    <th scope="col">County</th>
-                                    <th scope="col"><u><span rel="tooltip" title="Count for each area divided by the total population and multiplied by 100,000.">Rates</span></u></th>
+                                    <th scope="col">Region</th>
                                     <th scope="col">Total Cases</th>
+                                    <th scope="col">Mortality</th>
+                                    <th scope="col">Total Deaths</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <?php
                                 $var = -1;
 
-                                foreach(range(0,--$regionsCountyCount) as $index) {
+                                foreach(range(0,--$ukRegionCount) as $index) {
 
                                 ++$var;
 
                                 echo '<tr>
                                     <td style="color: white" class="bg-primary">
-                                        ' . $publicHeathEnglandCountyJson["regions"][$var]["areaName"] .'
-                                    </td>
-                                    <td class="bg-warning">
-                                        <b>' . number_format($publicHeathEnglandCountyJson["regions"][$var]["dailyTotalLabConfirmedCasesRate"]) .'</b>
+                                        ' . $publicHeathEnglandRegionJson["data"][$var]["areaName"] .'
                                     </td>
                                     <td class="bg-info">
-                                        <b>' . number_format($publicHeathEnglandCountyJson["regions"][$var]["totalLabConfirmedCases"]) .'</b>
+                                        <b>' . number_format($publicHeathEnglandRegionJson["data"][$var]["cumCasesByPublishDate"]) .'</b>
+                                    </td>
+                                    <td class="bg-warning">
+                                        <b>' . sprintf("%.1f", ($publicHeathEnglandRegionJson["data"][$var]["cumDeathsByPublishDate"]/$publicHeathEnglandRegionJson["data"][$var]["cumCasesByPublishDate"])*100) .'%</b>
+                                    </td>
+                                    <td class="bg-danger">
+                                        <b>' . number_format($publicHeathEnglandRegionJson["data"][$var]["cumDeathsByPublishDate"]) .'</b>
                                     </td>
                                 </tr>';
                                 }
@@ -336,7 +348,9 @@ $twoDayJson = json_decode(file_get_contents($twoDay), true);
     </div>
 </div>
 
+
 <?php
+/* Disable Clap for NHS
 // Clap for NHS Alert
 // Set up time/date vars
 $day = date('D');
@@ -356,7 +370,19 @@ if($day == 'Thu'){
         </div>';
     }
 }
+*/
 ?>
+
+<!--
+<div class="container">
+    <div class="alert alert-info alert-dismissible fade show text-center" role="alert">
+        <strong>🔥 Support the Developer</strong> <a href="https://game-changer.uk">Gift one of our Banksy Game Changer Canvases</a> 🎁
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+</div>
+-->
 
 <!-- Today/Yesterday Selection -->
 <div class="container">
