@@ -24,9 +24,7 @@
 
 <style>
 .jumbotron {
-  background-image: url(https://joelduncan.io/content/images/size/w2000/2020/03/coronavirus-header.jpg);
-  background-attachment: fixed;
-  background-position: center;
+  background-image: url(/img/banner.png);
   background-repeat: no-repeat;
   background-size: cover;
   }
@@ -116,12 +114,17 @@ $calRecovery = $cases - ($activeCases + $deaths);
 $selectCountry = str_replace("_", " ", $selectCountry);
 
 // Public Heath England source for UK county data
+$publicHeathEnglandTodayCounty = "https://covid-19.uk.com/api/utlaToday.json";
+$publicHeathEnglandTodayCountyJson = json_decode(file_get_contents($publicHeathEnglandTodayCounty), true);
+
 $publicHeathEnglandCounty = "https://covid-19.uk.com/api/utla.json";
 $publicHeathEnglandCountyJson = json_decode(file_get_contents($publicHeathEnglandCounty), true);
 
-// Public Heath England source for UK county data
 $publicHeathEnglandRegion = "https://covid-19.uk.com/api/region.json";
 $publicHeathEnglandRegionJson = json_decode(file_get_contents($publicHeathEnglandRegion), true);
+
+$publicHeathEnglandTodayRegion = "https://covid-19.uk.com/api/regionToday.json";
+$publicHeathEnglandTodayRegionJson = json_decode(file_get_contents($publicHeathEnglandTodayRegion), true);
 
 // Count array size to populate columns
 $ukCountyCount = count($publicHeathEnglandCountyJson["data"]);
@@ -186,7 +189,7 @@ $twoDayJson = json_decode(file_get_contents($twoDay), true);
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Counties & Regions</h5>
+                <h5 class="modal-title">Cumulative: Counties & Regions</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -290,6 +293,124 @@ $twoDayJson = json_decode(file_get_contents($twoDay), true);
                 </div>
             </div>
             <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<?php
+// Compare Todays date with Data
+if (date("Y-m-d") == $publicHeathEnglandTodayCountyJson["data"][0]["date"]) {
+    $countyUpdated = "Today";
+  } else {
+    $countyUpdated = "Yesterday";
+  } 
+
+?>
+
+<!-- UK Today Counties Modal -->
+<div class="modal fade" tabindex="-1" id="todayCountiesModal" role="dialog">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title"><?php echo $countyUpdated ?>: Counties & Regions</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+
+                <ul class="nav nav-pills nav-fill">
+                    <li class="nav-item">
+                        <a class="nav-link active" data-toggle="tab" href="#englandToday">Counties</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="tab" href="#regionsToday">Regions</a>
+                    </li>
+                </ul>
+
+                <!-- England Section -->
+                <div class="tab-content">
+                    <div id="englandToday" class="tab-pane active">
+                        <br>
+                        <input type="text" class="form-control form-control" id="englandTodayInput" onkeyup="englandTodaySearch()" placeholder="Search">
+                        <table id="englandTodayTable" class="table dataTable">
+                            <thead>
+                                <tr>
+                                    <th scope="col">County</th>
+                                    <th scope="col">Total Cases</th>
+                                    <th scope="col">Total Deaths</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php
+                                $var = -1;
+
+                                foreach(range(0,--$ukCountyCount) as $index) {
+
+                                ++$var;
+
+                                echo '<tr>
+                                    <td style="color: white" class="bg-primary">
+                                        ' . $publicHeathEnglandTodayCountyJson["data"][$var]["areaName"] .'
+                                    </td>
+                                    <td class="bg-info">
+                                        <b>' . number_format($publicHeathEnglandTodayCountyJson["data"][$var]["newCasesByPublishDate"]) .'</b>
+                                    </td>
+                                    <td class="bg-danger">
+                                        <b>' . number_format($publicHeathEnglandTodayCountyJson["data"][$var]["newDeathsByPublishDate"]) .'</b>
+                                    </td>
+                                </tr>';
+                                }
+                                ?>
+                            </tbody>
+                            <div id="results"></div>
+                        </table>
+                    </div>
+
+                    <!-- Regions Section -->
+                    <div id="regionsToday" class="tab-pane fade">
+                        <br>
+                        <input type="text" class="form-control form-control" id="regionsTodayInput" onkeyup="regionsTodaySearch()" placeholder="Search">
+                        <table id="regionsTodayTable" class="table dataTable">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Region</th>
+                                    <th scope="col">Total Cases</th>
+                                    <th scope="col">Total Deaths</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php
+                                $var = -1;
+
+                                foreach(range(0,--$ukRegionCount) as $index) {
+
+                                ++$var;
+
+                                echo '<tr>
+                                    <td style="color: white" class="bg-primary">
+                                        ' . $publicHeathEnglandTodayRegionJson["data"][$var]["areaName"] .'
+                                    </td>
+                                    <td class="bg-info">
+                                        <b>' . number_format($publicHeathEnglandTodayRegionJson["data"][$var]["newCasesByPublishDate"]) .'</b>
+                                    </td>
+                                    <td class="bg-danger">
+                                        <b>' . number_format($publicHeathEnglandTodayRegionJson["data"][$var]["newDeathsByPublishDate"]) .'</b>
+                                    </td>
+                                </tr>';
+                                }
+                                ?>
+                            </tbody>
+                            <div id="results"></div>
+                        </table>
+                    </div>
+
+                </div>
+            </div>
+            <div class="modal-footer">
+                <small class="text-left text-muted font-weight-bold">Updated: <?php echo $publicHeathEnglandTodayRegionJson["data"][0]["date"]; ?></small>
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
             </div>
         </div>
@@ -605,9 +726,10 @@ if($day == 'Thu'){
         <?php
             // If UK Selected show Countys modal button
             if ($selectCountry == "UK")
-                echo '<h4>Counties <small class="text-muted">Click below for County breakdown</small></h4>
+                echo '<h4>Counties <small class="text-muted">Click below for County & Region breakdown</small></h4>
                 <div class="btn-group d-flex" role="group">
-                    <button type="button" class="btn btn-primary w-100" data-toggle="modal" data-target="#countiesModal">Cases by County or Region</button>
+                    <button type="button" class="btn btn-primary w-100" data-toggle="modal" data-target="#todayCountiesModal">' . $countyUpdated . '</small></h4></button>
+                    <button type="button" class="btn btn-info w-100" data-toggle="modal" data-target="#countiesModal">Cumulative</button>
                 </div>';
 
             // If USA Selected show States modal button
@@ -699,6 +821,50 @@ function englandSearch() {
   }
 }
 
+function englandTodaySearch() {
+  // Declare variables
+  var input, filter, table, tr, td, i, txtValue;
+  input = document.getElementById("englandTodayInput");
+  filter = input.value.toUpperCase();
+  table = document.getElementById("englandTodayTable");
+  tr = table.getElementsByTagName("tr");
+
+  // Loop through all table rows, and hide those who don't match the search query
+  for (i = 0; i < tr.length; i++) {
+    td = tr[i].getElementsByTagName("td")[0];
+    if (td) {
+      txtValue = td.textContent || td.innerText;
+      if (txtValue.toUpperCase().indexOf(filter) > -1) {
+        tr[i].style.display = "";
+      } else {
+        tr[i].style.display = "none";
+      }
+    }
+  }
+}
+
+function regionsTodaySearch() {
+  // Declare variables
+  var input, filter, table, tr, td, i, txtValue;
+  input = document.getElementById("regionsTodayInput");
+  filter = input.value.toUpperCase();
+  table = document.getElementById("regionsTodayTable");
+  tr = table.getElementsByTagName("tr");
+
+  // Loop through all table rows, and hide those who don't match the search query
+  for (i = 0; i < tr.length; i++) {
+    td = tr[i].getElementsByTagName("td")[0];
+    if (td) {
+      txtValue = td.textContent || td.innerText;
+      if (txtValue.toUpperCase().indexOf(filter) > -1) {
+        tr[i].style.display = "";
+      } else {
+        tr[i].style.display = "none";
+      }
+    }
+  }
+}
+
 function regionsSearch() {
   // Declare variables
   var input, filter, table, tr, td, i, txtValue;
@@ -750,6 +916,7 @@ $(document).ready(function() {
     $('.dataTable').DataTable({
     paging: false,
     searching: false,
+    autoWidth: true,
     info: false
 });
 } );
