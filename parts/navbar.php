@@ -1,4 +1,10 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+<style>
+.bg-custom {
+   background-color: #283071 ;
+}
+</style>
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-custom">
 <div class="container">
   <a class="navbar-brand" href="/">COVID-19 <img src="/img/covid-19-logo.png" srcset="/img/covid-19-logo.svg" height="30"></a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
