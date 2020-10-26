@@ -22,9 +22,7 @@
 
 <style>
 .jumbotron {
-  background-image: url(https://joelduncan.io/content/images/size/w2000/2020/03/coronavirus-header.jpg);
-  background-attachment: fixed;
-  background-position: center;
+  background-image: url(https://atlasbiomed.com/blog/content/images/size/w2000/2020/03/2020-03-19-Coronavirus-transmission.png);
   background-repeat: no-repeat;
   background-size: cover;
   }
