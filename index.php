@@ -145,6 +145,26 @@ $yesterdayJson = json_decode(file_get_contents($yesterday), true);
 $twoDay = $twoDayApiURL;
 $twoDayJson = json_decode(file_get_contents($twoDay), true);
 
+// Compare Todays date with Data
+$latestData = new DateTime($publicHeathEnglandTodayCountyJson["data"][0]["date"]);
+$today = new DateTime(date("Y-m-d"));
+
+$dataDiff = $today->diff($latestData)->format("%a");
+
+// Override dataAge
+//$dataDiff = 2;
+
+// Set Current Data Age
+if ($dataDiff == 0) {
+    $dataAge = "Today";
+}
+elseif ($dataDiff == 1) {
+    $dataAge = "Yesterday";
+}
+else {
+    $dataAge = $dataDiff . " Days ago";
+}
+
 ?>
 	
 <!-- Jumbotron Header -->
@@ -299,22 +319,12 @@ $twoDayJson = json_decode(file_get_contents($twoDay), true);
     </div>
 </div>
 
-<?php
-// Compare Todays date with Data
-if (date("Y-m-d") == $publicHeathEnglandTodayCountyJson["data"][0]["date"]) {
-    $countyUpdated = "Today";
-  } else {
-    $countyUpdated = "Yesterday";
-  } 
-
-?>
-
 <!-- UK Today Counties Modal -->
 <div class="modal fade" tabindex="-1" id="todayCountiesModal" role="dialog">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title"><?php echo $countyUpdated ?>: Counties & Regions</h5>
+                <h5 class="modal-title"><?php echo $dataAge ?>: Counties & Regions</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -728,7 +738,7 @@ if($day == 'Thu'){
             if ($selectCountry == "UK")
                 echo '<h4>Counties <small class="text-muted">Click below for County & Region breakdown</small></h4>
                 <div class="btn-group d-flex" role="group">
-                    <button type="button" class="btn btn-primary w-100" data-toggle="modal" data-target="#todayCountiesModal">' . $countyUpdated . '</small></h4></button>
+                    <button type="button" class="btn btn-primary w-100" data-toggle="modal" data-target="#todayCountiesModal">' . $dataAge . '</small></h4></button>
                     <button type="button" class="btn btn-info w-100" data-toggle="modal" data-target="#countiesModal">Cumulative</button>
                 </div>';
 
