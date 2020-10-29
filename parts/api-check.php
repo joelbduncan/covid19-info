@@ -13,6 +13,7 @@ $apiBackupJson = json_decode(file_get_contents($apiBackup), true);
 if ($apiMainJson["todayCases"] > $apiBackupJson["todayCases"]){
     $apiURL = "https://api.covid-19.UK.com";
     $yesterdayApiURL = "https://api.covid-19.UK.com/yesterday/$selectCountry";
+    $twoDayApiURL = "https://api.covid-19.UK.com/twoDay/$selectCountry";
     $currentAPI = '<a href="https://api.covid-19.uk.com/">Main</a>';
   }
   // Use self hosted API when numbers are equal
