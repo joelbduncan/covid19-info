@@ -515,6 +515,53 @@ if($day == 'Thu'){
 </div>
 -->
 
+<?php
+// Show Gov update count down only if cases = 0 & time < 16
+
+$hour = date('H');
+
+if ($selectCountry == "UK"){
+    if($todayCases == 0){
+        if ($hour < "16") {
+            echo '<div class="container text-center">
+            <div class="alert alert-secondary alert-dismissible fade show" role="alert">
+                Next Gov Update: <strong><span id="time"></span></strong>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            </div>
+        </div>';
+        }
+    }
+}
+?>
+
+<?php
+// Show Gov update count down only if cases = 0 & time < 16
+
+$hour = date('H');
+$minute = date('i');
+
+//echo $minute;
+
+if ($selectCountry == "UK"){
+    if($todayCases == 0){
+        if ($hour == "16") {
+            if ($minute < 20){
+                echo '<div class="container text-center">
+                <div class="alert alert-secondary alert-dismissible fade show" role="alert">
+                    Data Updating... <br> <small>Can take up to 20 minutes, try again at 4:20pm</small>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                </div>
+            </div>';
+            }
+        }
+    }
+}
+?>
+
 <!-- Today/Yesterday Selection -->
 <div class="container">
     <ul class="nav nav-pills mb-3 justify-content-center">
@@ -525,7 +572,7 @@ if($day == 'Thu'){
             <a class="nav-link" data-toggle="tab" href="#yesterday">Yesterday</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" data-toggle="tab" href="#twoDay">Two Days</a>
+            <a class="nav-link" data-toggle="tab" href="#twoDay">Two-Days</a>
         </li>
     </ul>
 </div>
@@ -930,6 +977,38 @@ $(document).ready(function() {
     info: false
 });
 } );
+</script>
+
+<script>
+(function() {
+  var start = new Date;
+  start.setHours(16, 1, 0); // 4pm
+
+  function pad(num) {
+    return ("0" + parseInt(num)).substr(-2);
+  }
+
+  function tick() {
+    var now = new Date;
+    if (now > start) {
+      start.setDate(start.getDate() + 1);
+    }
+    var remain = ((start - now) / 1000);
+    var hh = pad((remain / 60 / 60) % 60);
+    var mm = pad((remain / 60) % 60);
+    var ss = pad(remain % 60);
+    document.getElementById('time').innerHTML =
+      hh + ":" + mm + ":" + ss;
+    setTimeout(tick, 1000);
+    var d = new Date();
+    var n = d.getHours();
+    if (n == 16) {
+        document.getElementById("time").innerHTML = '<a href="/">Refresh</a>';
+    }
+  }
+
+  document.addEventListener('DOMContentLoaded', tick);
+})();
 </script>
 
 <!-- Enable tooltip -->
