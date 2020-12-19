@@ -73,19 +73,6 @@ $worldRecovered = $jsonWorld["recovered"];
 $url = "$apiURL/countries/$selectCountry";
 $json = json_decode(file_get_contents($url), true);
 
-$country = $json["country"];
-$cases = $json["cases"];
-$activeCases = $json["active"];
-$todayCases = $json["todayCases"];
-$deaths = $json["deaths"];
-$todayDeaths = $json["todayDeaths"];
-$recovered = $json["recovered"];
-$critical = $json["critical"];
-$casesPerOneMillion = $json["casesPerOneMillion"];
-$deathsPerOneMillion = $json["deathsPerOneMillion"];
-$testsPerOneMillion = $json["testsPerOneMillion"];
-$totalTests = $json["tests"];
-
 // World Calculated Percentages
 $worldDeathsPercent = ($worldDeaths/$worldCases)*100; 
 $worldRecoveredPercent = ($worldRecovered/$worldCases)*100;
@@ -99,13 +86,6 @@ if ($selectCountry == "UK") {
 } else {
     $recoveredCalc = $recovered;
 }
-
-// Local Calculated Percentages;
-$activeCasesPercent = ($activeCases/$cases)*100;
-$deathsPercent = ($deaths/$cases)*100;
-$criticalPercent = ($critical/$cases)*100; 
-$recoveredPercent = ($recoveredCalc/$cases)*100;
-$positiveTestPercent = ($cases/$totalTests)*100;
 
 // Calculated Values
 $calRecovery = $cases - ($activeCases + $deaths);
@@ -151,8 +131,31 @@ $today = new DateTime(date("Y-m-d"));
 
 $dataDiff = $today->diff($latestData)->format("%a");
 
-// Override dataAge
-//$dataDiff = 2;
+$country = $json["country"];
+$cases = $json["cases"];
+$activeCases = $json["active"];
+$todayCases = $json["todayCases"];
+$yesterdayCases = $yesterdayJson["todayCases"];
+$twoDayCases = $twoDayJson["todayCases"];
+$deaths = $json["deaths"];
+$todayDeaths = $json["todayDeaths"];
+$yesterdayDeaths = $yesterdayJson["todayDeaths"];
+$twoDayDeaths = $twoDayJson["todayDeaths"];
+$recovered = $json["recovered"];
+$critical = $json["critical"];
+$casesPerOneMillion = $json["casesPerOneMillion"];
+$deathsPerOneMillion = $json["deathsPerOneMillion"];
+$testsPerOneMillion = $json["testsPerOneMillion"];
+$totalTests = $json["tests"];
+$yesterdayTests = $yesterdayJson["tests"];
+$twoDayTests = $twoDayJson["tests"];
+
+// Local Calculated Percentages;
+$activeCasesPercent = ($activeCases/$cases)*100;
+$deathsPercent = ($deaths/$cases)*100;
+$criticalPercent = ($critical/$cases)*100; 
+$recoveredPercent = ($recoveredCalc/$cases)*100;
+$positiveTestPercent = ($cases/$totalTests)*100;
 
 // Set Current Data Age
 if ($dataDiff == 0) {
@@ -165,8 +168,67 @@ else {
     $dataAge = $dataDiff . " Days ago";
 }
 
+// Store Today/Yesterday/twoDay vars in array
+$todayArray = array($todayCases, $todayDeaths, $todayTests, $yesterdayCases, $yesterdayDeaths, $yesterdayTests);
+$yesterdayArray = array($yesterdayCases, $yesterdayDeaths, $yesterdayDeaths, $twoDayCases, $twoDayDeaths, $twoDayTests);
+
+// Badge Colour
+$statsDiffBadge = array(
+    "casesToday" => "",
+    "deathsToday" => "",
+    "testsToday" => "",
+    "casesYesterday" => "",
+    "deathsYesterday" => "",
+    "testsYesterday" => ""
+);
+
+// Stats diff percentage
+$statsDiff = array(
+    "casesTodayDiff" => "",
+    "deathsTodayDiff" => "",
+    "testsTodayDiff" => "",
+    "casesYesterdayDiff" => "",
+    "deathsYesterdayDiff" => "",
+    "testsYesterdayDiff" => ""
+);
+
+// Calculate Diff between todayArray & yesterdayArray as percentage 
+$i = 0;
+foreach($statsDiff as $key => &$value) {
+
+    $d = $todayArray[$i] - $yesterdayArray[$i];
+    $statsDiff[$key] = sprintf("%.1f", ($d/$todayArray[$i])*100);
+
+    $i++;    
+}
+
+// Set badge colour based on diff percent
+$q = 0;
+foreach($statsDiffBadge as $key => &$value) {
+
+    $values = array_values( $statsDiff);
+
+    if ($values[$q] == 0) {
+        $statsDiffBadge[$key] = "success";
+    }
+
+    elseif ($values[$q] < 0) {   
+        $statsDiffBadge[$key] = "success";
+    }
+    else {
+        if ($q == 4 or $q == 1) {
+            $statsDiffBadge[$key] = "dark";
+        }
+        else {
+            $statsDiffBadge[$key] = "danger";
+        }
+    }
+
+    $q++;    
+}
+
 ?>
-	
+
 <!-- Jumbotron Header -->
 <div class="jumbotron jumbotron-fluid">
     <div class="container">
@@ -547,7 +609,7 @@ $minute = date('i');
 if ($selectCountry == "UK"){
     if($todayCases == 0){
         if ($hour == "16") {
-            if ($minute < 20){
+            if ($minute < 30){
                 echo '<div class="container text-center">
                 <div class="alert alert-secondary alert-dismissible fade show" role="alert">
                     Data Updating... <br> <small>Can take up to 20 minutes, try again at 4:20pm</small>
@@ -586,13 +648,14 @@ if ($selectCountry == "UK"){
             <div class="card-deck">
                 <div class="card text-white bg-primary text-center">
                     <div class="card-body">
-                        <h5 class="card-title"><?php echo strtoupper($selectCountry); ?> Cases Today</h5>
+                        <h5 class="card-title"><?php echo strtoupper($selectCountry); ?> Cases Today <span class="badge badge-<?php echo $statsDiffBadge["casesToday"]; ?>"><?php echo sprintf("%+d",$statsDiff["casesTodayDiff"]); ?>% </span></h5>
                         <h1>+<?php echo number_format($todayCases); ?></h1>
+                        
                     </div>
                 </div>
                 <div class="card text-white bg-danger text-center">
                     <div class="card-body">
-                        <h5 class="card-title"><?php echo strtoupper($selectCountry); ?> Deaths Today</h5>
+                        <h5 class="card-title"><?php echo strtoupper($selectCountry); ?> Deaths Today <span class="badge badge-<?php echo $statsDiffBadge["deathsToday"]; ?>"><?php echo sprintf("%+d",$statsDiff["deathsTodayDiff"]); ?>% </span></h5>
                         <h1>+<?php echo number_format($todayDeaths); ?></h1>
                     </div>
                 </div>
@@ -621,14 +684,14 @@ if ($selectCountry == "UK"){
             <div class="card-deck">
                 <div class="card text-white bg-primary text-center">
                     <div class="card-body">
-                        <h5 class="card-title"><?php echo strtoupper($selectCountry); ?> Cases Yesterday</h5>
-                        <h1>+<?php echo number_format($yesterdayJson["todayCases"]); ?></h1>
+                        <h5 class="card-title"><?php echo strtoupper($selectCountry); ?> Cases Yesterday <span class="badge badge-<?php echo $statsDiffBadge["casesYesterday"]; ?>"><?php echo sprintf("%+d",$statsDiff["casesYesterdayDiff"]); ?>% </span></h5>
+                        <h1>+<?php echo number_format($yesterdayCases); ?></h1>
                     </div>
                 </div>
                 <div class="card text-white bg-danger text-center">
                     <div class="card-body">
-                        <h5 class="card-title"><?php echo strtoupper($selectCountry); ?> Deaths Yesterday</h5>
-                        <h1>+<?php echo number_format($yesterdayJson["todayDeaths"]); ?></h1>
+                        <h5 class="card-title"><?php echo strtoupper($selectCountry); ?> Deaths Yesterday <span class="badge badge-<?php echo $statsDiffBadge["deathsYesterday"]; ?>"><?php echo sprintf("%+d",$statsDiff["deathsYesterdayDiff"]); ?>% </span></h5>
+                        <h1>+<?php echo number_format($yesterdayDeaths); ?></h1>
                     </div>
                 </div>
             </div>
@@ -982,7 +1045,7 @@ $(document).ready(function() {
 <script>
 (function() {
   var start = new Date;
-  start.setHours(16, 1, 0); // 4pm
+  start.setHours(16, 45, 0); // 4pm
 
   function pad(num) {
     return ("0" + parseInt(num)).substr(-2);
