@@ -77,16 +77,6 @@ $json = json_decode(file_get_contents($url), true);
 $worldDeathsPercent = ($worldDeaths/$worldCases)*100; 
 $worldRecoveredPercent = ($worldRecovered/$worldCases)*100;
 
-// Calculate Recovered Data for UK only
-if ($selectCountry == "UK") {
-    if ($recovered == "") {
-        //$recoveredCalc = $cases - ($activeCases + $deaths);
-        $recoveredCalc = $recovered;
-    }
-} else {
-    $recoveredCalc = $recovered;
-}
-
 // Calculated Values
 $calRecovery = $cases - ($activeCases + $deaths);
 
@@ -154,7 +144,7 @@ $twoDayTests = $twoDayJson["tests"];
 $activeCasesPercent = ($activeCases/$cases)*100;
 $deathsPercent = ($deaths/$cases)*100;
 $criticalPercent = ($critical/$cases)*100; 
-$recoveredPercent = ($recoveredCalc/$cases)*100;
+$recoveredPercent = ($recovered/$cases)*100;
 $positiveTestPercent = ($cases/$totalTests)*100;
 
 // Set Current Data Age
@@ -749,7 +739,7 @@ if ($selectCountry == "UK"){
 
     <!-- Selected Country Totals -->
     <div class="container">
-        <h3 class="mt-5"><?php echo strtoupper($selectCountry); ?> Total Cases</h3>
+        <h3 class="mt-5"><?php echo strtoupper($selectCountry); ?> Total Statistics</h3>
         <table class="table table-curved">
             <thead>
                 <tr>
@@ -767,13 +757,7 @@ if ($selectCountry == "UK"){
                     </td>
                     <td class="bg-info">
                         <?php
-                            if ($selectCountry == "UK") {
-                                if ($recovered == "") {
-                                    echo '<u><span rel="tooltip" title="Public Health England no longer provide this data.">N/A</span></u>';
-                                }
-                            } else {
-                                echo number_format($activeCases);
-                            }
+                            echo number_format($activeCases);
                         ?>
                     </td>
                     <td class="bg-danger">
@@ -783,16 +767,7 @@ if ($selectCountry == "UK"){
                         <?php echo number_format($critical); ?>
                     </td>
                     <td class="bg-success">
-                        <?php
-                            if ($selectCountry == "UK") {
-                                if ($recovered == "") {
-                                    //echo '<u><span rel="tooltip" title="Calculated value, Public Health England no longer provide this data.">' . number_format($recoveredCalc) . ' </span></u>';
-                                    echo '<u><span rel="tooltip" title="Public Health England no longer provide this data.">N/A</span></u>';
-                                }
-                            } else {
-                                echo number_format($recoveredCalc);
-                            }
-                        ?>
+                        <?php echo number_format($recovered); ?>
                     </td>
                 </tr>
             </tbody>
@@ -831,7 +806,7 @@ if ($selectCountry == "UK"){
                     <?php echo $criticalPercent; ?>%" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100">
             </div>
             <div class="progress-bar bg-success" role="progressbar" style="width: 
-                    <?php echo ($recoveredCalc/$cases)*100; ?>%" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
+                    <?php echo ($recovered/$cases)*100; ?>%" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
             </div>
             <div class="progress-bar bg-info" role="progressbar" style="width: 
                     <?php echo ($activeCases/$cases)*100; ?>%" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100">
