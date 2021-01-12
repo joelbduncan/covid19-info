@@ -96,6 +96,12 @@ $publicHeathEnglandRegionJson = json_decode(file_get_contents($publicHeathEnglan
 $publicHeathEnglandTodayRegion = "https://covid-19.uk.com/api/regionToday.json";
 $publicHeathEnglandTodayRegionJson = json_decode(file_get_contents($publicHeathEnglandTodayRegion), true);
 
+$govHospitalTotalData = "https://covid-19.uk.com/api/hospitalTotalData.json";
+$govHospitalTotalDataJson = json_decode(file_get_contents($govHospitalTotalData), true);
+
+$govVaccineData = "https://covid-19.uk.com/api/vaccineData.json";
+$govVaccineDataJson = json_decode(file_get_contents($govVaccineData), true);
+
 // Count array size to populate columns
 $ukCountyCount = count($publicHeathEnglandCountyJson["data"]);
 $ukRegionCount = count($publicHeathEnglandRegionJson["data"]);
@@ -629,6 +635,12 @@ if ($selectCountry == "UK"){
     </ul>
 </div>
 
+<div class="container">
+    <div class="alert alert-dark text-center" role="alert">
+        Patients on Mechanical Ventilators: <strong><?php echo number_format($govHospitalTotalDataJson["data"]["0"]["covidOccupiedMVBeds"]); ?></strong>
+    </div>
+</div>
+
 <!-- Selected Country Todal Stats -->
 <div class="tab-content">
     <div id="today" class="tab-pane active">
@@ -737,6 +749,36 @@ if ($selectCountry == "UK"){
         </div>
     </div>
 
+    <?php
+        // If UK Show Gov Vaccine Data
+        if ($selectCountry == "UK")
+            echo '<div class="container">
+            <h3 class="mt-5">Vaccine Data</h3>
+            <table class="table table-curved">
+                <thead>
+                    <tr>
+                        <th scope="col">1st Dose</th>
+                        <th scope="col">2nd Dose</th>
+                        <th scope="col">Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="bg-primary" style="color: white;">
+                            ' . number_format($govVaccineDataJson["data"]["0"]["cumPeopleVaccinatedFirstDoseByPublishDate"]) . '
+                        </td>
+                        <td class="bg-secondary">
+                            ' . number_format($govVaccineDataJson["data"]["0"]["cumPeopleVaccinatedSecondDoseByPublishDate"]) . '
+                        </td>
+                        <td class="bg-success">
+                            ' . number_format($govVaccineDataJson["data"]["0"]["cumPeopleVaccinatedFirstDoseByPublishDate"] + $govVaccineDataJson["data"]["0"]["cumPeopleVaccinatedSecondDoseByPublishDate"]) . '
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>';
+    ?>
+
     <!-- Selected Country Totals -->
     <div class="container">
         <h3 class="mt-5"><?php echo strtoupper($selectCountry); ?> Total Statistics</h3>
@@ -745,9 +787,6 @@ if ($selectCountry == "UK"){
                 <tr>
                     <th scope="col">Total</th>
                     <th scope="col">Active</th>
-                    <th scope="col">Deaths</th>
-                    <th scope="col">Critical</th>
-                    <th scope="col">Recovered</th>
                 </tr>
             </thead>
             <tbody>
@@ -760,6 +799,20 @@ if ($selectCountry == "UK"){
                             echo number_format($activeCases);
                         ?>
                     </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <table class="table table-curved">
+            <thead>
+                <tr>
+                    <th scope="col">Deaths</th>
+                    <th scope="col">Critical</th>
+                    <th scope="col">Recovered</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
                     <td class="bg-danger">
                         <?php echo number_format($deaths); ?>
                     </td>
