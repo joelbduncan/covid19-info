@@ -6,7 +6,7 @@ $apiMain = "https://api.covid-19.UK.com/countries/UK";
 $apiMainJson = json_decode(file_get_contents($apiMain), true);
 
 // Check UK Today cases on alternative API
-$apiBackup = "https://disease.sh/v2/countries/UK";
+$apiBackup = "https://disease.sh/v3/covid-19/countries/UK";
 $apiBackupJson = json_decode(file_get_contents($apiBackup), true);
 
 // Use self hosted API unless alternative has more cases
@@ -25,9 +25,9 @@ if ($apiMainJson["todayCases"] > $apiBackupJson["todayCases"]){
     }
   else {
       // Use backend in other scenarios
-      $apiURL = "https://disease.sh/v2";
-      $yesterdayApiURL = "https://disease.sh/v2/countries/$selectCountry?yesterday=true";
-      $twoDayApiURL = "https://disease.sh/v2/countries/$selectCountry?twoDaysAgo=true";
+      $apiURL = "https://disease.sh/v3/covid-19";
+      $yesterdayApiURL = "https://disease.sh/v3/covid-19/countries/$selectCountry?yesterday=true";
+      $twoDayApiURL = "https://disease.sh/v3/covid-19/countries/$selectCountry?twoDaysAgo=true";
       $currentAPI = '<a href="https://disease.sh/">disease.sh</a>';
   }
 
