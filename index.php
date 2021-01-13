@@ -107,7 +107,7 @@ $ukCountyCount = count($publicHeathEnglandCountyJson["data"]);
 $ukRegionCount = count($publicHeathEnglandRegionJson["data"]);
 
 // API for US state data
-$usaStates = "https://corona.lmao.ninja/v2/states";
+$usaStates = "https://disease.sh/v3/covid-19/states";
 $usaStatesJson = json_decode(file_get_contents($usaStates), true);
 
 // Count array size to populate columns
