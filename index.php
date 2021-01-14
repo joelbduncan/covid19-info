@@ -608,7 +608,7 @@ if ($selectCountry == "UK"){
             if ($minute < 30){
                 echo '<div class="container text-center">
                 <div class="alert alert-secondary alert-dismissible fade show" role="alert">
-                    Data Updating... <br> <small>Can take up to 20 minutes, try again at 4:20pm</small>
+                    Data Updating... <br> <small>Can take up to 20 minutes, try again at 4:50pm</small>
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -753,7 +753,7 @@ if ($selectCountry == "UK"){
         // If UK Show Gov Vaccine Data
         if ($selectCountry == "UK")
             echo '<div class="container">
-            <h3 class="mt-5">Vaccine Data</h3>
+            <h3 class="mt-5 text-center">💉 Vaccine Data</h3>
             <table class="table table-curved">
                 <thead>
                     <tr>
@@ -781,7 +781,7 @@ if ($selectCountry == "UK"){
 
     <!-- Selected Country Totals -->
     <div class="container">
-        <h3 class="mt-5"><?php echo strtoupper($selectCountry); ?> Total Statistics</h3>
+        <h3 class="mt-5 text-center">🏥 <?php echo strtoupper($selectCountry); ?> Total Statistics</h3>
         <table class="table table-curved">
             <thead>
                 <tr>
@@ -893,7 +893,7 @@ if ($selectCountry == "UK"){
 <br>
 
 <!-- World Total -->
-<h3 class="text-center">Coronavirus Worldwide</h3>
+<h3 class="text-center">🌍 Coronavirus Worldwide</h3>
 <div class="container">
     <div class="card-deck">
         <div class="card text-white bg-primary text-center">
