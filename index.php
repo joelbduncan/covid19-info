@@ -537,6 +537,56 @@ foreach($statsDiffBadge as $key => &$value) {
     </div>
 </div>
 
+<!-- UK Vaccine Daily Modal -->
+<div class="modal fade" tabindex="-1" id="vacModal" role="dialog">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">UK Daily Vaccine Data</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <table id="ukVacTable" class="table dataTable sorting1">
+                    <thead>
+                        <tr>
+                            <th scope="col">Date</th>
+                            <th scope="col">1st Dose</th>
+                            <th scope="col">2nd Dose</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php
+                        $var = -1;
+                
+                        foreach(range(0,--$ukVacDailyCount) as $index) {
+                
+                        ++$var;
+                
+                        echo '<tr>
+                            <td style="color: white" class="bg-primary">
+                                ' . $govVaccineDailyDataJson["data"][$var]["date"] .'
+                            </td>
+                            <td>
+                                <b>' . number_format($govVaccineDailyDataJson["data"][$var]["newPeopleVaccinatedFirstDoseByPublishDate"]) .'</b>
+                            </td>
+                            <td class="bg-primary">
+                                <b>' . number_format($govVaccineDailyDataJson["data"][$var]["newPeopleVaccinatedSecondDoseByPublishDate"]) .'</b>
+                            </td>
+                        </tr>';
+                        }
+                        ?>
+                    </tbody>
+                    <div id="results"></div>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 <?php
 /* Disable Clap for NHS
