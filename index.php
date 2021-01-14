@@ -102,9 +102,13 @@ $govHospitalTotalDataJson = json_decode(file_get_contents($govHospitalTotalData)
 $govVaccineData = "https://covid-19.uk.com/api/vaccineData.json";
 $govVaccineDataJson = json_decode(file_get_contents($govVaccineData), true);
 
+$govVaccineDailyData = "https://covid-19.uk.com/api/vaccineDailyData.json";
+$govVaccineDailyDataJson = json_decode(file_get_contents($govVaccineDailyData), true);
+
 // Count array size to populate columns
 $ukCountyCount = count($publicHeathEnglandCountyJson["data"]);
 $ukRegionCount = count($publicHeathEnglandRegionJson["data"]);
+$ukVacDailyCount = count($govVaccineDailyDataJson["data"]);
 
 // API for US state data
 $usaStates = "https://disease.sh/v3/covid-19/states";
@@ -830,6 +834,9 @@ if ($selectCountry == "UK"){
                     </tr>
                 </tbody>
             </table>
+            <div class="btn-group d-flex" role="group">
+                <button type="button" class="btn btn-info w-100" data-toggle="modal" data-target="#vacModal">Daily Vaccine Data</button>
+            </div>
         </div>';
     ?>
 
