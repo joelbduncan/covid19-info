@@ -548,12 +548,13 @@ foreach($statsDiffBadge as $key => &$value) {
                 </button>
             </div>
             <div class="modal-body">
-                <table id="ukVacTable" class="table dataTable sorting1">
+                <table id="ukVacTable" class="table dataTable">
                     <thead>
                         <tr>
                             <th scope="col">Date</th>
                             <th scope="col">1st Dose</th>
                             <th scope="col">2nd Dose</th>
+                            <th scope="col">Total</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -565,14 +566,17 @@ foreach($statsDiffBadge as $key => &$value) {
                         ++$var;
                 
                         echo '<tr>
-                            <td style="color: white" class="bg-primary">
+                            <td>
                                 ' . $govVaccineDailyDataJson["data"][$var]["date"] .'
                             </td>
-                            <td>
+                            <td class="bg-secondary">
                                 <b>' . number_format($govVaccineDailyDataJson["data"][$var]["newPeopleVaccinatedFirstDoseByPublishDate"]) .'</b>
                             </td>
-                            <td class="bg-primary">
+                            <td>
                                 <b>' . number_format($govVaccineDailyDataJson["data"][$var]["newPeopleVaccinatedSecondDoseByPublishDate"]) .'</b>
+                            </td>
+                            <td class="bg-secondary">
+                                <b>' . number_format($govVaccineDailyDataJson["data"][$var]["newPeopleVaccinatedFirstDoseByPublishDate"] + $govVaccineDailyDataJson["data"][$var]["newPeopleVaccinatedSecondDoseByPublishDate"]) .'</b>
                             </td>
                         </tr>';
                         }
