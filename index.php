@@ -1115,6 +1115,7 @@ $(document).ready(function() {
     paging: false,
     searching: false,
     autoWidth: true,
+    order: [[ 1, "desc" ]],
     info: false
 });
 } );
