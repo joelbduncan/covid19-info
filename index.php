@@ -77,32 +77,29 @@ $json = json_decode(file_get_contents($url), true);
 $worldDeathsPercent = ($worldDeaths/$worldCases)*100; 
 $worldRecoveredPercent = ($worldRecovered/$worldCases)*100;
 
-// Calculated Values
-$calRecovery = $cases - ($activeCases + $deaths);
-
 // Replace underscores with spaces in Country name
 $selectCountry = str_replace("_", " ", $selectCountry);
 
 // Public Heath England source for UK county data
-$publicHeathEnglandTodayCounty = "https://covid-19.uk.com/api/utlaToday.json";
+$publicHeathEnglandTodayCounty = "api/utlaToday.json";
 $publicHeathEnglandTodayCountyJson = json_decode(file_get_contents($publicHeathEnglandTodayCounty), true);
 
-$publicHeathEnglandCounty = "https://covid-19.uk.com/api/utla.json";
+$publicHeathEnglandCounty = "api/utla.json";
 $publicHeathEnglandCountyJson = json_decode(file_get_contents($publicHeathEnglandCounty), true);
 
-$publicHeathEnglandRegion = "https://covid-19.uk.com/api/region.json";
+$publicHeathEnglandRegion = "api/region.json";
 $publicHeathEnglandRegionJson = json_decode(file_get_contents($publicHeathEnglandRegion), true);
 
-$publicHeathEnglandTodayRegion = "https://covid-19.uk.com/api/regionToday.json";
+$publicHeathEnglandTodayRegion = "api/regionToday.json";
 $publicHeathEnglandTodayRegionJson = json_decode(file_get_contents($publicHeathEnglandTodayRegion), true);
 
-$govHospitalTotalData = "https://covid-19.uk.com/api/hospitalTotalData.json";
+$govHospitalTotalData = "api/hospitalTotalData.json";
 $govHospitalTotalDataJson = json_decode(file_get_contents($govHospitalTotalData), true);
 
-$govVaccineData = "https://covid-19.uk.com/api/vaccineData.json";
+$govVaccineData = "api/vaccineData.json";
 $govVaccineDataJson = json_decode(file_get_contents($govVaccineData), true);
 
-$govVaccineDailyData = "https://covid-19.uk.com/api/vaccineDailyData.json";
+$govVaccineDailyData = "api/vaccineDailyData.json";
 $govVaccineDailyDataJson = json_decode(file_get_contents($govVaccineDailyData), true);
 
 // Count array size to populate columns
@@ -169,7 +166,7 @@ else {
 }
 
 // Store Today/Yesterday/twoDay vars in array
-$todayArray = array($todayCases, $todayDeaths, $todayTests, $yesterdayCases, $yesterdayDeaths, $yesterdayTests);
+$todayArray = array($todayCases, $todayDeaths, $totalTests, $yesterdayCases, $yesterdayDeaths, $yesterdayTests);
 $yesterdayArray = array($yesterdayCases, $yesterdayDeaths, $yesterdayDeaths, $twoDayCases, $twoDayDeaths, $twoDayTests);
 
 // Badge Colour
@@ -552,7 +549,7 @@ foreach($statsDiffBadge as $key => &$value) {
                 </button>
             </div>
             <div class="modal-body">
-                <table id="ukVacTable" class="table dataTable">
+                <table id="ukVacTable" class="table ukVacTable">
                     <thead>
                         <tr>
                             <th scope="col">Date</th>
@@ -573,13 +570,13 @@ foreach($statsDiffBadge as $key => &$value) {
                             <td>
                                 ' . $govVaccineDailyDataJson["data"][$var]["date"] .'
                             </td>
-                            <td class="bg-secondary">
+                            <td style="color: white" class="bg-primary">
                                 <b>' . number_format($govVaccineDailyDataJson["data"][$var]["newPeopleVaccinatedFirstDoseByPublishDate"]) .'</b>
                             </td>
                             <td>
                                 <b>' . number_format($govVaccineDailyDataJson["data"][$var]["newPeopleVaccinatedSecondDoseByPublishDate"]) .'</b>
                             </td>
-                            <td class="bg-secondary">
+                            <td class="bg-success">
                                 <b>' . number_format($govVaccineDailyDataJson["data"][$var]["newPeopleVaccinatedFirstDoseByPublishDate"] + $govVaccineDailyDataJson["data"][$var]["newPeopleVaccinatedSecondDoseByPublishDate"]) .'</b>
                             </td>
                         </tr>';
@@ -590,6 +587,7 @@ foreach($statsDiffBadge as $key => &$value) {
                 </table>
             </div>
             <div class="modal-footer">
+                <small class="text-left text-muted font-weight-bold">Updated: <?php echo $govVaccineDailyDataJson["data"][0]["date"]; ?></small>
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
             </div>
         </div>
@@ -693,11 +691,15 @@ if ($selectCountry == "UK"){
     </ul>
 </div>
 
-<div class="container">
-    <div class="alert alert-dark text-center" role="alert">
-        Patients on Mechanical Ventilators: <strong><?php echo number_format($govHospitalTotalDataJson["data"]["0"]["covidOccupiedMVBeds"]); ?></strong>
-    </div>
-</div>
+<?php 
+if ($selectCountry == "UK")
+    echo'
+    <div class="container">
+        <div class="alert alert-dark text-center" role="alert">
+            Patients on Mechanical Ventilators: <strong>' . number_format($govHospitalTotalDataJson["data"]["0"]["covidOccupiedMVBeds"]) . '</strong>
+        </div>
+    </div>'
+?>
 
 <!-- Selected Country Todal Stats -->
 <div class="tab-content">
@@ -1127,6 +1129,19 @@ $(document).ready(function() {
     searching: false,
     autoWidth: true,
     order: [[ 1, "desc" ]],
+    info: false
+});
+} );
+</script>
+
+<!-- Enable dataTables -->
+<script>
+$(document).ready(function() {
+    $('.ukVacTable').DataTable({
+    paging: false,
+    searching: false,
+    autoWidth: true,
+    order: [[ 0, "desc" ]],
     info: false
 });
 } );
