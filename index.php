@@ -80,39 +80,61 @@ $worldRecoveredPercent = ($worldRecovered/$worldCases)*100;
 // Replace underscores with spaces in Country name
 $selectCountry = str_replace("_", " ", $selectCountry);
 
-// Public Heath England source for UK county data
-$publicHeathEnglandTodayCounty = "api/utlaToday.json";
-$publicHeathEnglandTodayCountyJson = json_decode(file_get_contents($publicHeathEnglandTodayCounty), true);
+if ($selectCountry == "UK") {
+    // Public Heath England source for UK county data
+    $publicHeathEnglandTodayCounty = "api/utlaToday.json";
+    $publicHeathEnglandTodayCountyJson = json_decode(file_get_contents($publicHeathEnglandTodayCounty), true);
 
-$publicHeathEnglandCounty = "api/utla.json";
-$publicHeathEnglandCountyJson = json_decode(file_get_contents($publicHeathEnglandCounty), true);
+    $publicHeathEnglandCounty = "api/utla.json";
+    $publicHeathEnglandCountyJson = json_decode(file_get_contents($publicHeathEnglandCounty), true);
 
-$publicHeathEnglandRegion = "api/region.json";
-$publicHeathEnglandRegionJson = json_decode(file_get_contents($publicHeathEnglandRegion), true);
+    $publicHeathEnglandRegion = "api/region.json";
+    $publicHeathEnglandRegionJson = json_decode(file_get_contents($publicHeathEnglandRegion), true);
 
-$publicHeathEnglandTodayRegion = "api/regionToday.json";
-$publicHeathEnglandTodayRegionJson = json_decode(file_get_contents($publicHeathEnglandTodayRegion), true);
+    $publicHeathEnglandTodayRegion = "api/regionToday.json";
+    $publicHeathEnglandTodayRegionJson = json_decode(file_get_contents($publicHeathEnglandTodayRegion), true);
 
-$govHospitalTotalData = "api/hospitalTotalData.json";
-$govHospitalTotalDataJson = json_decode(file_get_contents($govHospitalTotalData), true);
+    $govHospitalTotalData = "api/hospitalTotalData.json";
+    $govHospitalTotalDataJson = json_decode(file_get_contents($govHospitalTotalData), true);
 
-$govVaccineData = "api/vaccineData.json";
-$govVaccineDataJson = json_decode(file_get_contents($govVaccineData), true);
+    $govVaccineData = "api/vaccineData.json";
+    $govVaccineDataJson = json_decode(file_get_contents($govVaccineData), true);
 
-$govVaccineDailyData = "api/vaccineDailyData.json";
-$govVaccineDailyDataJson = json_decode(file_get_contents($govVaccineDailyData), true);
+    $govVaccineDailyData = "api/vaccineDailyData.json";
+    $govVaccineDailyDataJson = json_decode(file_get_contents($govVaccineDailyData), true);
 
-// Count array size to populate columns
-$ukCountyCount = count($publicHeathEnglandCountyJson["data"]);
-$ukRegionCount = count($publicHeathEnglandRegionJson["data"]);
-$ukVacDailyCount = count($govVaccineDailyDataJson["data"]);
+    // Count array size to populate columns
+    $ukCountyCount = count($publicHeathEnglandCountyJson["data"]);
+    $ukRegionCount = count($publicHeathEnglandRegionJson["data"]);
+    $ukVacDailyCount = count($govVaccineDailyDataJson["data"]);
 
-// API for US state data
-$usaStates = "https://disease.sh/v3/covid-19/states";
-$usaStatesJson = json_decode(file_get_contents($usaStates), true);
+    // Compare Todays date with Data
+    $latestData = new DateTime($publicHeathEnglandTodayCountyJson["data"][0]["date"]);
+    $today = new DateTime(date("Y-m-d"));
+    $dataDiff = $today->diff($latestData)->format("%a");
 
-// Count array size to populate columns
-$usaStateCount = count($usaStatesJson);
+    // Set Current Data Age
+    if ($dataDiff == 0) {
+        $dataAge = "Today";
+    }
+    elseif ($dataDiff == 1) {
+        $dataAge = "Yesterday";
+    }
+    else {
+        $dataAge = $dataDiff . " Days ago";
+    }
+
+    $today = new DateTime(date("Y-m-d"));
+}
+
+if ($selectCountry == "USA") {
+    // API for US state data
+    $usaStates = "https://disease.sh/v3/covid-19/states";
+    $usaStatesJson = json_decode(file_get_contents($usaStates), true);
+
+    // Count array size to populate columns
+    $usaStateCount = count($usaStatesJson);
+}
 
 // API for yesterday data
 $yesterday = $yesterdayApiURL;
@@ -121,12 +143,6 @@ $yesterdayJson = json_decode(file_get_contents($yesterday), true);
 // API for Two Day data
 $twoDay = $twoDayApiURL;
 $twoDayJson = json_decode(file_get_contents($twoDay), true);
-
-// Compare Todays date with Data
-$latestData = new DateTime($publicHeathEnglandTodayCountyJson["data"][0]["date"]);
-$today = new DateTime(date("Y-m-d"));
-
-$dataDiff = $today->diff($latestData)->format("%a");
 
 $country = $json["country"];
 $cases = $json["cases"];
@@ -153,17 +169,6 @@ $deathsPercent = ($deaths/$cases)*100;
 $criticalPercent = ($critical/$cases)*100; 
 $recoveredPercent = ($recovered/$cases)*100;
 $positiveTestPercent = ($cases/$totalTests)*100;
-
-// Set Current Data Age
-if ($dataDiff == 0) {
-    $dataAge = "Today";
-}
-elseif ($dataDiff == 1) {
-    $dataAge = "Yesterday";
-}
-else {
-    $dataAge = $dataDiff . " Days ago";
-}
 
 // Store Today/Yesterday/twoDay vars in array
 $todayArray = array($todayCases, $todayDeaths, $totalTests, $yesterdayCases, $yesterdayDeaths, $yesterdayTests);
