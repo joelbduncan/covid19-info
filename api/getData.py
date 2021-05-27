@@ -73,41 +73,6 @@ if __name__ == '__main__':
         'structure={"areaName":"areaName","cumCasesByPublishDate":"cumCasesByPublishDate","cumDeathsByPublishDate":"cumDeathsByPublishDate","cumCasesByPublishDateRate":"cumCasesByPublishDateRate"}'
     )
 
-# Get Today Hospital Data
-def get_hospital_data(url):
-    response = get(endpointHospitalData, timeout=10)
-    
-    if response.status_code >= 400:
-        raise RuntimeError(f'Request failed: { response.text }')
-        
-    return response.json()
-    
-
-if __name__ == '__main__':
-    endpointHospitalData = (
-        'https://api.coronavirus.data.gov.uk/v1/data?'
-        'filters=areaType=nhsRegion&latestBy=date&'
-        'structure={"name":"areaName","code":"areaCode","date":"date","newAdmissions":"newAdmissions","cumAdmissions":"cumAdmissions","covidOccupiedMVBeds":"covidOccupiedMVBeds"}&format=json&page=1'
-        #&latestBy=date
-    )
-
-# Get Total Hospital Data
-def get_hospital_total_data(url):
-    response = get(endpointHospitalTotalData, timeout=10)
-    
-    if response.status_code >= 400:
-        raise RuntimeError(f'Request failed: { response.text }')
-        
-    return response.json()
-    
-
-if __name__ == '__main__':
-    endpointHospitalTotalData = (
-        'https://api.coronavirus.data.gov.uk/v1/data?'
-        'filters=areaType=overview&latestBy=date&'
-        'structure={"name":"areaName","code":"areaCode","date":"date","newAdmissions":"newAdmissions","cumAdmissions":"cumAdmissions","covidOccupiedMVBeds":"covidOccupiedMVBeds"}&format=json&page=1'
-    )
-
 # Get Vaccine Data
 def get_vaccine_data(url):
     response = get(endpointVaccineData, timeout=10)
@@ -146,8 +111,6 @@ if __name__ == '__main__':
     utlaToday = get_utla_today(endpointUtlaToday)
     region = get_region(endpointRegion)
     regionToday = get_region_today(endpointRegionToday)
-    #hospitalData = get_hospital_data(endpointHospitalData)
-    #hospitalTotalData = get_hospital_total_data(endpointHospitalTotalData)
     vaccineData = get_vaccine_data(endpointVaccineData)
     vaccineDailyData = get_vaccine_daily_data(endpointVaccineDailyData)
 
@@ -163,12 +126,6 @@ with open('/var/www/covid19-info/api/region.json', 'w') as outfile:
 
 with open('/var/www/covid19-info/api/regionToday.json', 'w') as outfile:
     json.dump(regionToday, outfile)
-
-#with open('/var/www/covid19-info/api/hospitalData.json', 'w') as outfile:
-#    json.dump(hospitalData, outfile)
-
-#with open('/var/www/covid19-info/api/hospitalTotalData.json', 'w') as outfile:
-#    json.dump(hospitalTotalData, outfile)
 
 with open('/var/www/covid19-info/api/vaccineData.json', 'w') as outfile:
     json.dump(vaccineData, outfile)
