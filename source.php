@@ -26,10 +26,6 @@
   color: white;
   text-shadow: 2px 4px 3px rgba(0, 0, 0, 0.3);
 }
-.jumbotron h1 {
-    -webkit-text-stroke-width: 1.5px;
-    -webkit-text-stroke-color: #2a2a2a;
-}
 </style>
 
 <!-- Jumbotron Header -->

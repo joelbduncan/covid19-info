@@ -30,15 +30,11 @@
   }
 .jumbotron h1 {
   color: white;
-  text-shadow: 2px 4px 3px rgba(0, 0, 0, 0.3);
+  text-shadow: 0px 0px 10px rgba(0, 0, 0, 1);
 }
 .jumbotron h5 {
   color: white;
-  text-shadow: 2px 4px 3px rgba(0, 0, 0, 0.3);
-}
-.jumbotron h1 {
-    -webkit-text-stroke-width: 1.5px;
-    -webkit-text-stroke-color: #2a2a2a;
+  text-shadow: 0px 0px 10px rgba(0, 0, 0, 1);
 }
 .table {
     max-width: none;
@@ -213,7 +209,6 @@ foreach($statsDiffBadge as $key => &$value) {
     if ($values[$q] == 0) {
         $statsDiffBadge[$key] = "success";
     }
-
     elseif ($values[$q] < 0) {   
         $statsDiffBadge[$key] = "success";
     }
@@ -239,10 +234,6 @@ foreach($statsDiffBadge as $key => &$value) {
         <?php include( 'parts/country-dropdown.php'); ?>
     </div>
 </div>
-
-<script>
-    $('.select2').select2();
-</script>
 
 <!-- Report Issue Modal -->
 <div class="modal fade" tabindex="-1" id="importantModal" role="dialog">
@@ -314,12 +305,28 @@ if($day == 'Thu'){
 -->
 
 <?php
+// !! Remember to delete or will start everyday after 2AM !!
+//if ($selectCountry == "UK"){
+//        if($todayDeaths == 0){
+//            echo '<div class="container">
+//        <div class="alert alert-info alert-dismissible fade show text-center" role="alert">
+//            <strong>Gov delay on counting UK Deaths Data</strong> Update to come later today.</a>
+//            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+//                <span aria-hidden="true">&times;</span>
+//            </button>
+//        </div>
+//    </div>';
+//    }
+//}
+?>
+
+<?php
 // Show Gov update count down only if cases = 0 & time < 16
 
 $hour = date('H');
 
 if ($selectCountry == "UK"){
-    if($todayCases == 0){
+    if ($todayCases == 0){
         if ($hour < "16") {
             echo '<div class="container text-center">
             <div class="alert alert-secondary alert-dismissible fade show" role="alert">

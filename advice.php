@@ -24,15 +24,11 @@
   }
 .jumbotron h1 {
   color: white;
-  text-shadow: 2px 4px 3px rgba(0, 0, 0, 0.3);
+  text-shadow: 0px 0px 10px rgba(0, 0, 0, 1);
 }
 .jumbotron h5 {
   color: white;
-  text-shadow: 2px 4px 3px rgba(0, 0, 0, 0.3);
-}
-.jumbotron h1 {
-    -webkit-text-stroke-width: 1.5px;
-    -webkit-text-stroke-color: #2a2a2a;
+  text-shadow: 0px 0px 10px rgba(0, 0, 0, 1);
 }
 </style>
 
