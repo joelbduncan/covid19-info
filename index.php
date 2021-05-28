@@ -90,9 +90,6 @@ if ($selectCountry == "UK") {
     $publicHeathEnglandTodayRegion = "api/regionToday.json";
     $publicHeathEnglandTodayRegionJson = json_decode(file_get_contents($publicHeathEnglandTodayRegion), true);
 
-    $govHospitalTotalData = "api/hospitalTotalData.json";
-    $govHospitalTotalDataJson = json_decode(file_get_contents($govHospitalTotalData), true);
-
     $govVaccineData = "api/vaccineData.json";
     $govVaccineDataJson = json_decode(file_get_contents($govVaccineData), true);
 
@@ -387,7 +384,7 @@ if ($selectCountry == "UK")
     echo'
     <div class="container">
         <div class="alert alert-dark text-center" role="alert">
-            Patients on Mechanical Ventilators: <strong>' . number_format($govHospitalTotalDataJson["data"]["0"]["covidOccupiedMVBeds"]) . '</strong>
+            Patients on Mechanical Ventilators: <strong>' . number_format($critical) . '</strong>
         </div>
     </div>'
 ?>
