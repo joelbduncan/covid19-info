@@ -16,6 +16,7 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.9/dist/js/bootstrap-select.min.js"></script>
   <script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
   <script src="https://cdn.datatables.net/1.10.21/js/dataTables.bootstrap4.min.js"></script>
+  <script async defer data-domain="covid-19.uk.com" src="https://plausible.joelduncan.io/js/plausible.js"></script>
 </head>
     
 <body>
