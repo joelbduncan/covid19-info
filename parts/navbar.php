@@ -21,17 +21,8 @@
       <li class="nav-item <?php if (basename($_SERVER['PHP_SELF']) == 'countries.php') echo 'active' ?>">
         <a class="nav-link" href="countries">Countries</a>
       </li>
-      <li class="nav-item dropdown <?php if (basename($_SERVER['PHP_SELF']) == 'advice.php') echo 'active' ?>">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Advice
-        </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item <?php if (basename($_SERVER['PHP_SELF']) == 'advice.php') echo 'active' ?>" href="advice">NHS Advise</a>
-          <div class="dropdown-divider"></div>
-          <a class="dropdown-header text-muted">Useful Links</a>
-          <a class="dropdown-item" href="https://www.nhs.uk/conditions/coronavirus-covid-19/">NHS</a>
-          <a class="dropdown-item" href="https://www.gov.uk/coronavirus">Government</a>
-        </div>
+      <li class="nav-item dropdown <?php if (basename($_SERVER['PHP_SELF']) == 'stats.php') echo 'active' ?>">
+        <a class="nav-link" href="stats">Analytics</a>
       </li>
       <li class="nav-item <?php if (basename($_SERVER['PHP_SELF']) == 'faq.php') echo 'active' ?>">
         <a class="nav-link" href="faq">FAQ</a>
