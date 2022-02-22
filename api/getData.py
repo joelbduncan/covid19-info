@@ -19,7 +19,7 @@ if __name__ == '__main__':
     endpointUtla = (
         'https://api.coronavirus.data.gov.uk/v1/data?'
         'filters=areaType=utla&latestBy=cumCasesByPublishDate&'
-        'structure={"areaName":"areaName","cumCasesByPublishDate":"cumCasesByPublishDate","cumDeathsByPublishDate":"cumDeathsByPublishDate","cumCasesByPublishDateRate":"cumCasesByPublishDateRate"}'
+        'structure={"areaName":"areaName","cumCasesByPublishDate":"cumCasesByPublishDate","cumDeaths28DaysByPublishDate":"cumDeaths28DaysByPublishDate","cumCasesByPublishDateRate":"cumCasesByPublishDateRate"}'
     )
 
 # Get Today UTLA County Data
@@ -36,7 +36,7 @@ if __name__ == '__main__':
     endpointUtlaToday = (
         'https://api.coronavirus.data.gov.uk/v1/data?'
         'filters=areaType=utla&latestBy=newCasesByPublishDate&'
-        'structure={"date":"date","areaName":"areaName","newCasesByPublishDate":"newCasesByPublishDate","newDeathsByPublishDate":"newDeathsByPublishDate"}'
+        'structure={"date":"date","areaName":"areaName","newCasesByPublishDate":"newCasesByPublishDate","newDeaths28DaysByPublishDate":"newDeaths28DaysByPublishDate"}'
     )
 
 # Get Today Region Data
@@ -53,7 +53,7 @@ if __name__ == '__main__':
     endpointRegionToday = (
         'https://api.coronavirus.data.gov.uk/v1/data?'
         'filters=areaType=region&latestBy=newCasesByPublishDate&'
-        'structure={"date":"date","areaName":"areaName","newCasesByPublishDate":"newCasesByPublishDate","newDeathsByPublishDate":"newDeathsByPublishDate"}'
+        'structure={"date":"date","areaName":"areaName","newCasesByPublishDate":"newCasesByPublishDate","newDeaths28DaysByPublishDate":"newDeaths28DaysByPublishDate"}'
     )
 
 # Get Total Region Data
@@ -70,7 +70,7 @@ if __name__ == '__main__':
     endpointRegion = (
         'https://api.coronavirus.data.gov.uk/v1/data?'
         'filters=areaType=region&latestBy=cumCasesByPublishDate&'
-        'structure={"areaName":"areaName","cumCasesByPublishDate":"cumCasesByPublishDate","cumDeathsByPublishDate":"cumDeathsByPublishDate","cumCasesByPublishDateRate":"cumCasesByPublishDateRate"}'
+        'structure={"areaName":"areaName","cumCasesByPublishDate":"cumCasesByPublishDate","cumDeaths28DaysByPublishDate":"cumDeaths28DaysByPublishDate","cumCasesByPublishDateRate":"cumCasesByPublishDateRate"}'
     )
 
 # Get Vaccine Data
