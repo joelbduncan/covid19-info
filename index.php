@@ -166,7 +166,8 @@ $positiveTestPercent = ($cases/$totalTests)*100;
 
 // Store Today/Yesterday/twoDay vars in array
 $todayArray = array($todayCases, $todayDeaths, $totalTests, $yesterdayCases, $yesterdayDeaths, $yesterdayTests);
-$yesterdayArray = array($yesterdayCases, $yesterdayDeaths, $yesterdayDeaths, $twoDayCases, $twoDayDeaths, $twoDayTests);
+$yesterdayArray = array($yesterdayCases, $yesterdayDeaths, $yesterdayTests, $twoDayCases, $twoDayDeaths, $twoDayTests);
+
 
 // Badge Colour
 $statsDiffBadge = array(
