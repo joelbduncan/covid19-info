@@ -49,10 +49,10 @@
                                         <b>' . number_format($publicHeathEnglandCountyJson["data"][$var]["cumCasesByPublishDate"]) .'</b>
                                     </td>
                                     <td class="bg-warning">
-                                        <b>' . sprintf("%.1f", ($publicHeathEnglandCountyJson["data"][$var]["cumDeathsByPublishDate"]/$publicHeathEnglandCountyJson["data"][$var]["cumCasesByPublishDate"])*100) .'%</b>
+                                        <b>' . sprintf("%.1f", ($publicHeathEnglandCountyJson["data"][$var]["cumDeaths28DaysByPublishDate"]/$publicHeathEnglandCountyJson["data"][$var]["cumCasesByPublishDate"])*100) .'%</b>
                                     </td>
                                     <td class="bg-danger">
-                                        <b>' . number_format($publicHeathEnglandCountyJson["data"][$var]["cumDeathsByPublishDate"]) .'</b>
+                                        <b>' . number_format($publicHeathEnglandCountyJson["data"][$var]["cumDeaths28DaysByPublishDate"]) .'</b>
                                     </td>
                                 </tr>';
                                 }
@@ -91,10 +91,10 @@
                                         <b>' . number_format($publicHeathEnglandRegionJson["data"][$var]["cumCasesByPublishDate"]) .'</b>
                                     </td>
                                     <td class="bg-warning">
-                                        <b>' . sprintf("%.1f", ($publicHeathEnglandRegionJson["data"][$var]["cumDeathsByPublishDate"]/$publicHeathEnglandRegionJson["data"][$var]["cumCasesByPublishDate"])*100) .'%</b>
+                                        <b>' . sprintf("%.1f", ($publicHeathEnglandRegionJson["data"][$var]["cumDeaths28DaysByPublishDate"]/$publicHeathEnglandRegionJson["data"][$var]["cumCasesByPublishDate"])*100) .'%</b>
                                     </td>
                                     <td class="bg-danger">
-                                        <b>' . number_format($publicHeathEnglandRegionJson["data"][$var]["cumDeathsByPublishDate"]) .'</b>
+                                        <b>' . number_format($publicHeathEnglandRegionJson["data"][$var]["cumDeaths28DaysByPublishDate"]) .'</b>
                                     </td>
                                 </tr>';
                                 }
@@ -163,7 +163,7 @@
                                         <b>' . number_format($publicHeathEnglandTodayCountyJson["data"][$var]["newCasesByPublishDate"]) .'</b>
                                     </td>
                                     <td class="bg-danger">
-                                        <b>' . number_format($publicHeathEnglandTodayCountyJson["data"][$var]["newDeathsByPublishDate"]) .'</b>
+                                        <b>' . number_format($publicHeathEnglandTodayCountyJson["data"][$var]["newDeaths28DaysByPublishDate"]) .'</b>
                                     </td>
                                 </tr>';
                                 }
@@ -201,7 +201,7 @@
                                         <b>' . number_format($publicHeathEnglandTodayRegionJson["data"][$var]["newCasesByPublishDate"]) .'</b>
                                     </td>
                                     <td class="bg-danger">
-                                        <b>' . number_format($publicHeathEnglandTodayRegionJson["data"][$var]["newDeathsByPublishDate"]) .'</b>
+                                        <b>' . number_format($publicHeathEnglandTodayRegionJson["data"][$var]["newDeaths28DaysByPublishDate"]) .'</b>
                                     </td>
                                 </tr>';
                                 }
